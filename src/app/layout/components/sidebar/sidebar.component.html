@@ -1,8 +1,12 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group">
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-shopping-cart"></i>&nbsp;
+            <i class="fa fa-cart-plus"></i>&nbsp;
             <span>{{ 'Pedidos pendentes' }}</span>
+        </a>
+        <a routerLink="/ingredient-group" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-pencil-square"></i>&nbsp;
+            <span>{{ 'Grupos de ingredientes' }}</span>
         </a>
     </div>
 </nav>

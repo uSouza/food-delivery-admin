@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../services/login/login.service';
 
 @Component({
@@ -12,8 +11,7 @@ export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
     user: any;
 
-    constructor(private translate: TranslateService,
-                public router: Router,
+    constructor(public router: Router,
                 private loginService: LoginService
             ) {
         this.router.events.subscribe(val => {

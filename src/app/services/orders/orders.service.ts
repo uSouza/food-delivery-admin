@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { url_api } from '../../config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-
-    url_api = 'http://api.pandeco.com.br/api/v1/';
     endpoint = 'orders';
 
   constructor(public http: HttpClient) { }
 
   getOpenOrders(access_token: any) {
-    return this.http.get<any[]>(this.url_api + this.endpoint + '/open',
+    return this.http.get<any[]>(url_api + this.endpoint + '/open',
     {headers: {
               'Accept': 'application/json',
               'Authorization': 'Bearer ' + access_token
@@ -21,7 +20,7 @@ export class OrdersService {
   }
 
   getOrder(access_token: any, id) {
-      return this.http.get<any>(this.url_api + this.endpoint + '/' + id,
+      return this.http.get<any>(url_api + this.endpoint + '/' + id,
         {headers: {
                   'Accept': 'application/json',
                   'Authorization': 'Bearer ' + access_token
@@ -41,7 +40,7 @@ export class OrdersService {
         form_payment_id: order.form_payment_id,
         location_id: order.location_id
       };
-    return this.http.put<any>(this.url_api + this.endpoint + '/' + order.id, data,{
+    return this.http.put<any>(url_api + this.endpoint + '/' + order.id, data,{
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + access_token,
