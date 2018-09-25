@@ -10,7 +10,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'orders', loadChildren: './order-details/order-details.module#OrderDetailsModule' },
-            { path: 'ingredient-group', loadChildren: './ingredient-groups/ingredient-groups-form/ingredient-groups-form.module#IngredientGroupsFormModule' }
+            { path: 'ingredient-group', loadChildren: './ingredient-groups/ingredient-groups-form/ingredient-groups-form.module#IngredientGroupsFormModule' },
+            { path: 'ingredients', loadChildren: './ingredients/ingredients.module#IngredientsModule' }
         ]
     }
 ];

@@ -83,8 +83,6 @@ export class IngredientGroupsFormComponent implements OnInit {
     }
 
     validate() {
-        console.log(this.name);
-
         if (this.name == null) {
             this.showAlert('danger', 'Informe o nome do grupo de ingrediente!');
             return false;

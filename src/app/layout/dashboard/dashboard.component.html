@@ -19,8 +19,8 @@
                     <tbody *ngFor="let order of orders | paginate: { itemsPerPage: 7, currentPage: page }">
                        <tr *ngIf="order.deliver" class="table-warning">
                           <th>{{order.client.name}}</th>
-                          <td *ngIf="order.deliver">{{order.location.address}} - {{order.location.number}}</td>
-                          <td *ngIf="order.deliver">{{order.location.district}}</td>
+                          <td>{{order.location.address}} - {{order.location.number}}</td>
+                          <td>{{order.location.district}}</td>
                           <td>{{order.price | currency: 'BRL': true}}</td>
                           <td>{{order.created_at | date: 'H:m'}}</td>
                           <td>
@@ -30,8 +30,8 @@
                        </tr>
                        <tr *ngIf="!order.deliver" class="table-default">
                           <th>{{order.client.name}}</th>
-                          <td *ngIf="!order.deliver">Retirar no balcão</td>
-                          <td *ngIf="!order.deliver">Retirar no balcão</td>
+                          <td>Retirar no balcão</td>
+                          <td>Retirar no balcão</td>
                           <td>{{order.price | currency: 'BRL': true}}</td>
                           <td>{{order.created_at | date: 'H:mm'}}</td>
                           <td>
@@ -42,7 +42,11 @@
                     </tbody>
                  </table>
                  <div class="has-text-centered">
-                    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                    <pagination-controls
+                        (pageChange)="page = $event"
+                        previousLabel="Anterior"
+                        nextLabel="Próximo">
+                    </pagination-controls>
                 </div>
               </div>
            </div>
