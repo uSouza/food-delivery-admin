@@ -40,10 +40,21 @@ export class MenusFormComponent implements OnInit {
                  }
 
     ngOnInit() {
+        console.log(JSON.parse(localStorage.getItem('menu_edit')));
+
         if (localStorage.getItem('access_token') != null) {
             this.access_token = localStorage.getItem('access_token');
-            if (parseInt(this.route.snapshot.paramMap.get('edit')) == 1) {
+            if (this.route.snapshot.paramMap.get('id') != null) {
                 this.edit = true;
+                let menu = JSON.parse(localStorage.getItem('menu_edit'));
+                this.menu = menu;
+                this.date = this.datepipe.transform(menu.date, 'dd/MM/yyyy');
+                menu.ingredients.forEach((i) => {
+                    this.selected_ingredients.push(i);
+                });
+                menu.prices.forEach((s) => {
+                    this.selected_sizes.push(s);
+                });
             }
             this.load();
         } else {
@@ -59,12 +70,19 @@ export class MenusFormComponent implements OnInit {
     addMenu() {
         if (this.validate()) {
             this.prepareIds();
-            this.menusService
-                .addMenu(this.access_token, this.menu)
-                .subscribe(
-                    menu => this.router.navigate(['/menus-list', { message: 'Menu cadastrado com sucesso!' }])
-                )
-
+            if (!this.edit) {
+                this.menusService
+                    .addMenu(this.access_token, this.menu)
+                    .subscribe(
+                        menu => this.router.navigate(['/menus-list', { message: 'Menu cadastrado com sucesso!' }])
+                    )
+            } else {
+                this.menusService
+                    .editMenu(this.access_token, this.menu, this.menu.id)
+                    .subscribe(
+                        menu => this.router.navigate(['/menus-list', { message: 'Menu alterado com sucesso!' }])
+                    )
+            }
         }
     }
 

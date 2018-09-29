@@ -9,6 +9,7 @@ import { MenusFormComponent } from './menus-form.component';
 import {NgxMaskModule} from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {DatePipe} from '@angular/common';
+import { MenuProvider } from "../../../providers/menu";
 
 @NgModule({
     imports: [
@@ -23,6 +24,6 @@ import {DatePipe} from '@angular/common';
         NgxMaskModule.forRoot()
     ],
     declarations: [MenusFormComponent],
-    providers: [DatePipe],
+    providers: [DatePipe, MenuProvider],
 })
 export class MenusFormModule {}

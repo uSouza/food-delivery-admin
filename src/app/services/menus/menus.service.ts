@@ -20,6 +20,15 @@ export class MenusService {
         });
       }
 
+    getMenu(access_token: any, id: any) {
+        return this.http.get<any>(url_api + this.endpoint + '/' + id,
+          {headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + access_token
+                  }
+          });
+    }
+
       addMenu(access_token: any, menu: any) {
             let data = {
                 description: menu.description,

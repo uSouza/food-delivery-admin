@@ -58,7 +58,8 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-xl-12 text-right">
-                        <button type="button" class="btn btn-lg btn-success" (click)="addMenu()">Adicionar</button>
+                        <button *ngIf="!edit" type="button" class="btn btn-lg btn-success" (click)="addMenu()">Adicionar</button>
+                        <button *ngIf="edit" type="button" class="btn btn-lg btn-success" (click)="addMenu()">Editar</button>
                     </div>
                 </div>
             </div>

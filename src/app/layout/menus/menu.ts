@@ -1,4 +1,5 @@
 export class Menu {
+    id: number;
     description: string;
     observation: string;
     date: string;

@@ -37,14 +37,9 @@ export class DashboardComponent implements OnInit {
             .getOpenOrders(localStorage.getItem('access_token'))
             .subscribe(
                 orders => {
-                    this.setOrders(orders)
+                    this.orders = orders;
                 }
             )
-    }
-
-    setOrders(orders) {
-        console.log(orders);
-        this.orders = orders;
     }
 
     showOrder(order: any) {
