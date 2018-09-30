@@ -130,7 +130,8 @@
     </div>
     <div class="row">
         <div class="col-xl-12 text-right">
-            <button type="button" class="btn btn-lg btn-success" (click)="confirm(content)">Confirmar</button>
+            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-success" (click)="confirm(content)">Confirmar</button>
+            <button *ngIf="order.status_id == 2" type="button" class="btn btn-lg btn-success" (click)="printOrder()">Imprimir</button>
         </div>
     </div>
 </div>

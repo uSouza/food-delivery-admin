@@ -99,13 +99,17 @@ export class OrderDetailsComponent implements OnInit {
     }
 
     confirmOrder() {
-        this.ordersService
-            .updateOrder(localStorage.getItem('access_token'), this.order)
-            .subscribe(
-                order => {
-                    this.router.navigate(['/dashboard', { message: 'Pedido confirmado com sucesso!' }]);
-                }
-            )
+        if (this.order.status_id == 1) {
+            this.order.status_id = 2;
+            this.ordersService
+                .updateOrder(localStorage.getItem('access_token'), this.order)
+                .subscribe(
+                    order => {
+                        this.router.navigate(['/dashboard', { message: 'Pedido confirmado com sucesso!' }]);
+                    }
+                )
+        }
+
     }
 
 }

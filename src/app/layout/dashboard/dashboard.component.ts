@@ -3,6 +3,7 @@ import { routerTransition } from '../../router.animations';
 import { Router } from '@angular/router';
 import { OrdersService } from '../../services/orders/orders.service';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-dashboard',
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
-                private ordersService: OrdersService) {
+                private ordersService: OrdersService,
+                private modalService: NgbModal) {
 
     }
 
@@ -60,5 +62,23 @@ export class DashboardComponent implements OnInit {
     closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
+    }
+
+    refuseOrder(order, content) {
+        console.log(order);
+        this.modalService
+            .open(content, { size: 'lg' })
+            .result.then((result) => {
+                if (result == 'reject') {
+                    order.status_id = 4;
+                    this.ordersService
+                        .updateOrder(localStorage.getItem('access_token'), order)
+                        .subscribe(
+                            order => {
+                                this.getOrders()
+                            }
+                        )
+                }
+            });
     }
 }

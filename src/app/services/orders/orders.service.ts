@@ -19,6 +19,15 @@ export class OrdersService {
     });
   }
 
+  getClosedOrders(access_token: any) {
+    return this.http.get<any[]>(url_api + this.endpoint + '/closed',
+    {headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + access_token
+            }
+    });
+  }
+
   getOrder(access_token: any, id) {
       return this.http.get<any>(url_api + this.endpoint + '/' + id,
         {headers: {
@@ -30,7 +39,7 @@ export class OrdersService {
 
   updateOrder(access_token: any, order: any) {
     let data = {
-        status_id: 2,
+        status_id: order.status_id,
         price: order.price,
         client_id: order.client_id,
         observation: order.observation,

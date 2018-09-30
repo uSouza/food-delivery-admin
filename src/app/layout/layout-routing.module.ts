@@ -17,6 +17,7 @@ const routes: Routes = [
             { path: 'menus-form', loadChildren: './menus/menus-form/menus-form.module#MenusFormModule' },
             { path: 'menus-list', loadChildren: './menus/menus-list/menus-list.module#MenusListModule' },
             { path: 'menus-show', loadChildren: './menus/menus-show/menus-show.module#MenusShowModule' },
+            { path: 'closed-orders', loadChildren: './closed-orders/closed-orders.module#ClosedOrdersModule' },
         ]
     }
 ];

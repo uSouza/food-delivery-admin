@@ -1,3 +1,16 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Rejeição do pedido</h4>
+    </div>
+    <div class="modal-body">
+        <p>Deseja realmente rejeitar o pedido?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="c('noReject')">Não</button>
+        <button type="button" class="btn btn-light" (click)="c('reject')">Sim</button>
+    </div>
+</ng-template>
+
     <div [@routerTransition]>
         <div class="row">
            <div class="col-lg-12">
@@ -8,6 +21,7 @@
                  <table *ngIf="orders.length > 0" class="card-body table">
                     <thead>
                        <tr>
+                          <th>#</th>
                           <th>Cliente</th>
                           <th>Endereço</th>
                           <th>Bairro</th>
@@ -18,25 +32,27 @@
                     </thead>
                     <tbody *ngFor="let order of orders | paginate: { itemsPerPage: 7, currentPage: page }">
                        <tr *ngIf="order.deliver" class="table-warning">
-                          <th>{{order.client.name}}</th>
+                          <th>{{order.id}}</th>
+                          <td>{{order.client.name}}</td>
                           <td>{{order.location.address}} - {{order.location.number}}</td>
                           <td>{{order.location.district}}</td>
                           <td>{{order.price | currency: 'BRL': true}}</td>
-                          <td>{{order.created_at | date: 'H:m'}}</td>
+                          <td>{{order.created_at | date: 'H:mm'}}</td>
                           <td>
                              <button (click)="showOrder(order)" type="button" class="btn btn-sm btn-success">Confirmar</button>
-                             <button type="button" class="btn btn-sm btn-danger">Rejeitar</button>
+                             <button (click)="refuseOrder(order, content)" type="button" class="btn btn-sm btn-danger">Rejeitar</button>
                           </td>
                        </tr>
                        <tr *ngIf="!order.deliver" class="table-default">
-                          <th>{{order.client.name}}</th>
+                          <th>{{order.id}}</th>
+                          <td>{{order.client.name}}</td>
                           <td>Retirar no balcão</td>
                           <td>Retirar no balcão</td>
                           <td>{{order.price | currency: 'BRL': true}}</td>
                           <td>{{order.created_at | date: 'H:mm'}}</td>
                           <td>
                              <button (click)="showOrder(order)" type="button" class="btn btn-sm btn-success">Confirmar</button>
-                             <button type="button" class="btn btn-sm btn-danger">Rejeitar</button>
+                             <button (click)="refuseOrder(order, content)" type="button" class="btn btn-sm btn-danger">Rejeitar</button>
                           </td>
                        </tr>
                     </tbody>
