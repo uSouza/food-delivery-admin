@@ -11,6 +11,8 @@ export class SidebarComponent {
     collapsed: boolean = false;
     showMenu: string = '';
     pushRightClass: string = 'push-right';
+    expanded_crud: boolean = false;
+    expanded_menu: boolean = false;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -31,6 +33,21 @@ export class SidebarComponent {
     }
 
     addExpandClass(element: any) {
+        console.log(element);
+        console.log(this.expanded_crud);
+
+        if (element == 'menu') {
+            this.expanded_menu = !this.expanded_menu;
+            if (this.expanded_crud) {
+                this.expanded_crud = false;
+            }
+        } else {
+            this.expanded_crud = !this.expanded_crud;
+            if (this.expanded_menu) {
+                this.expanded_menu = false;
+            }
+        }
+
         if (element === this.showMenu) {
             this.showMenu = '0';
         } else {

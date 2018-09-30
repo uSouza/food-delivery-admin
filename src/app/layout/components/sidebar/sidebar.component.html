@@ -4,13 +4,57 @@
             <i class="fa fa-cart-plus"></i>&nbsp;
             <span>{{ 'Pedidos pendentes' }}</span>
         </a>
-        <a routerLink="/ingredient-group" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-pencil-square"></i>&nbsp;
-            <span>{{ 'Grupos de ingredientes' }}</span>
-        </a>
-        <a routerLink="/ingredients" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-pencil-square"></i>&nbsp;
-            <span>{{ 'Ingredientes' }}</span>
-        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('menu')">
+                <span><i class="fa fa-cutlery"></i>&nbsp;Cardápio</span>
+                <i *ngIf="!expanded_menu" class="fa fa-caret-square-o-right" style="margin-left: 20px"></i>
+                <i *ngIf="expanded_menu" class="fa fa-caret-square-o-down" style="margin-left: 20px"></i>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'menu'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/menus-form" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <span>{{ 'Novo cardápio' }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/menus-list" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <span>{{ 'Cardápios cadastrados' }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('cruds')">
+                <span><i class="fa fa-pencil-square"></i>&nbsp;Cadastros gerais</span>
+                <i *ngIf="!expanded_crud" class="fa fa-caret-square-o-right" style="margin-left: 20px"></i>
+                <i *ngIf="expanded_crud" class="fa fa-caret-square-o-down" style="margin-left: 20px"></i>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'cruds'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/ingredient-group" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <span>{{ 'Grupos de ingredientes' }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/ingredients" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <span>{{ 'Ingredientes' }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/additionals" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <span>{{ 'Adicionais e bebidas' }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/sizes" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <span>{{ 'Tamanhos' }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
     </div>
 </nav>

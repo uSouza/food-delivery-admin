@@ -113,7 +113,6 @@ export class IngredientGroupsFormComponent implements OnInit {
     }
 
     editIngredientGroup(ingredient_group) {
-        console.log(ingredient_group);
         this.name = ingredient_group.name;
         this.number_options = ingredient_group.number_options;
         this.ingredient_group_edit = ingredient_group;

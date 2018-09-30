@@ -1,0 +1,70 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Exclusão de tamanho</h4>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza de que deseja excluir?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="c('dismiss')">Não</button>
+        <button type="button" class="btn btn-light" (click)="c('delete')">Sim</button>
+    </div>
+</ng-template>
+
+<div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6">
+        <h3>Gerenciamento de tamanhos de marmitas</h3>
+        <hr>
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+        <form role="form">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        <label>Tamanho</label>
+                        <select class="form-control" [(ngModel)]="size" name="type">
+                            <option *ngFor="let s of sizes_available" [ngValue]="s.name">{{s.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>Valor</label>
+                        <input currencyMask [(ngModel)]="price" name="price" class="form-control" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" >
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xl-12 text-right">
+                        <button type="button" class="btn btn btn-success" (click)="addSize()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <table *ngIf="sizes.length > 0" class="card-body table">
+            <thead>
+               <tr>
+                  <th>Tamanho</th>
+                  <th>Valor</th>
+                  <th>Ações</th>
+               </tr>
+            </thead>
+            <tbody *ngFor="let size of sizes  | paginate: { itemsPerPage: 4, currentPage: page }">
+               <tr class="table-default">
+                  <td>{{size.size}}</td>
+                  <td>{{size.price | currency: 'BRL': true}}</td>
+                  <td>
+                     <button type="button" class="btn btn-sm btn-success" (click)="editSize(size)">Editar</button>
+                     <button type="button" class="btn btn-sm btn-danger" (click)="deleteSize(content, size)">Deletar</button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+         <div class="has-text-centered">
+            <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+        </div>
+    </div>
+</div>
