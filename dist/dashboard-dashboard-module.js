@@ -50,7 +50,7 @@ var DashboardRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "    <div [@routerTransition]>\n        <div class=\"row\">\n           <div class=\"col-lg-12\">\n              <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n              <div class=\"card mb-3\">\n                 <div class=\"card-header\"><i class=\"fa fa-clock-o fa-fw\"></i> Pedidos pendentes</div>\n                 <h5 *ngIf=\"orders.length == 0\">Não há pedidos para exibir</h5>\n                 <table *ngIf=\"orders.length > 0\" class=\"card-body table\">\n                    <thead>\n                       <tr>\n                          <th>Cliente</th>\n                          <th>Endereço</th>\n                          <th>Bairro</th>\n                          <th>Preço</th>\n                          <th>Aberto às</th>\n                          <th>Ações</th>\n                       </tr>\n                    </thead>\n                    <tbody *ngFor=\"let order of orders | paginate: { itemsPerPage: 7, currentPage: page }\">\n                       <tr *ngIf=\"order.deliver\" class=\"table-warning\">\n                          <th>{{order.client.name}}</th>\n                          <td>{{order.location.address}} - {{order.location.number}}</td>\n                          <td>{{order.location.district}}</td>\n                          <td>{{order.price | currency: 'BRL': true}}</td>\n                          <td>{{order.created_at | date: 'H:m'}}</td>\n                          <td>\n                             <button (click)=\"showOrder(order)\" type=\"button\" class=\"btn btn-sm btn-success\">Confirmar</button>\n                             <button type=\"button\" class=\"btn btn-sm btn-danger\">Rejeitar</button>\n                          </td>\n                       </tr>\n                       <tr *ngIf=\"!order.deliver\" class=\"table-default\">\n                          <th>{{order.client.name}}</th>\n                          <td>Retirar no balcão</td>\n                          <td>Retirar no balcão</td>\n                          <td>{{order.price | currency: 'BRL': true}}</td>\n                          <td>{{order.created_at | date: 'H:mm'}}</td>\n                          <td>\n                             <button (click)=\"showOrder(order)\" type=\"button\" class=\"btn btn-sm btn-success\">Confirmar</button>\n                             <button type=\"button\" class=\"btn btn-sm btn-danger\">Rejeitar</button>\n                          </td>\n                       </tr>\n                    </tbody>\n                 </table>\n                 <div class=\"has-text-centered\">\n                    <pagination-controls\n                        (pageChange)=\"page = $event\"\n                        previousLabel=\"Anterior\"\n                        nextLabel=\"Próximo\">\n                    </pagination-controls>\n                </div>\n              </div>\n           </div>\n        </div>\n    </div>\n"
+module.exports = "<ng-template #content let-c=\"close\" let-d=\"dismiss\">\n    <div class=\"modal-header\">\n        <h4 class=\"modal-title\">Rejeição do pedido</h4>\n    </div>\n    <div class=\"modal-body\">\n        <p>Deseja realmente rejeitar o pedido?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-light\" (click)=\"c('noReject')\">Não</button>\n        <button type=\"button\" class=\"btn btn-light\" (click)=\"c('reject')\">Sim</button>\n    </div>\n</ng-template>\n\n    <div [@routerTransition]>\n        <div class=\"row\">\n           <div class=\"col-lg-12\">\n              <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n              <div class=\"card mb-3\">\n                 <div class=\"card-header\"><i class=\"fa fa-clock-o fa-fw\"></i> Pedidos pendentes</div>\n                 <h5 *ngIf=\"orders.length == 0\">Não há pedidos para exibir</h5>\n                 <table *ngIf=\"orders.length > 0\" class=\"card-body table\">\n                    <thead>\n                       <tr>\n                          <th>#</th>\n                          <th>Cliente</th>\n                          <th>Endereço</th>\n                          <th>Bairro</th>\n                          <th>Preço</th>\n                          <th>Aberto às</th>\n                          <th>Ações</th>\n                       </tr>\n                    </thead>\n                    <tbody *ngFor=\"let order of orders | paginate: { itemsPerPage: 7, currentPage: page }\">\n                       <tr *ngIf=\"order.deliver\" class=\"table-warning\">\n                          <th>{{order.id}}</th>\n                          <td>{{order.client.name}}</td>\n                          <td>{{order.location.address}} - {{order.location.number}}</td>\n                          <td>{{order.location.district}}</td>\n                          <td>{{order.price | currency: 'BRL': true}}</td>\n                          <td>{{order.created_at | date: 'H:mm'}}</td>\n                          <td>\n                             <button (click)=\"showOrder(order)\" type=\"button\" class=\"btn btn-sm btn-success\">Confirmar</button>\n                             <button (click)=\"refuseOrder(order, content)\" type=\"button\" class=\"btn btn-sm btn-danger\">Rejeitar</button>\n                          </td>\n                       </tr>\n                       <tr *ngIf=\"!order.deliver\" class=\"table-default\">\n                          <th>{{order.id}}</th>\n                          <td>{{order.client.name}}</td>\n                          <td>Retirar no balcão</td>\n                          <td>Retirar no balcão</td>\n                          <td>{{order.price | currency: 'BRL': true}}</td>\n                          <td>{{order.created_at | date: 'H:mm'}}</td>\n                          <td>\n                             <button (click)=\"showOrder(order)\" type=\"button\" class=\"btn btn-sm btn-success\">Confirmar</button>\n                             <button (click)=\"refuseOrder(order, content)\" type=\"button\" class=\"btn btn-sm btn-danger\">Rejeitar</button>\n                          </td>\n                       </tr>\n                    </tbody>\n                 </table>\n                 <div class=\"has-text-centered\">\n                    <pagination-controls\n                        (pageChange)=\"page = $event\"\n                        previousLabel=\"Anterior\"\n                        nextLabel=\"Próximo\">\n                    </pagination-controls>\n                </div>\n              </div>\n           </div>\n        </div>\n    </div>\n"
 
 /***/ }),
 
@@ -79,6 +79,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../router.animations */ "./src/app/router.animations.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/orders/orders.service */ "./src/app/services/orders/orders.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -93,11 +94,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(router, route, ordersService) {
+    function DashboardComponent(router, route, ordersService, modalService) {
         this.router = router;
         this.route = route;
         this.ordersService = ordersService;
+        this.modalService = modalService;
         this.page = 1;
         this.alerts = [];
     }
@@ -133,6 +136,22 @@ var DashboardComponent = /** @class */ (function () {
         var index = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
     };
+    DashboardComponent.prototype.refuseOrder = function (order, content) {
+        var _this = this;
+        console.log(order);
+        this.modalService
+            .open(content, { size: 'lg' })
+            .result.then(function (result) {
+            if (result == 'reject') {
+                order.status_id = 4;
+                _this.ordersService
+                    .updateOrder(localStorage.getItem('access_token'), order)
+                    .subscribe(function (order) {
+                    _this.getOrders();
+                });
+            }
+        });
+    };
     DashboardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-dashboard',
@@ -142,7 +161,8 @@ var DashboardComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_3__["OrdersService"]])
+            _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_3__["OrdersService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"]])
     ], DashboardComponent);
     return DashboardComponent;
 }());

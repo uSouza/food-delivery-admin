@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~additionals-additionals-module~dashboard-dashboard-module~ingredient-groups-ingredient-group~ceb6f939"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617"],{
 
 /***/ "./node_modules/ngx-pagination/dist/ngx-pagination.js":
 /*!************************************************************!*\
@@ -557,4 +557,4 @@ var NgxPaginationModule = (function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=default~additionals-additionals-module~dashboard-dashboard-module~ingredient-groups-ingredient-group~ceb6f939.js.map
+//# sourceMappingURL=default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617.js.map
