@@ -56,7 +56,7 @@ export class MenusShowComponent implements OnInit {
                     this.menusService
                         .deleteMenu(localStorage.getItem('access_token'), this.menu.id)
                         .subscribe(
-                            menu => { this.router.navigate(['/menus-list', { message: 'Menu deletado com sucesso!' }]) },
+                            menu => { this.router.navigate(['/menus-list', { message: 'Menu inativado com sucesso!' }]) },
                             err => { this.showAlert('danger', err) }
                         )
                 }
@@ -76,5 +76,13 @@ export class MenusShowComponent implements OnInit {
     closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
+    }
+
+    restoreMenu(menu) {
+        this.menusService
+            .restoreMenu(localStorage.getItem('access_token'), menu.id)
+            .subscribe(
+                res => this.router.navigate(['/menus-list', { message: 'Menu reativado com sucesso!' }])
+            )
     }
 }

@@ -1,9 +1,9 @@
 <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
-            <h4 class="modal-title">Exclusão de cardápio</h4>
+            <h4 class="modal-title">Inativação de cardápio</h4>
         </div>
         <div class="modal-body">
-            <p>Deseja realmente excluir o cardápio?</p>
+            <p>Deseja realmente inativar o cardápio?</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-light" (click)="c('noDelete')">Não</button>
@@ -85,7 +85,8 @@
     </div>
     <div class="row">
         <div class="col-xl-12 text-right">
-            <button type="button" class="btn btn-lg btn-danger" (click)="delete(content)">Deletar</button>
+            <button *ngIf="menu.deleted_at == null" type="button" class="btn btn-lg btn-danger" (click)="delete(content)">Inativar</button>
+            <button *ngIf="menu.deleted_at != null" type="button" class="btn btn-lg btn-warning" (click)="restoreMenu(menu)">Reativar</button>
             <button type="button" class="btn btn-lg btn-success" (click)="edit()">Editar</button>
         </div>
     </div>

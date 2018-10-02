@@ -172,6 +172,14 @@ export class AdditionalsComponent implements OnInit {
                         )
                 }
             });
-        }
+    }
+
+    restoreAdditional(additional) {
+        this.additionalsService
+            .restoreAdditional(localStorage.getItem('access_token'), additional.id)
+            .subscribe(
+                res => this.load()
+            )
+    }
 
 }

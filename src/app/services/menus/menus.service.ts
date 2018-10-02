@@ -72,4 +72,13 @@ export class MenusService {
               }
           });
       }
+
+    restoreMenu(access_token: any, id: any) {
+        return this.http.get<any>(url_api + this.endpoint + '/restore/' + id,
+            {headers: {
+                      'Accept': 'application/json',
+                      'Authorization': 'Bearer ' + access_token
+                    }
+            });
+    }
 }

@@ -334,6 +334,13 @@ var MenusService = /** @class */ (function () {
             }
         });
     };
+    MenusService.prototype.restoreMenu = function (access_token, id) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/restore/' + id, { headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
     MenusService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
