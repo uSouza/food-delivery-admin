@@ -1,9 +1,9 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Exclusão de adicional/bebida</h4>
+        <h4 class="modal-title">Inativação de adicional/bebida</h4>
     </div>
     <div class="modal-body">
-        <p>Tem certeza de que deseja excluir?</p>
+        <p>Tem certeza de que deseja inativar?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="c('dismiss')">Não</button>
@@ -69,7 +69,8 @@
                   <td *ngIf="!additional.isDrink">Adicional</td>
                   <td>
                      <button type="button" class="btn btn-sm btn-success" (click)="editAdditional(additional)">Editar</button>
-                     <button type="button" class="btn btn-sm btn-danger" (click)="deleteAdditional(content, additional)">Deletar</button>
+                     <button *ngIf="additional.deleted_at == null" type="button" class="btn btn-sm btn-danger" (click)="deleteAdditional(content, additional)">Inativar</button>
+                     <button *ngIf="additional.deleted_at != null" type="button" class="btn btn-sm btn-warning" (click)="restoreAdditional(additional)">Reativar</button>
                   </td>
                </tr>
             </tbody>
