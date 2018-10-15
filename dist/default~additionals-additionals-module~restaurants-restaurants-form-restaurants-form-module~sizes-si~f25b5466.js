@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~additionals-additionals-module~sizes-sizes-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466"],{
 
 /***/ "./node_modules/ng2-currency-mask/index.js":
 /*!*************************************************!*\
@@ -698,4 +698,4 @@ exports.InputService = InputService;
 /***/ })
 
 }]);
-//# sourceMappingURL=default~additionals-additionals-module~sizes-sizes-module.js.map
+//# sourceMappingURL=default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466.js.map

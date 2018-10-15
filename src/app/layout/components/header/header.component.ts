@@ -23,16 +23,23 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
-    }
 
-    ngOnInit() {
-        this.loginService
+        if (localStorage.getItem('access_token') == null) {
+            this.router.navigate(['/login']);
+        } else {
+            this.loginService
             .user_me(localStorage.getItem('access_token'))
             .subscribe(
                 user => {
                     this.user = user
                 }
             )
+        }
+
+    }
+
+    ngOnInit() {
+
     }
 
     isToggled(): boolean {

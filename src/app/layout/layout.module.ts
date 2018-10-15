@@ -9,10 +9,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginService } from '../services/login/login.service';
 import { LoaderComponent } from './loader/loader.component';
-import { MenusFormComponent } from './menus/menus-form/menus-form.component';
-import { MenusListComponent } from './menus/menus-list/menus-list.component';
-import { MenusShowComponent } from './menus/menus-show/menus-show.component';
-import { SizesComponent } from './sizes/sizes.component';
 
 @NgModule({
     imports: [

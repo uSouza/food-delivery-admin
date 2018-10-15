@@ -36,12 +36,9 @@ export class MenusFormComponent implements OnInit {
                 private sizesService: SizesService,
                 private menusService: MenusService,
                 public datepipe: DatePipe,
-                private modalService: NgbModal) {
-                 }
+                private modalService: NgbModal) { }
 
     ngOnInit() {
-        console.log(JSON.parse(localStorage.getItem('menu_edit')));
-
         if (localStorage.getItem('access_token') != null) {
             this.access_token = localStorage.getItem('access_token');
             if (this.route.snapshot.paramMap.get('id') != null) {

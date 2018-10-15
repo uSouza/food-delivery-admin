@@ -14,33 +14,33 @@ var map = {
 	],
 	"./additionals/additionals.module": [
 		"./src/app/layout/additionals/additionals.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
-		"default~additionals-additionals-module~sizes-sizes-module",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
 		"common",
 		"additionals-additionals-module"
 	],
 	"./closed-orders/closed-orders.module": [
 		"./src/app/layout/closed-orders/closed-orders.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~0aeecb3a",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
 		"common",
 		"closed-orders-closed-orders-module"
 	],
 	"./dashboard/dashboard.module": [
 		"./src/app/layout/dashboard/dashboard.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
 		"common",
 		"dashboard-dashboard-module"
 	],
 	"./ingredient-groups/ingredient-groups-form/ingredient-groups-form.module": [
 		"./src/app/layout/ingredient-groups/ingredient-groups-form/ingredient-groups-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
 		"common",
 		"ingredient-groups-ingredient-groups-form-ingredient-groups-form-module"
 	],
 	"./ingredients/ingredients.module": [
 		"./src/app/layout/ingredients/ingredients.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
 		"common",
 		"ingredients-ingredients-module"
 	],
@@ -55,22 +55,22 @@ var map = {
 	],
 	"./menus/menus-form/menus-form.module": [
 		"./src/app/layout/menus/menus-form/menus-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~0aeecb3a",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
 		"common",
 		"menus-menus-form-menus-form-module"
 	],
 	"./menus/menus-list/menus-list.module": [
 		"./src/app/layout/menus/menus-list/menus-list.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~0aeecb3a",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
 		"common",
 		"menus-menus-list-menus-list-module"
 	],
 	"./menus/menus-show/menus-show.module": [
 		"./src/app/layout/menus/menus-show/menus-show.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~0aeecb3a",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
 		"common",
 		"menus-menus-show-menus-show-module"
 	],
@@ -81,6 +81,28 @@ var map = {
 	"./order-details/order-details.module": [
 		"./src/app/layout/order-details/order-details.module.ts",
 		"order-details-order-details-module"
+	],
+	"./restaurants/restaurants-form/restaurants-form.module": [
+		"./src/app/layout/restaurants/restaurants-form/restaurants-form.module.ts",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
+		"common",
+		"restaurants-restaurants-form-restaurants-form-module"
+	],
+	"./restaurants/restaurants-list/restaurants-list.module": [
+		"./src/app/layout/restaurants/restaurants-list/restaurants-list.module.ts",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"common",
+		"restaurants-restaurants-list-restaurants-list-module"
+	],
+	"./restaurants/restaurants-show/restaurants-show.module": [
+		"./src/app/layout/restaurants/restaurants-show/restaurants-show.module.ts",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"common",
+		"restaurants-restaurants-show-restaurants-show-module"
 	],
 	"./server-error/server-error.module": [
 		"./src/app/server-error/server-error.module.ts",
@@ -93,8 +115,8 @@ var map = {
 	],
 	"./sizes/sizes.module": [
 		"./src/app/layout/sizes/sizes.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~a074f617",
-		"default~additionals-additionals-module~sizes-sizes-module",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
 		"common",
 		"sizes-sizes-module"
 	]
@@ -485,8 +507,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var LoginService = /** @class */ (function () {
     function LoginService(http) {
         this.http = http;
-        this.url_api = 'http://api.pandeco.com.br/';
         this.endpoint = 'oauth/token';
+        this.url_api = 'http://api.pandeco.com.br/';
     }
     LoginService.prototype.authenticate = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
@@ -496,6 +518,8 @@ var LoginService = /** @class */ (function () {
             grant_type: 'password',
             client_id: 1,
             client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
+            //client_id: 5,
+            //client_secret: 'HEFwoBM8Z3bvZh6HyUtO2AVWArorUiKfwp7ToAzy',
             username: user.email,
             password: user.password,
             scope: ''
@@ -506,6 +530,21 @@ var LoginService = /** @class */ (function () {
         return this.http.get(this.url_api + 'api/v1/users/me', { headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
+    LoginService.prototype.addUser = function (access_token, email, name, password) {
+        var data = {
+            email: email,
+            type: 'company',
+            name: name,
+            password: password
+        };
+        return this.http.post(this.url_api + 'api/v1/users', data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
             }
         });
     };

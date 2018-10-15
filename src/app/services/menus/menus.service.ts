@@ -29,7 +29,7 @@ export class MenusService {
           });
     }
 
-      addMenu(access_token: any, menu: any) {
+    addMenu(access_token: any, menu: any) {
             let data = {
                 description: menu.description,
                 observation: menu.observation,
@@ -44,9 +44,9 @@ export class MenusService {
                     'Content-Type': 'application/json'
                 }
             });
-      }
+    }
 
-      editMenu(access_token: any, menu: any, id: any) {
+    editMenu(access_token: any, menu: any, id: any) {
             let data = {
                 description: menu.description,
                 observation: menu.observation,
@@ -61,9 +61,9 @@ export class MenusService {
                     'Content-Type': 'application/json'
                 }
             });
-      }
+    }
 
-      deleteMenu(access_token: any, id: any) {
+    deleteMenu(access_token: any, id: any) {
           return this.http.delete<any>(url_api + this.endpoint + '/' + id, {
               headers: {
                   'Accept': 'application/json',
@@ -71,7 +71,7 @@ export class MenusService {
                   'Content-Type': 'application/json'
               }
           });
-      }
+    }
 
     restoreMenu(access_token: any, id: any) {
         return this.http.get<any>(url_api + this.endpoint + '/restore/' + id,

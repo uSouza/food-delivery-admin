@@ -10,7 +10,7 @@
         </a>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('menu')">
-                <span><i class="fa fa-cutlery"></i>&nbsp;Cardápio</span>
+                <span><i class="fa fa-cutlery"></i>Cardápios</span>
                 <i *ngIf="!expanded_menu" class="fa fa-caret-square-o-right" style="margin-left: 20px"></i>
                 <i *ngIf="expanded_menu" class="fa fa-caret-square-o-down" style="margin-left: 20px"></i>
             </a>
@@ -31,7 +31,7 @@
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('cruds')">
-                <span><i class="fa fa-pencil-square"></i>&nbsp;Cadastros gerais</span>
+                <span><i class="fa fa-pencil-square"></i>Cadastros gerais</span>
                 <i *ngIf="!expanded_crud" class="fa fa-caret-square-o-right" style="margin-left: 20px"></i>
                 <i *ngIf="expanded_crud" class="fa fa-caret-square-o-down" style="margin-left: 20px"></i>
             </a>
@@ -60,5 +60,26 @@
                 </ul>
             </li>
         </div>
+        <div *ngIf="user.type=='admin'" class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('restaurant')">
+                    <span><i class="fa fa-users"></i>Restaurantes</span>
+                    <i *ngIf="!expanded_restaurant" class="fa fa-caret-square-o-right" style="margin-left: 20px"></i>
+                    <i *ngIf="expanded_restaurant" class="fa fa-caret-square-o-down" style="margin-left: 20px"></i>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'restaurant'">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="/restaurants-form" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <span>{{ 'Novo restaurante' }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/restaurants-list" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <span>{{ 'Restaurantes' }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
     </div>
 </nav>

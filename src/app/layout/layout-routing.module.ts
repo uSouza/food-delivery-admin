@@ -18,6 +18,9 @@ const routes: Routes = [
             { path: 'menus-list', loadChildren: './menus/menus-list/menus-list.module#MenusListModule' },
             { path: 'menus-show', loadChildren: './menus/menus-show/menus-show.module#MenusShowModule' },
             { path: 'closed-orders', loadChildren: './closed-orders/closed-orders.module#ClosedOrdersModule' },
+            { path: 'restaurants-form', loadChildren: './restaurants/restaurants-form/restaurants-form.module#RestaurantsFormModule' },
+            { path: 'restaurants-list', loadChildren: './restaurants/restaurants-list/restaurants-list.module#RestaurantsListModule' },
+            { path: 'restaurants-show', loadChildren: './restaurants/restaurants-show/restaurants-show.module#RestaurantsShowModule' },
         ]
     }
 ];

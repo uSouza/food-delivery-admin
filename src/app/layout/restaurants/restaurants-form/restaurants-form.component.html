@@ -1,0 +1,285 @@
+<div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6">
+       <h3 *ngIf="edit">Edição de restaurante</h3>
+       <h3 *ngIf="!edit">Novo restaurante</h3>
+       <span class="badge badge-success">Etapa {{ step }} de {{ step_number }}</span>
+       <span style="margin-left: 5px" *ngIf="step == 1" class="badge badge-secondary">Cadastro do usuário</span>
+       <span style="margin-left: 5px" *ngIf="step == 2" class="badge badge-secondary">Dados gerais do restaurante</span>
+       <span style="margin-left: 5px" *ngIf="step == 3" class="badge badge-secondary">Dados do responsável</span>
+       <span style="margin-left: 5px" *ngIf="step == 4" class="badge badge-secondary">Configurações do restaurante</span>
+       <span style="margin-left: 5px" *ngIf="step == 5" class="badge badge-secondary">Dados de endereço</span>
+       <span style="margin-left: 5px" *ngIf="step == 6" class="badge badge-secondary">Dados de atendimento</span>
+       <hr>
+       <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+       <form *ngIf="step == 1" role="form">
+          <div class="row">
+             <div class="col-lg-12">
+                <div class="form-group">
+                   <h5>Email</h5>
+                   <input [(ngModel)]="restaurant.email" name="email" class="form-control" type="email">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Senha</h5>
+                   <input [(ngModel)]="restaurant.password" name="password" class="form-control" type="password">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Confirmação de senha</h5>
+                   <input [(ngModel)]="password_confirmation" name="password_confirmation" class="form-control" type="password">
+                </div>
+             </div>
+          </div>
+          <div class="form-group">
+             <div class="row">
+                <div class="col-xl-12 text-right">
+                   <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Avançar</button>
+                </div>
+             </div>
+          </div>
+       </form>
+       <form *ngIf="step == 2" role="form">
+          <div class="row">
+             <div class="col-lg-12">
+                <div class="form-group">
+                   <h5>Razão social</h5>
+                   <input [(ngModel)]="restaurant.social_name" name="social_name" class="form-control" type="text">
+                </div>
+             </div>
+             <div class="col-lg-12">
+                <div class="form-group">
+                   <h5>Nome fantasia</h5>
+                   <input [(ngModel)]="restaurant.fantasy_name" name="fantasy_name" class="form-control" type="text">
+                </div>
+             </div>
+             <div class="col-lg-12">
+                <div class="form-group">
+                   <h5>CNPJ</h5>
+                   <input [(ngModel)]="restaurant.cnpj" name="cnpj" mask='99.999.999/9999-99' class="form-control" type="text">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Celular</h5>
+                   <input [(ngModel)]="restaurant.cell_phone" name="cell_phone" mask='(99)99999-9999' class="form-control" type="text">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Telefone fixo</h5>
+                   <input [(ngModel)]="restaurant.phone" name="phone" mask='(99)9999-9999' class="form-control" type="text">
+                </div>
+             </div>
+          </div>
+          <div class="form-group">
+             <div class="row">
+                <div class="col-xl-12 text-right">
+                   <button type="button" class="btn btn-lg btn-default" (click)="backStep()" style="margin-right: 10px">Voltar</button>
+                   <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Avançar</button>
+                </div>
+             </div>
+          </div>
+       </form>
+       <form *ngIf="step == 3" role="form">
+          <div class="row">
+             <div class="col-lg-12">
+                <div class="form-group">
+                   <h5>Nome do responsável</h5>
+                   <input [(ngModel)]="restaurant.responsible_name" name="responsible_name" class="form-control" type="text">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Celular do responsável</h5>
+                   <input [(ngModel)]="restaurant.responsible_phone" name="responsible_phone" mask='(99)99999-9999' class="form-control" type="text">
+                </div>
+             </div>
+          </div>
+          <div class="form-group">
+             <div class="row">
+                <div class="col-xl-12 text-right">
+                   <button type="button" class="btn btn-lg btn-default" (click)="backStep()" style="margin-right: 10px">Voltar</button>
+                   <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Avançar</button>
+                </div>
+             </div>
+          </div>
+       </form>
+       <form *ngIf="step == 4" role="form">
+          <div class="row">
+             <div class="col-lg-12">
+                <div class="tags" style="margin-bottom: 10px;">
+                   <h5>Tags</h5>
+                   <ng-select
+                   name="tags"
+                   [items]="tags | async"
+                   [multiple]="true"
+                   [closeOnSelect]="false"
+                   [hideSelected]="true"
+                   (add)="addTagItem($event)"
+                   (remove)="removeTagItem($event)"
+                   bindLabel="name"
+                   placeholder="Selecione as tags"
+                   [(ngModel)]="selected_tags">
+                   </ng-select>
+                </div>
+             </div>
+             <div class="col-lg-12">
+                <div class="form-group">
+                   <h5>Imagem do restaurante</h5>
+                   <input type="file" (change)="fileChange($event)" class="form-control" name="image" [(ngModel)]="restaurant.image" placeholder="Selecione a imagem" accept=".png,.jpg,.jpeg">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Pedidos por dia</h5>
+                   <input type="number" class="form-control" name="order_limit" [(ngModel)]="restaurant.order_limit">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Taxa de entrega</h5>
+                   <input currencyMask [(ngModel)]="restaurant.delivery_value" name="delivery_value" class="form-control" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" >
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Tempo médio de entrega</h5>
+                   <input class="form-control" placeholder="hh:mm:ss" name="avg_delivery_time" [(ngModel)]="restaurant.avg_delivery_time" type="text" mask='99:99:99'>
+                </div>
+             </div>
+          </div>
+          <div class="form-group">
+             <div class="row">
+                <div class="col-xl-12 text-right">
+                   <button type="button" class="btn btn-lg btn-default" (click)="backStep()" style="margin-right: 10px">Voltar</button>
+                   <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Avançar</button>
+                </div>
+             </div>
+          </div>
+       </form>
+       <form *ngIf="step == 5" role="form">
+          <div class="row">
+             <div class="col-lg-9">
+                <div class="form-group">
+                   <h5>Endereço</h5>
+                   <input [(ngModel)]="restaurant.address" name="address" class="form-control" type="text">
+                </div>
+             </div>
+             <div class="col-lg-3">
+                <div class="form-group">
+                   <h5>Número</h5>
+                   <input [(ngModel)]="restaurant.number" name="number" class="form-control" type="text">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>CEP</h5>
+                   <input class="form-control" name="postal_code" [(ngModel)]="restaurant.postal_code" type="text" mask='99999-999'>
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Estado</h5>
+                   <input class="form-control" name="state" [(ngModel)]="restaurant.state" type="text">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Cidade</h5>
+                   <input class="form-control" name="city" [(ngModel)]="restaurant.city" type="text">
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   <h5>Bairro</h5>
+                   <input class="form-control" name="district" [(ngModel)]="restaurant.district" type="text">
+                </div>
+             </div>
+             <div class="col-lg-12">
+                <div class="form-group">
+                   <h5>Complemento</h5>
+                   <input class="form-control" name="observation" [(ngModel)]="restaurant.observation" type="text">
+                </div>
+             </div>
+          </div>
+          <div class="form-group">
+             <div class="row">
+                <div class="col-xl-12 text-right">
+                   <button type="button" class="btn btn-lg btn-default" (click)="backStep()" style="margin-right: 10px">Voltar</button>
+                   <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Avançar</button>
+                </div>
+             </div>
+          </div>
+       </form>
+       <form *ngIf="step == 6" role="form">
+          <div class="row">
+             <div class="col-lg-5">
+                <div class="form-group">
+                   <h5>Hora de abertura</h5>
+                   <input class="form-control" placeholder="hh:mm:ss" name="openning" [(ngModel)]="opening" type="text" mask='99:99:99'>
+                </div>
+             </div>
+             <div class="col-lg-5">
+                <div class="form-group">
+                   <h5>Hora de fechamento</h5>
+                   <input class="form-control" placeholder="hh:mm:ss" name="closure" [(ngModel)]="closure" type="text" mask='99:99:99'>
+                </div>
+             </div>
+             <div class="col-lg-2">
+                <div class="form-group">
+                   <button type="button" class="btn btn-sm btn-success" (click)="addServiceHour()" style="margin-top: 35px; margin-left: -15px">Adicionar</button>
+                </div>
+             </div>
+             <div class="col-lg-12">
+                <table *ngIf="service_hours.length > 0" class="card-body table">
+                   <thead>
+                      <tr>
+                         <th>Abertura</th>
+                         <th>Fechamento</th>
+                         <th>Ações</th>
+                      </tr>
+                   </thead>
+                   <tbody *ngFor="let hour of service_hours  | paginate: { itemsPerPage: 2, currentPage: page }">
+                      <tr class="table-default">
+                         <td>{{hour.opening}}</td>
+                         <td>{{hour.closure}}</td>
+                         <td>
+                            <button type="button" class="btn btn-sm btn-danger" (click)="deleteServiceHour(hour)">Deletar</button>
+                         </td>
+                      </tr>
+                   </tbody>
+                </table>
+             </div>
+             <div class="col-lg-12">
+                <div class="days_of_week" style="margin-bottom: 10px;">
+                   <h5>Dias de trabalho</h5>
+                   <ng-select
+                   [items]="days_of_week"
+                   [multiple]="true"
+                   [closeOnSelect]="false"
+                   [hideSelected]="true"
+                   (add) = "addWorkDayItem($event)"
+                   (remove) = "removeWorkItem($vent)"
+                   bindLabel="name"
+                   placeholder="Selecione os dias"
+                   dropdownPosition="top"
+                   [(ngModel)]="selected_days_of_week">
+                   </ng-select>
+                </div>
+             </div>
+          </div>
+          <div class="form-group">
+             <div class="row">
+                <div class="col-xl-12 text-right">
+                   <button type="button" class="btn btn-lg btn-default" (click)="backStep()" style="margin-right: 10px">Voltar</button>
+                   <button type="button" class="btn btn-lg btn-success" (click)="save()">Concluir</button>
+                </div>
+             </div>
+          </div>
+       </form>
+    </div>
+ </div>

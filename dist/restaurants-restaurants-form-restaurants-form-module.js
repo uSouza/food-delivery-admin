@@ -1,0 +1,860 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["restaurants-restaurants-form-restaurants-form-module"],{
+
+/***/ "./src/app/layout/restaurants/restaurant.ts":
+/*!**************************************************!*\
+  !*** ./src/app/layout/restaurants/restaurant.ts ***!
+  \**************************************************/
+/*! exports provided: Restaurant */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Restaurant", function() { return Restaurant; });
+var Restaurant = /** @class */ (function () {
+    function Restaurant() {
+    }
+    return Restaurant;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/layout/restaurants/restaurants-form/restaurants-form-routing.module.ts":
+/*!****************************************************************************************!*\
+  !*** ./src/app/layout/restaurants/restaurants-form/restaurants-form-routing.module.ts ***!
+  \****************************************************************************************/
+/*! exports provided: RestaurantsFormRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantsFormRoutingModule", function() { return RestaurantsFormRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _restaurants_form_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./restaurants-form.component */ "./src/app/layout/restaurants/restaurants-form/restaurants-form.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _restaurants_form_component__WEBPACK_IMPORTED_MODULE_2__["RestaurantsFormComponent"]
+    }
+];
+var RestaurantsFormRoutingModule = /** @class */ (function () {
+    function RestaurantsFormRoutingModule() {
+    }
+    RestaurantsFormRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+        })
+    ], RestaurantsFormRoutingModule);
+    return RestaurantsFormRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/layout/restaurants/restaurants-form/restaurants-form.component.html":
+/*!*************************************************************************************!*\
+  !*** ./src/app/layout/restaurants/restaurants-form/restaurants-form.component.html ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <div class=\"col-lg-3\">\n    </div>\n    <div class=\"col-lg-6\">\n       <h3 *ngIf=\"edit\">Edição de restaurante</h3>\n       <h3 *ngIf=\"!edit\">Novo restaurante</h3>\n       <span class=\"badge badge-success\">Etapa {{ step }} de {{ step_number }}</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 1\" class=\"badge badge-secondary\">Cadastro do usuário</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 2\" class=\"badge badge-secondary\">Dados gerais do restaurante</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 3\" class=\"badge badge-secondary\">Dados do responsável</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 4\" class=\"badge badge-secondary\">Configurações do restaurante</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 5\" class=\"badge badge-secondary\">Dados de endereço</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 6\" class=\"badge badge-secondary\">Dados de atendimento</span>\n       <hr>\n       <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n       <form *ngIf=\"step == 1\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Email</h5>\n                   <input [(ngModel)]=\"restaurant.email\" name=\"email\" class=\"form-control\" type=\"email\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Senha</h5>\n                   <input [(ngModel)]=\"restaurant.password\" name=\"password\" class=\"form-control\" type=\"password\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Confirmação de senha</h5>\n                   <input [(ngModel)]=\"password_confirmation\" name=\"password_confirmation\" class=\"form-control\" type=\"password\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 2\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Razão social</h5>\n                   <input [(ngModel)]=\"restaurant.social_name\" name=\"social_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Nome fantasia</h5>\n                   <input [(ngModel)]=\"restaurant.fantasy_name\" name=\"fantasy_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>CNPJ</h5>\n                   <input [(ngModel)]=\"restaurant.cnpj\" name=\"cnpj\" mask='99.999.999/9999-99' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Celular</h5>\n                   <input [(ngModel)]=\"restaurant.cell_phone\" name=\"cell_phone\" mask='(99)99999-9999' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Telefone fixo</h5>\n                   <input [(ngModel)]=\"restaurant.phone\" name=\"phone\" mask='(99)9999-9999' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 3\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Nome do responsável</h5>\n                   <input [(ngModel)]=\"restaurant.responsible_name\" name=\"responsible_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Celular do responsável</h5>\n                   <input [(ngModel)]=\"restaurant.responsible_phone\" name=\"responsible_phone\" mask='(99)99999-9999' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 4\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"tags\" style=\"margin-bottom: 10px;\">\n                   <h5>Tags</h5>\n                   <ng-select\n                   name=\"tags\"\n                   [items]=\"tags | async\"\n                   [multiple]=\"true\"\n                   [closeOnSelect]=\"false\"\n                   [hideSelected]=\"true\"\n                   (add)=\"addTagItem($event)\"\n                   (remove)=\"removeTagItem($event)\"\n                   bindLabel=\"name\"\n                   placeholder=\"Selecione as tags\"\n                   [(ngModel)]=\"selected_tags\">\n                   </ng-select>\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Imagem do restaurante</h5>\n                   <input type=\"file\" (change)=\"fileChange($event)\" class=\"form-control\" name=\"image\" [(ngModel)]=\"restaurant.image\" placeholder=\"Selecione a imagem\" accept=\".png,.jpg,.jpeg\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Pedidos por dia</h5>\n                   <input type=\"number\" class=\"form-control\" name=\"order_limit\" [(ngModel)]=\"restaurant.order_limit\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Taxa de entrega</h5>\n                   <input currencyMask [(ngModel)]=\"restaurant.delivery_value\" name=\"delivery_value\" class=\"form-control\" [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" >\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Tempo médio de entrega</h5>\n                   <input class=\"form-control\" placeholder=\"hh:mm:ss\" name=\"avg_delivery_time\" [(ngModel)]=\"restaurant.avg_delivery_time\" type=\"text\" mask='99:99:99'>\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 5\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-9\">\n                <div class=\"form-group\">\n                   <h5>Endereço</h5>\n                   <input [(ngModel)]=\"restaurant.address\" name=\"address\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-3\">\n                <div class=\"form-group\">\n                   <h5>Número</h5>\n                   <input [(ngModel)]=\"restaurant.number\" name=\"number\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>CEP</h5>\n                   <input class=\"form-control\" name=\"postal_code\" [(ngModel)]=\"restaurant.postal_code\" type=\"text\" mask='99999-999'>\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Estado</h5>\n                   <input class=\"form-control\" name=\"state\" [(ngModel)]=\"restaurant.state\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Cidade</h5>\n                   <input class=\"form-control\" name=\"city\" [(ngModel)]=\"restaurant.city\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Bairro</h5>\n                   <input class=\"form-control\" name=\"district\" [(ngModel)]=\"restaurant.district\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Complemento</h5>\n                   <input class=\"form-control\" name=\"observation\" [(ngModel)]=\"restaurant.observation\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 6\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-5\">\n                <div class=\"form-group\">\n                   <h5>Hora de abertura</h5>\n                   <input class=\"form-control\" placeholder=\"hh:mm:ss\" name=\"openning\" [(ngModel)]=\"opening\" type=\"text\" mask='99:99:99'>\n                </div>\n             </div>\n             <div class=\"col-lg-5\">\n                <div class=\"form-group\">\n                   <h5>Hora de fechamento</h5>\n                   <input class=\"form-control\" placeholder=\"hh:mm:ss\" name=\"closure\" [(ngModel)]=\"closure\" type=\"text\" mask='99:99:99'>\n                </div>\n             </div>\n             <div class=\"col-lg-2\">\n                <div class=\"form-group\">\n                   <button type=\"button\" class=\"btn btn-sm btn-success\" (click)=\"addServiceHour()\" style=\"margin-top: 35px; margin-left: -15px\">Adicionar</button>\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <table *ngIf=\"service_hours.length > 0\" class=\"card-body table\">\n                   <thead>\n                      <tr>\n                         <th>Abertura</th>\n                         <th>Fechamento</th>\n                         <th>Ações</th>\n                      </tr>\n                   </thead>\n                   <tbody *ngFor=\"let hour of service_hours  | paginate: { itemsPerPage: 2, currentPage: page }\">\n                      <tr class=\"table-default\">\n                         <td>{{hour.opening}}</td>\n                         <td>{{hour.closure}}</td>\n                         <td>\n                            <button type=\"button\" class=\"btn btn-sm btn-danger\" (click)=\"deleteServiceHour(hour)\">Deletar</button>\n                         </td>\n                      </tr>\n                   </tbody>\n                </table>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"days_of_week\" style=\"margin-bottom: 10px;\">\n                   <h5>Dias de trabalho</h5>\n                   <ng-select\n                   [items]=\"days_of_week\"\n                   [multiple]=\"true\"\n                   [closeOnSelect]=\"false\"\n                   [hideSelected]=\"true\"\n                   (add) = \"addWorkDayItem($event)\"\n                   (remove) = \"removeWorkItem($vent)\"\n                   bindLabel=\"name\"\n                   placeholder=\"Selecione os dias\"\n                   dropdownPosition=\"top\"\n                   [(ngModel)]=\"selected_days_of_week\">\n                   </ng-select>\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"save()\">Concluir</button>\n                </div>\n             </div>\n          </div>\n       </form>\n    </div>\n </div>\n"
+
+/***/ }),
+
+/***/ "./src/app/layout/restaurants/restaurants-form/restaurants-form.component.scss":
+/*!*************************************************************************************!*\
+  !*** ./src/app/layout/restaurants/restaurants-form/restaurants-form.component.scss ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/layout/restaurants/restaurants-form/restaurants-form.component.ts":
+/*!***********************************************************************************!*\
+  !*** ./src/app/layout/restaurants/restaurants-form/restaurants-form.component.ts ***!
+  \***********************************************************************************/
+/*! exports provided: RestaurantsFormComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantsFormComponent", function() { return RestaurantsFormComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _restaurant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../restaurant */ "./src/app/layout/restaurants/restaurant.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _services_restaurants_restaurants_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/restaurants/restaurants.service */ "./src/app/services/restaurants/restaurants.service.ts");
+/* harmony import */ var _services_tags_tags_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../services/tags/tags.service */ "./src/app/services/tags/tags.service.ts");
+/* harmony import */ var _services_login_login_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../services/login/login.service */ "./src/app/services/login/login.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+var RestaurantsFormComponent = /** @class */ (function () {
+    function RestaurantsFormComponent(route, router, datepipe, modalService, restaurantsService, tagsService, loginService) {
+        this.route = route;
+        this.router = router;
+        this.datepipe = datepipe;
+        this.modalService = modalService;
+        this.restaurantsService = restaurantsService;
+        this.tagsService = tagsService;
+        this.loginService = loginService;
+        this.alerts = [];
+        this.edit = false;
+        this.selected_tags = [];
+        this.restaurant = new _restaurant__WEBPACK_IMPORTED_MODULE_1__["Restaurant"]();
+        this.access_token = null;
+        this.password_confirmation = null;
+        this.step = 1;
+        this.step_number = 6;
+        this.service_hours = [];
+        this.opening = null;
+        this.closure = null;
+        this.wdays = {
+            sunday: false,
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            friday: false,
+            saturday: false
+        };
+        this.days_of_week = [
+            {
+                name: 'Domingo',
+                id: 0
+            },
+            {
+                name: 'Segunda-Feira',
+                id: 1
+            },
+            {
+                name: 'Terça-Feira',
+                id: 2
+            },
+            {
+                name: 'Quarta-Feira',
+                id: 3
+            },
+            {
+                name: 'Quinta-Feira',
+                id: 4
+            },
+            {
+                name: 'Sexta-Feira',
+                id: 5
+            },
+            {
+                name: 'Sábado',
+                id: 6
+            }
+        ];
+        this.selected_days_of_week = [];
+    }
+    RestaurantsFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (localStorage.getItem('access_token') != null) {
+            this.access_token = localStorage.getItem('access_token');
+            if (this.route.snapshot.paramMap.get('id') != null) {
+                this.edit = true;
+                var restaurant = JSON.parse(localStorage.getItem('restaurant_edit'));
+                this.restaurant = restaurant;
+                restaurant.tags.forEach(function (i) {
+                    _this.selected_tags.push(i);
+                });
+            }
+            this.load();
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
+    };
+    RestaurantsFormComponent.prototype.load = function () {
+        this.tags = this.tagsService.getTags(this.access_token);
+    };
+    RestaurantsFormComponent.prototype.validate = function () {
+        if (this.step == 1) {
+            if (this.restaurant.email == null) {
+                this.showAlert('danger', 'Informe um endereço de email!');
+                return false;
+            }
+            else if (this.restaurant.password == null) {
+                this.showAlert('danger', 'É necessário informar uma senha!');
+                return false;
+            }
+            else if (this.restaurant.password != this.password_confirmation) {
+                this.showAlert('danger', 'A senha informada não coincide com a confirmação!');
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else if (this.step == 2) {
+            if (this.restaurant.social_name == null) {
+                this.showAlert('danger', 'Informe a razão social do restaurante!');
+                return false;
+            }
+            else if (this.restaurant.fantasy_name == null) {
+                this.showAlert('danger', 'Informe o nome fantasia do restaurante!');
+                return false;
+            }
+            else if (this.restaurant.cell_phone == null) {
+                this.showAlert('danger', 'Informe o celular do restaurante!');
+                return false;
+            }
+            else if (this.restaurant.phone == null) {
+                this.showAlert('danger', 'Informe o telefone do restaurante!');
+                return false;
+            }
+            else if (this.restaurant.cnpj == null) {
+                this.showAlert('danger', 'Informe o CNPJ do restaurante!');
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else if (this.step == 3) {
+            if (this.restaurant.responsible_name == null) {
+                this.showAlert('danger', 'Informe o nome do responsável pelo restaurante!');
+                return false;
+            }
+            else if (this.restaurant.responsible_phone == null) {
+                this.showAlert('danger', 'Informe o telefone do responsável pelo restaurante!');
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else if (this.step == 4) {
+            console.log(this.restaurant.delivery_value);
+            if (this.selected_tags.length < 1) {
+                this.showAlert('danger', 'Selecione ao menos uma tag!');
+                return false;
+            }
+            else if (this.selectedFile == null) {
+                this.showAlert('danger', 'Selecione a imagem do restaurante!');
+                return false;
+            }
+            else if (this.restaurant.delivery_value == null) {
+                this.showAlert('danger', 'Informe a taxa de entrega!');
+                return false;
+            }
+            else if (this.restaurant.avg_delivery_time == null) {
+                this.showAlert('danger', 'Informe tempo médio de entrega!');
+                return false;
+            }
+            else if (this.restaurant.order_limit == null) {
+                this.showAlert('danger', 'Informe a quantidade máxima de pedidos por dia!');
+                return false;
+            }
+            else if (parseInt(this.restaurant.avg_delivery_time.substr(0, 2)) > 23
+                || parseInt(this.restaurant.avg_delivery_time.substr(2, 2)) > 59
+                || parseInt(this.restaurant.avg_delivery_time.substr(4, 2)) > 59) {
+                this.showAlert('danger', 'O tempo médio informado não é válido!');
+                return false;
+            }
+            else if (this.restaurant.order_limit < 1) {
+                this.showAlert('danger', 'O limite de pedidos não pode ser menor que 1!');
+                return false;
+            }
+            else if (this.restaurant.delivery_value < 0) {
+                this.showAlert('danger', 'A taxa de entrega não pode ser menor que zero!');
+                return false;
+            }
+            else {
+                this.restaurant.avg_delivery_time = this.restaurant.avg_delivery_time.substr(0, 2) + ':' + this.restaurant.avg_delivery_time.substr(2, 2) + ':' + this.restaurant.avg_delivery_time.substr(4, 2);
+                return true;
+            }
+        }
+        else if (this.step == 5) {
+            if (this.restaurant.address == null) {
+                this.showAlert('danger', 'Informe o endereço!');
+                return false;
+            }
+            else if (this.restaurant.number == null) {
+                this.showAlert('danger', 'Informe o número do endereço!');
+                return false;
+            }
+            else if (this.restaurant.postal_code == null) {
+                this.showAlert('danger', 'Informe o código postal!');
+                return false;
+            }
+            else if (this.restaurant.state == null) {
+                this.showAlert('danger', 'Informe o estado!');
+                return false;
+            }
+            else if (this.restaurant.city == null) {
+                this.showAlert('danger', 'Informe a cidade!');
+                return false;
+            }
+            else if (this.restaurant.city == null) {
+                this.showAlert('danger', 'Informe o bairro!');
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            console.log(this.selected_days_of_week);
+            if (this.service_hours.length < 1) {
+                this.showAlert('danger', 'Informe os dados de atendimento!');
+                return false;
+            }
+            else if (this.selected_days_of_week.length < 1) {
+                this.showAlert('danger', 'Selecione os dias de atendimento!');
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    };
+    RestaurantsFormComponent.prototype.addWorkDayItem = function (item) {
+        this.selected_days_of_week.push(item);
+    };
+    RestaurantsFormComponent.prototype.removeWorkItem = function (item) {
+        var index = this.selected_days_of_week.indexOf(item);
+        this.selected_days_of_week.splice(index, 1);
+    };
+    RestaurantsFormComponent.prototype.addTagItem = function (item) {
+        this.selected_tags.push(item);
+    };
+    RestaurantsFormComponent.prototype.removeTagItem = function (item) {
+        var index = this.selected_tags.indexOf(item);
+        this.selected_tags.splice(index, 1);
+    };
+    RestaurantsFormComponent.prototype.prepare = function () {
+        var _this = this;
+        this.restaurant.tags_ids = [];
+        this.selected_tags.forEach(function (i) {
+            _this.restaurant.tags_ids.push(i.id);
+        });
+        this.selected_days_of_week.forEach(function (wday) {
+            if (wday.id == 0) {
+                _this.wdays.sunday = true;
+            }
+            else if (wday.id == 1) {
+                _this.wdays.monday = true;
+            }
+            else if (wday.id == 2) {
+                _this.wdays.tuesday = true;
+            }
+            else if (wday.id == 3) {
+                _this.wdays.wednesday = true;
+            }
+            else if (wday.id == 4) {
+                _this.wdays.thursday = true;
+            }
+            else if (wday.id == 5) {
+                _this.wdays.friday = true;
+            }
+            else {
+                _this.wdays.saturday = true;
+            }
+        });
+    };
+    RestaurantsFormComponent.prototype.showAlert = function (type, err) {
+        this.alerts.push({
+            id: 1,
+            type: type,
+            message: err
+        });
+    };
+    RestaurantsFormComponent.prototype.closeAlert = function (alert) {
+        var index = this.alerts.indexOf(alert);
+        this.alerts.splice(index, 1);
+    };
+    RestaurantsFormComponent.prototype.addServiceHour = function () {
+        if (this.opening != null && this.closure != null) {
+            if (parseInt(this.opening.substr(0, 2)) > 23
+                || parseInt(this.opening.substr(2, 2)) > 59
+                || parseInt(this.opening.substr(4, 2)) > 59
+                || parseInt(this.closure.substr(0, 2)) > 23
+                || parseInt(this.closure.substr(2, 2)) > 59
+                || parseInt(this.closure.substr(4, 2)) > 59) {
+                this.showAlert('danger', 'Os horários informados para o atendimento não são válidos!');
+                this.opening = null;
+                this.closure = null;
+                return false;
+            }
+            else {
+                this.opening = this.opening.substr(0, 2) + ':' + this.opening.substr(2, 2) + ':' + this.opening.substr(4, 2);
+                this.closure = this.closure.substr(0, 2) + ':' + this.closure.substr(2, 2) + ':' + this.closure.substr(4, 2);
+                var service_hour = {
+                    opening: this.opening,
+                    closure: this.closure
+                };
+                this.service_hours.push(service_hour);
+            }
+            this.opening = null;
+            this.closure = null;
+        }
+        else {
+            this.showAlert('danger', 'Informe os dados de atendimento!');
+        }
+    };
+    RestaurantsFormComponent.prototype.deleteServiceHour = function (hour) {
+        var index = this.service_hours.indexOf(hour);
+        this.service_hours.splice(index, 1);
+    };
+    RestaurantsFormComponent.prototype.nextStep = function () {
+        if (this.validate()) {
+            if (this.step < this.step_number) {
+                this.step = this.step + 1;
+            }
+        }
+    };
+    RestaurantsFormComponent.prototype.backStep = function () {
+        if (this.step > 1) {
+            this.step = this.step - 1;
+        }
+    };
+    RestaurantsFormComponent.prototype.fileChange = function (event) {
+        this.selectedFile = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(this.selectedFile);
+    };
+    RestaurantsFormComponent.prototype._handleReaderLoaded = function (readerEvt) {
+        var binaryString = readerEvt.target.result;
+        var header = 'data:' + this.selectedFile.type + ';base64,';
+        this.restaurant.image = header + '' + btoa(binaryString);
+    };
+    RestaurantsFormComponent.prototype.save = function () {
+        var _this = this;
+        if (this.validate()) {
+            this.loginService
+                .addUser(this.access_token, this.restaurant.email, this.restaurant.fantasy_name, this.restaurant.password)
+                .subscribe(function (user) {
+                _this.saveRestaurant(user);
+            });
+        }
+    };
+    RestaurantsFormComponent.prototype.saveRestaurant = function (user) {
+        var _this = this;
+        var location = {
+            city: this.restaurant.city,
+            state: this.restaurant.state,
+            address: this.restaurant.address,
+            number: this.restaurant.number,
+            postal_code: this.restaurant.postal_code.substr(0, 5) + '-' + this.restaurant.postal_code.substr(5, 3),
+            district: this.restaurant.district,
+            observation: this.restaurant.complement
+        };
+        this.prepare();
+        this.restaurant.user_id = user.id;
+        this.restaurantsService
+            .addRestaurant(this.access_token, this.restaurant)
+            .subscribe(function (restaurant) {
+            _this.restaurantsService
+                .addLocation(_this.access_token, location, restaurant)
+                .subscribe(function (location) {
+                _this.restaurantsService
+                    .addWorkedDays(_this.access_token, _this.wdays, restaurant)
+                    .subscribe(function (wdays) {
+                    _this.addServiceHours(restaurant);
+                });
+            });
+        });
+        this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
+    };
+    RestaurantsFormComponent.prototype.addServiceHours = function (restaurant) {
+        var _this = this;
+        this.service_hours.forEach(function (s) {
+            var service_hour = {
+                company_id: restaurant.id,
+                opening: s.opening,
+                closure: s.closure
+            };
+            _this.restaurantsService
+                .addServiceHours(_this.access_token, service_hour, restaurant)
+                .subscribe(function (service_hour) { return console.log(service_hour); });
+        });
+    };
+    RestaurantsFormComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-restaurants-form',
+            template: __webpack_require__(/*! ./restaurants-form.component.html */ "./src/app/layout/restaurants/restaurants-form/restaurants-form.component.html"),
+            styles: [__webpack_require__(/*! ./restaurants-form.component.scss */ "./src/app/layout/restaurants/restaurants-form/restaurants-form.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["DatePipe"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
+            _services_restaurants_restaurants_service__WEBPACK_IMPORTED_MODULE_5__["RestaurantsService"],
+            _services_tags_tags_service__WEBPACK_IMPORTED_MODULE_6__["TagsService"],
+            _services_login_login_service__WEBPACK_IMPORTED_MODULE_7__["LoginService"]])
+    ], RestaurantsFormComponent);
+    return RestaurantsFormComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/layout/restaurants/restaurants-form/restaurants-form.module.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/layout/restaurants/restaurants-form/restaurants-form.module.ts ***!
+  \********************************************************************************/
+/*! exports provided: RestaurantsFormModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantsFormModule", function() { return RestaurantsFormModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var ngx_pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-pagination */ "./node_modules/ngx-pagination/dist/ngx-pagination.js");
+/* harmony import */ var _restaurants_form_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./restaurants-form-routing.module */ "./src/app/layout/restaurants/restaurants-form/restaurants-form-routing.module.ts");
+/* harmony import */ var _restaurants_form_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./restaurants-form.component */ "./src/app/layout/restaurants/restaurants-form/restaurants-form.component.ts");
+/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-mask */ "./node_modules/ngx-mask/fesm5/ngx-mask.js");
+/* harmony import */ var _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-select/ng-select */ "./node_modules/@ng-select/ng-select/fesm5/ng-select.js");
+/* harmony import */ var ng2_currency_mask__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ng2-currency-mask */ "./node_modules/ng2-currency-mask/index.js");
+/* harmony import */ var ng2_currency_mask__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ng2_currency_mask__WEBPACK_IMPORTED_MODULE_9__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+var RestaurantsFormModule = /** @class */ (function () {
+    function RestaurantsFormModule() {
+    }
+    RestaurantsFormModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_8__["NgSelectModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
+                _restaurants_form_routing_module__WEBPACK_IMPORTED_MODULE_5__["RestaurantsFormRoutingModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbAlertModule"].forRoot(),
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModule"].forRoot(),
+                ngx_pagination__WEBPACK_IMPORTED_MODULE_4__["NgxPaginationModule"],
+                ng2_currency_mask__WEBPACK_IMPORTED_MODULE_9__["CurrencyMaskModule"],
+                ngx_mask__WEBPACK_IMPORTED_MODULE_7__["NgxMaskModule"].forRoot()
+            ],
+            declarations: [_restaurants_form_component__WEBPACK_IMPORTED_MODULE_6__["RestaurantsFormComponent"]],
+            providers: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"]],
+        })
+    ], RestaurantsFormModule);
+    return RestaurantsFormModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/restaurants/restaurants.service.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/services/restaurants/restaurants.service.ts ***!
+  \*************************************************************/
+/*! exports provided: RestaurantsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantsService", function() { return RestaurantsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config */ "./src/app/config.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var RestaurantsService = /** @class */ (function () {
+    function RestaurantsService(http) {
+        this.http = http;
+        this.endpoint = 'companies';
+    }
+    RestaurantsService.prototype.getRestaurants = function (access_token) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
+    RestaurantsService.prototype.getRestaurant = function (access_token, id) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/' + id, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
+    RestaurantsService.prototype.addRestaurant = function (access_token, restaurant) {
+        var data = {
+            image_base64: restaurant.image,
+            social_name: restaurant.social_name,
+            fantasy_name: restaurant.fantasy_name,
+            cell_phone: restaurant.cell_phone,
+            phone: restaurant.phone,
+            responsible_name: restaurant.responsible_name,
+            responsible_phone: restaurant.responsible_phone,
+            user_id: restaurant.user_id,
+            observation: restaurant.observation,
+            cnpj: restaurant.cnpj,
+            order_limit: restaurant.order_limit,
+            tags_ids: restaurant.tags_ids,
+            delivery_value: restaurant.delivery_value,
+            avg_delivery_time: restaurant.avg_delivery_time
+        };
+        console.log(data.image_base64);
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json',
+            }
+        });
+    };
+    RestaurantsService.prototype.editRestaurant = function (access_token, restaurant, id) {
+        var data = {
+            social_name: restaurant.social_name,
+            fantasy_name: restaurant.fantasy_name,
+            cell_phone: restaurant.cell_phone,
+            responsible_name: restaurant.responsible_name,
+            responsible_phone: restaurant.responsible_phone,
+            user_id: restaurant.user_id,
+            observation: restaurant.observation,
+            url: restaurant.image,
+            order_limit: restaurant.order_limit,
+            tags_ids: restaurant.tags_ids,
+            delivery_value: restaurant.delivery_value,
+            avg_delivery_time: restaurant.avg_delivery_time
+        };
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/' + id, data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    };
+    RestaurantsService.prototype.deleteRestaurant = function (access_token, id) {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/' + id, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    RestaurantsService.prototype.restoreRestaurant = function (access_token, id) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/restore/' + id, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
+    RestaurantsService.prototype.addLocation = function (access_token, location, restaurant) {
+        var data = {
+            city: location.city,
+            state: location.state,
+            address: location.address,
+            number: location.number,
+            district: location.district,
+            postal_code: location.postal_code,
+            observation: location.observation,
+            company_id: restaurant.id
+        };
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'companies_locations', data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    RestaurantsService.prototype.addWorkedDays = function (access_token, wdays, restaurant) {
+        var data = {
+            company_id: restaurant.id,
+            sunday: wdays.sunday,
+            monday: wdays.monday,
+            tuesday: wdays.tuesday,
+            wednesday: wdays.wednesday,
+            thursday: wdays.thursday,
+            friday: wdays.friday,
+            saturday: wdays.saturday
+        };
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'worked_days', data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    RestaurantsService.prototype.addServiceHours = function (access_token, service_hours, restaurant) {
+        var data = {
+            company_id: restaurant.id,
+            opening: service_hours.opening,
+            closure: service_hours.closure
+        };
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours', data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    RestaurantsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], RestaurantsService);
+    return RestaurantsService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tags/tags.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/services/tags/tags.service.ts ***!
+  \***********************************************/
+/*! exports provided: TagsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TagsService", function() { return TagsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config */ "./src/app/config.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var TagsService = /** @class */ (function () {
+    function TagsService(http) {
+        this.http = http;
+        this.endpoint = 'tags';
+    }
+    TagsService.prototype.getTags = function (access_token) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
+    TagsService.prototype.addTag = function (access_token, tag) {
+        var data = {
+            name: tag
+        };
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    TagsService.prototype.editTag = function (access_token, tag, id) {
+        var data = {
+            name: tag
+        };
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/' + id, data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    TagsService.prototype.deleteTag = function (access_token, id) {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/' + id, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    TagsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], TagsService);
+    return TagsService;
+}());
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=restaurants-restaurants-form-restaurants-form-module.js.map

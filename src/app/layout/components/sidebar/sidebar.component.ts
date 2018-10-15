@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -13,10 +14,13 @@ export class SidebarComponent {
     pushRightClass: string = 'push-right';
     expanded_crud: boolean = false;
     expanded_menu: boolean = false;
+    expanded_restaurant: boolean = false;
+    user: any;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
-    constructor(public router: Router) {
+    constructor(public router: Router,
+                private loginService: LoginService) {
         this.router.events.subscribe(val => {
             if (
                 val instanceof NavigationEnd &&
@@ -26,6 +30,18 @@ export class SidebarComponent {
                 this.toggleSidebar();
             }
         });
+
+        if (localStorage.getItem('access_token') == null) {
+            this.router.navigate(['/login']);
+        } else {
+            this.loginService
+                .user_me(localStorage.getItem('access_token'))
+                .subscribe(
+                    user => {
+                        this.user = user
+                    }
+                )
+        }
     }
 
     eventCalled() {
@@ -34,17 +50,30 @@ export class SidebarComponent {
 
     addExpandClass(element: any) {
         console.log(element);
-        console.log(this.expanded_crud);
 
         if (element == 'menu') {
             this.expanded_menu = !this.expanded_menu;
             if (this.expanded_crud) {
                 this.expanded_crud = false;
             }
-        } else {
+            if (this.expanded_restaurant) {
+                this.expanded_crud = false;
+            }
+        } else if (element == 'cruds') {
             this.expanded_crud = !this.expanded_crud;
             if (this.expanded_menu) {
                 this.expanded_menu = false;
+            }
+            if (this.expanded_restaurant) {
+                this.expanded_restaurant = false;
+            }
+        } else {
+            this.expanded_restaurant = !this.expanded_restaurant;
+            if (this.expanded_menu) {
+                this.expanded_menu = false;
+            }
+            if (this.expanded_crud) {
+                this.expanded_crud = false;
             }
         }
 

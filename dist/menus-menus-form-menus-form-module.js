@@ -143,7 +143,6 @@ var MenusFormComponent = /** @class */ (function () {
     }
     MenusFormComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log(JSON.parse(localStorage.getItem('menu_edit')));
         if (localStorage.getItem('access_token') != null) {
             this.access_token = localStorage.getItem('access_token');
             if (this.route.snapshot.paramMap.get('id') != null) {

@@ -1422,14 +1422,18 @@ var HeaderComponent = /** @class */ (function () {
                 _this.toggleSidebar();
             }
         });
+        if (localStorage.getItem('access_token') == null) {
+            this.router.navigate(['/login']);
+        }
+        else {
+            this.loginService
+                .user_me(localStorage.getItem('access_token'))
+                .subscribe(function (user) {
+                _this.user = user;
+            });
+        }
     }
     HeaderComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.loginService
-            .user_me(localStorage.getItem('access_token'))
-            .subscribe(function (user) {
-            _this.user = user;
-        });
     };
     HeaderComponent.prototype.isToggled = function () {
         var dom = document.querySelector('body');
@@ -1471,7 +1475,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"sidebar\" [ngClass]=\"{sidebarPushRight: isActive, collapsed: collapsed}\">\n    <div class=\"list-group\">\n        <a routerLink=\"/dashboard\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-cart-plus\"></i>\n            <span>{{ 'Pedidos pendentes' }}</span>\n        </a>\n        <a routerLink=\"/closed-orders\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa fa-shopping-cart\"></i>\n            <span>{{ 'Pedidos encerrados' }}</span>\n        </a>\n        <div class=\"nested-menu\">\n            <a class=\"list-group-item\" (click)=\"addExpandClass('menu')\">\n                <span><i class=\"fa fa-cutlery\"></i>&nbsp;Cardápio</span>\n                <i *ngIf=\"!expanded_menu\" class=\"fa fa-caret-square-o-right\" style=\"margin-left: 20px\"></i>\n                <i *ngIf=\"expanded_menu\" class=\"fa fa-caret-square-o-down\" style=\"margin-left: 20px\"></i>\n            </a>\n            <li class=\"nested\" [class.expand]=\"showMenu === 'menu'\">\n                <ul class=\"submenu\">\n                    <li>\n                        <a routerLink=\"/menus-form\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Novo cardápio' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/menus-list\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Cardápios cadastrados' }}</span>\n                        </a>\n                    </li>\n                </ul>\n            </li>\n        </div>\n        <div class=\"nested-menu\">\n            <a class=\"list-group-item\" (click)=\"addExpandClass('cruds')\">\n                <span><i class=\"fa fa-pencil-square\"></i>&nbsp;Cadastros gerais</span>\n                <i *ngIf=\"!expanded_crud\" class=\"fa fa-caret-square-o-right\" style=\"margin-left: 20px\"></i>\n                <i *ngIf=\"expanded_crud\" class=\"fa fa-caret-square-o-down\" style=\"margin-left: 20px\"></i>\n            </a>\n            <li class=\"nested\" [class.expand]=\"showMenu === 'cruds'\">\n                <ul class=\"submenu\">\n                    <li>\n                        <a routerLink=\"/ingredient-group\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Grupos de ingredientes' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/ingredients\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Ingredientes' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/additionals\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Adicionais e bebidas' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/sizes\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Tamanhos' }}</span>\n                        </a>\n                    </li>\n                </ul>\n            </li>\n        </div>\n    </div>\n</nav>\n"
+module.exports = "<nav class=\"sidebar\" [ngClass]=\"{sidebarPushRight: isActive, collapsed: collapsed}\">\n    <div class=\"list-group\">\n        <a routerLink=\"/dashboard\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-cart-plus\"></i>\n            <span>{{ 'Pedidos pendentes' }}</span>\n        </a>\n        <a routerLink=\"/closed-orders\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa fa-shopping-cart\"></i>\n            <span>{{ 'Pedidos encerrados' }}</span>\n        </a>\n        <div class=\"nested-menu\">\n            <a class=\"list-group-item\" (click)=\"addExpandClass('menu')\">\n                <span><i class=\"fa fa-cutlery\"></i>Cardápios</span>\n                <i *ngIf=\"!expanded_menu\" class=\"fa fa-caret-square-o-right\" style=\"margin-left: 20px\"></i>\n                <i *ngIf=\"expanded_menu\" class=\"fa fa-caret-square-o-down\" style=\"margin-left: 20px\"></i>\n            </a>\n            <li class=\"nested\" [class.expand]=\"showMenu === 'menu'\">\n                <ul class=\"submenu\">\n                    <li>\n                        <a routerLink=\"/menus-form\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Novo cardápio' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/menus-list\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Cardápios cadastrados' }}</span>\n                        </a>\n                    </li>\n                </ul>\n            </li>\n        </div>\n        <div class=\"nested-menu\">\n            <a class=\"list-group-item\" (click)=\"addExpandClass('cruds')\">\n                <span><i class=\"fa fa-pencil-square\"></i>Cadastros gerais</span>\n                <i *ngIf=\"!expanded_crud\" class=\"fa fa-caret-square-o-right\" style=\"margin-left: 20px\"></i>\n                <i *ngIf=\"expanded_crud\" class=\"fa fa-caret-square-o-down\" style=\"margin-left: 20px\"></i>\n            </a>\n            <li class=\"nested\" [class.expand]=\"showMenu === 'cruds'\">\n                <ul class=\"submenu\">\n                    <li>\n                        <a routerLink=\"/ingredient-group\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Grupos de ingredientes' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/ingredients\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Ingredientes' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/additionals\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Adicionais e bebidas' }}</span>\n                        </a>\n                    </li>\n                    <li>\n                        <a routerLink=\"/sizes\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                            <span>{{ 'Tamanhos' }}</span>\n                        </a>\n                    </li>\n                </ul>\n            </li>\n        </div>\n        <div *ngIf=\"user.type=='admin'\" class=\"nested-menu\">\n                <a class=\"list-group-item\" (click)=\"addExpandClass('restaurant')\">\n                    <span><i class=\"fa fa-users\"></i>Restaurantes</span>\n                    <i *ngIf=\"!expanded_restaurant\" class=\"fa fa-caret-square-o-right\" style=\"margin-left: 20px\"></i>\n                    <i *ngIf=\"expanded_restaurant\" class=\"fa fa-caret-square-o-down\" style=\"margin-left: 20px\"></i>\n                </a>\n                <li class=\"nested\" [class.expand]=\"showMenu === 'restaurant'\">\n                    <ul class=\"submenu\">\n                        <li>\n                            <a routerLink=\"/restaurants-form\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                                <span>{{ 'Novo restaurante' }}</span>\n                            </a>\n                        </li>\n                        <li>\n                            <a routerLink=\"/restaurants-list\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n                                <span>{{ 'Restaurantes' }}</span>\n                            </a>\n                        </li>\n                    </ul>\n                </li>\n            </div>\n    </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1498,6 +1502,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidebarComponent", function() { return SidebarComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_login_login_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/login/login.service */ "./src/app/services/login/login.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1509,16 +1514,19 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var SidebarComponent = /** @class */ (function () {
-    function SidebarComponent(router) {
+    function SidebarComponent(router, loginService) {
         var _this = this;
         this.router = router;
+        this.loginService = loginService;
         this.isActive = false;
         this.collapsed = false;
         this.showMenu = '';
         this.pushRightClass = 'push-right';
         this.expanded_crud = false;
         this.expanded_menu = false;
+        this.expanded_restaurant = false;
         this.collapsedEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.router.events.subscribe(function (val) {
             if (val instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"] &&
@@ -1527,23 +1535,47 @@ var SidebarComponent = /** @class */ (function () {
                 _this.toggleSidebar();
             }
         });
+        if (localStorage.getItem('access_token') == null) {
+            this.router.navigate(['/login']);
+        }
+        else {
+            this.loginService
+                .user_me(localStorage.getItem('access_token'))
+                .subscribe(function (user) {
+                _this.user = user;
+            });
+        }
     }
     SidebarComponent.prototype.eventCalled = function () {
         this.isActive = !this.isActive;
     };
     SidebarComponent.prototype.addExpandClass = function (element) {
         console.log(element);
-        console.log(this.expanded_crud);
         if (element == 'menu') {
             this.expanded_menu = !this.expanded_menu;
             if (this.expanded_crud) {
                 this.expanded_crud = false;
             }
+            if (this.expanded_restaurant) {
+                this.expanded_crud = false;
+            }
         }
-        else {
+        else if (element == 'cruds') {
             this.expanded_crud = !this.expanded_crud;
             if (this.expanded_menu) {
                 this.expanded_menu = false;
+            }
+            if (this.expanded_restaurant) {
+                this.expanded_restaurant = false;
+            }
+        }
+        else {
+            this.expanded_restaurant = !this.expanded_restaurant;
+            if (this.expanded_menu) {
+                this.expanded_menu = false;
+            }
+            if (this.expanded_crud) {
+                this.expanded_crud = false;
             }
         }
         if (element === this.showMenu) {
@@ -1582,7 +1614,8 @@ var SidebarComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sidebar.component.html */ "./src/app/layout/components/sidebar/sidebar.component.html"),
             styles: [__webpack_require__(/*! ./sidebar.component.scss */ "./src/app/layout/components/sidebar/sidebar.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_login_login_service__WEBPACK_IMPORTED_MODULE_2__["LoginService"]])
     ], SidebarComponent);
     return SidebarComponent;
 }());
@@ -1629,6 +1662,9 @@ var routes = [
             { path: 'menus-list', loadChildren: './menus/menus-list/menus-list.module#MenusListModule' },
             { path: 'menus-show', loadChildren: './menus/menus-show/menus-show.module#MenusShowModule' },
             { path: 'closed-orders', loadChildren: './closed-orders/closed-orders.module#ClosedOrdersModule' },
+            { path: 'restaurants-form', loadChildren: './restaurants/restaurants-form/restaurants-form.module#RestaurantsFormModule' },
+            { path: 'restaurants-list', loadChildren: './restaurants/restaurants-list/restaurants-list.module#RestaurantsListModule' },
+            { path: 'restaurants-show', loadChildren: './restaurants/restaurants-show/restaurants-show.module#RestaurantsShowModule' },
         ]
     }
 ];
