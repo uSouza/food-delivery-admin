@@ -1,3 +1,55 @@
-<p>
-  restaurants-show works!
-</p>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Inativação de restaurante</h4>
+    </div>
+    <div class="modal-body">
+        <p>Deseja realmente inativar o restaurante?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="c('noDelete')">Não</button>
+        <button type="button" class="btn btn-light" (click)="c('delete')">Sim</button>
+    </div>
+</ng-template>
+
+<div class="content">
+<div class="row">
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+    <div class="col-xl-12">
+        <h2>
+            Restaurante nº {{restaurant.id}}
+        </h2>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xl-3">
+        <img src="{{restaurant.image_base64}}" alt="">
+    </div>
+    <div class="col-xl-9">
+        <div class="card">
+            <div class="card-header">
+              Dados gerais do restaurante
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><strong>Razão social: </strong>{{ restaurant.social_name }}</h5>
+              <p class="card-text"><strong>Fantasia: </strong>{{ restaurant.fantasy_name }}</p>
+              <p class="card-text"><strong>Celular: </strong>{{ restaurant.cell_phone }}</p>
+              <p class="card-text"><strong>Telefone: </strong>{{ restaurant.phone }}</p>
+              <p class="card-text"><strong>CNPJ: </strong>{{ restaurant.cnpj }}</p>
+              <p class="card-text"><strong>Responsável: </strong>{{ restaurant.responsible_name }}</p>
+              <p class="card-text"><strong>Telefone Responsável: </strong>{{ restaurant.responsible_phone }}</p>
+              <p class="card-text"><strong>Limite de pedidos/dia: </strong>{{ restaurant.order_limit }}</p>
+              <p class="card-text"><strong>Valor de entrega: </strong>{{ restaurant.delivery_value | currency: 'BRL': true }}</p>
+              <p class="card-text"><strong>Tempo médio de entrega: </strong>{{ restaurant.avg_delivery_time }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12 text-right">
+        <button *ngIf="restaurant.deleted_at == null" type="button" class="btn btn-lg btn-danger" (click)="delete(content)">Inativar</button>
+        <button *ngIf="restaurant.deleted_at != null" type="button" class="btn btn-lg btn-warning" (click)="restoreRestaurant(restaurant)">Reativar</button>
+        <button type="button" class="btn btn-lg btn-success" (click)="edit()">Editar</button>
+    </div>
+</div>
+</div>

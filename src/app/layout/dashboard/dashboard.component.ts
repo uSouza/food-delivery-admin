@@ -64,21 +64,4 @@ export class DashboardComponent implements OnInit {
         this.alerts.splice(index, 1);
     }
 
-    refuseOrder(order, content) {
-        console.log(order);
-        this.modalService
-            .open(content, { size: 'lg' })
-            .result.then((result) => {
-                if (result == 'reject') {
-                    order.status_id = 4;
-                    this.ordersService
-                        .updateOrder(localStorage.getItem('access_token'), order)
-                        .subscribe(
-                            order => {
-                                this.getOrders()
-                            }
-                        )
-                }
-            });
-    }
 }

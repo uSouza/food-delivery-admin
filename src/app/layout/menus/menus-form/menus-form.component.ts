@@ -66,6 +66,9 @@ export class MenusFormComponent implements OnInit {
 
     addMenu() {
         if (this.validate()) {
+            if (this.menu.observation == null) {
+                this.menu.observation = this.menu.description;
+            }
             this.prepareIds();
             if (!this.edit) {
                 this.menusService

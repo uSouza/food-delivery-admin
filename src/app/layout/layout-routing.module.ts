@@ -13,6 +13,7 @@ const routes: Routes = [
             { path: 'ingredient-group', loadChildren: './ingredient-groups/ingredient-groups-form/ingredient-groups-form.module#IngredientGroupsFormModule' },
             { path: 'ingredients', loadChildren: './ingredients/ingredients.module#IngredientsModule' },
             { path: 'additionals', loadChildren: './additionals/additionals.module#AdditionalsModule' },
+            { path: 'form-payments', loadChildren: './form-payments/form-payments.module#FormPaymentsModule' },
             { path: 'sizes', loadChildren: './sizes/sizes.module#SizesModule' },
             { path: 'menus-form', loadChildren: './menus/menus-form/menus-form.module#MenusFormModule' },
             { path: 'menus-list', loadChildren: './menus/menus-list/menus-list.module#MenusListModule' },

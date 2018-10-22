@@ -112,4 +112,21 @@ export class OrderDetailsComponent implements OnInit {
 
     }
 
+    refuseOrder(content) {
+        this.modalService
+            .open(content, { size: 'lg' })
+            .result.then((result) => {
+                if (result == 'reject') {
+                    this.order.status_id = 4;
+                    this.ordersService
+                        .updateOrder(localStorage.getItem('access_token'), this.order)
+                        .subscribe(
+                            order => {
+                                this.router.navigate(['/dashboard', { message: 'Pedido rejeitado com sucesso!' }]);
+                            }
+                        )
+                }
+            });
+    }
+
 }

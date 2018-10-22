@@ -170,6 +170,9 @@ var MenusFormComponent = /** @class */ (function () {
     MenusFormComponent.prototype.addMenu = function () {
         var _this = this;
         if (this.validate()) {
+            if (this.menu.observation == null) {
+                this.menu.observation = this.menu.description;
+            }
             this.prepareIds();
             if (!this.edit) {
                 this.menusService

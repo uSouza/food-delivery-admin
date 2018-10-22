@@ -328,7 +328,7 @@ export class RestaurantsFormComponent implements OnInit {
         var binaryString = readerEvt.target.result;
         let header ='data:' + this.selectedFile.type + ';base64,';
         this.restaurant.image= header + '' + btoa(binaryString);
-       }
+    }
 
     save() {
         if (this.validate()) {

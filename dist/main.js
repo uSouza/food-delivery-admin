@@ -14,33 +14,40 @@ var map = {
 	],
 	"./additionals/additionals.module": [
 		"./src/app/layout/additionals/additionals.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
 		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
 		"common",
 		"additionals-additionals-module"
 	],
 	"./closed-orders/closed-orders.module": [
 		"./src/app/layout/closed-orders/closed-orders.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
 		"common",
 		"closed-orders-closed-orders-module"
 	],
 	"./dashboard/dashboard.module": [
 		"./src/app/layout/dashboard/dashboard.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
 		"common",
 		"dashboard-dashboard-module"
 	],
+	"./form-payments/form-payments.module": [
+		"./src/app/layout/form-payments/form-payments.module.ts",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
+		"common",
+		"form-payments-form-payments-module"
+	],
 	"./ingredient-groups/ingredient-groups-form/ingredient-groups-form.module": [
 		"./src/app/layout/ingredient-groups/ingredient-groups-form/ingredient-groups-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
 		"common",
 		"ingredient-groups-ingredient-groups-form-ingredient-groups-form-module"
 	],
 	"./ingredients/ingredients.module": [
 		"./src/app/layout/ingredients/ingredients.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
 		"common",
 		"ingredients-ingredients-module"
 	],
@@ -55,22 +62,22 @@ var map = {
 	],
 	"./menus/menus-form/menus-form.module": [
 		"./src/app/layout/menus/menus-form/menus-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
 		"common",
 		"menus-menus-form-menus-form-module"
 	],
 	"./menus/menus-list/menus-list.module": [
 		"./src/app/layout/menus/menus-list/menus-list.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
 		"common",
 		"menus-menus-list-menus-list-module"
 	],
 	"./menus/menus-show/menus-show.module": [
 		"./src/app/layout/menus/menus-show/menus-show.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
 		"common",
 		"menus-menus-show-menus-show-module"
 	],
@@ -84,23 +91,23 @@ var map = {
 	],
 	"./restaurants/restaurants-form/restaurants-form.module": [
 		"./src/app/layout/restaurants/restaurants-form/restaurants-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
 		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
 		"common",
 		"restaurants-restaurants-form-restaurants-form-module"
 	],
 	"./restaurants/restaurants-list/restaurants-list.module": [
 		"./src/app/layout/restaurants/restaurants-list/restaurants-list.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
 		"common",
 		"restaurants-restaurants-list-restaurants-list-module"
 	],
 	"./restaurants/restaurants-show/restaurants-show.module": [
 		"./src/app/layout/restaurants/restaurants-show/restaurants-show.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
-		"default~closed-orders-closed-orders-module~menus-menus-form-menus-form-module~menus-menus-list-menus~7f4c499f",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
+		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~a4ec765b",
 		"common",
 		"restaurants-restaurants-show-restaurants-show-module"
 	],
@@ -115,7 +122,7 @@ var map = {
 	],
 	"./sizes/sizes.module": [
 		"./src/app/layout/sizes/sizes.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~b8f172e2",
+		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~7514f857",
 		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
 		"common",
 		"sizes-sizes-module"

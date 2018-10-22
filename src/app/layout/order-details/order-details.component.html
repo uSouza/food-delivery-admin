@@ -11,6 +11,19 @@
     </div>
 </ng-template>
 
+<ng-template #reject let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Rejeição do pedido</h4>
+        </div>
+        <div class="modal-body">
+            <p>Deseja realmente rejeitar o pedido?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="c('noReject')">Não</button>
+            <button type="button" class="btn btn-light" (click)="c('reject')">Sim</button>
+        </div>
+</ng-template>
+
 <div class="content">
     <div class="row">
         <div class="col-xl-12">
@@ -130,6 +143,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12 text-right">
+            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-danger" (click)="refuseOrder(reject)" style="margin-right:10px">Rejeitar</button>
             <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-success" (click)="confirm(content)">Confirmar</button>
             <button *ngIf="order.status_id == 2" type="button" class="btn btn-lg btn-success" (click)="printOrder()">Imprimir</button>
         </div>

@@ -51,7 +51,7 @@ var RestaurantsListRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  restaurants-list works!\n</p>\n"
+module.exports = "<div [@routerTransition]>\n    <div class=\"row\">\n       <div class=\"col-lg-12\">\n          <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n          <div class=\"card mb-3\">\n             <div class=\"card-header\">Listagem de restaurantes</div>\n             <h5 *ngIf=\"restaurants.length == 0\">Não há restaurantes para exibir</h5>\n             <table *ngIf=\"restaurants.length > 0\" class=\"card-body table\">\n                <thead>\n                   <tr>\n                      <th>#</th>\n                      <th>Razão social</th>\n                      <th>CNPJ</th>\n                      <th>Telefone</th>\n                      <th>Nome contato</th>\n                      <th>Qt. pedidos mês</th>\n                      <th>Ação</th>\n                   </tr>\n                </thead>\n                <tbody *ngFor=\"let restaurant of restaurants | paginate: { itemsPerPage: 7, currentPage: page }\">\n                   <tr class=\"table-default\">\n                      <th>{{restaurant.id}}</th>\n                      <td>{{restaurant.social_name}}</td>\n                      <td>{{restaurant.cnpj}}</td>\n                      <td>{{restaurant.cell_phone}}</td>\n                      <td>{{restaurant.responsible_name}}</td>\n                      <td>{{restaurant.number_orders_month}}</td>\n                      <td>\n                         <button (click)=\"showRestaurant(restaurant)\" type=\"button\" class=\"btn btn-sm btn-success\">Visualizar</button>\n                      </td>\n                   </tr>\n                </tbody>\n             </table>\n             <div class=\"has-text-centered\">\n                <pagination-controls\n                    (pageChange)=\"page = $event\"\n                    previousLabel=\"Anterior\"\n                    nextLabel=\"Próximo\">\n                </pagination-controls>\n            </div>\n          </div>\n       </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -77,6 +77,8 @@ module.exports = ""
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantsListComponent", function() { return RestaurantsListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_restaurants_restaurants_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/restaurants/restaurants.service */ "./src/app/services/restaurants/restaurants.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -87,10 +89,48 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var RestaurantsListComponent = /** @class */ (function () {
-    function RestaurantsListComponent() {
+    function RestaurantsListComponent(router, route, restaurantsService) {
+        this.router = router;
+        this.route = route;
+        this.restaurantsService = restaurantsService;
+        this.restaurants = [];
+        this.page = 1;
+        this.alerts = [];
     }
     RestaurantsListComponent.prototype.ngOnInit = function () {
+        if (this.route.snapshot.paramMap.get('message') != null) {
+            this.showAlert('success', this.route.snapshot.paramMap.get('message'));
+        }
+        if (localStorage.getItem('access_token') == null) {
+            this.router.navigate(['/login']);
+        }
+        this.getRestaurants();
+    };
+    RestaurantsListComponent.prototype.getRestaurants = function () {
+        var _this = this;
+        this.restaurantsService
+            .getRestaurants(localStorage.getItem('access_token'))
+            .subscribe(function (restaurants) {
+            _this.restaurants = restaurants;
+        });
+    };
+    RestaurantsListComponent.prototype.showRestaurant = function (restaurant) {
+        this.router.navigate(['/restaurants-show', { id: restaurant.id }]);
+    };
+    RestaurantsListComponent.prototype.showAlert = function (type, err) {
+        this.alerts.push({
+            id: 1,
+            type: type,
+            message: err
+        });
+    };
+    RestaurantsListComponent.prototype.closeAlert = function (alert) {
+        var index = this.alerts.indexOf(alert);
+        this.alerts.splice(index, 1);
     };
     RestaurantsListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -98,7 +138,9 @@ var RestaurantsListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./restaurants-list.component.html */ "./src/app/layout/restaurants/restaurants-list/restaurants-list.component.html"),
             styles: [__webpack_require__(/*! ./restaurants-list.component.scss */ "./src/app/layout/restaurants/restaurants-list/restaurants-list.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _services_restaurants_restaurants_service__WEBPACK_IMPORTED_MODULE_2__["RestaurantsService"]])
     ], RestaurantsListComponent);
     return RestaurantsListComponent;
 }());
