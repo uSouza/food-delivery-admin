@@ -16,7 +16,11 @@
                 notifyButton: {
                     enable: true
                 }
-            }]).getUserId(function(id){console.log(id)});
+            }]);
+            OneSignal.push(function() {
+                OneSignal.on('subscriptionChange', function(isSubscribed) {
+                    console.log("The user's subscription state is now:", isSubscribed);
+            });
         </script>
     </head>
     <body>
