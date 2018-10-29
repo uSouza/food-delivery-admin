@@ -11,21 +11,16 @@
         <script>
             var OneSignal = window.OneSignal || [];
             OneSignal.push(["init", {
-            appId: "f9e6f12d-e1d9-449f-b5e8-0294874f286c",
-            autoRegister: false, /* Set to true to automatically prompt visitors */
-            notifyButton: {
-                enable: true /* Set to false to hide */
-            }
+                appId: "f9e6f12d-e1d9-449f-b5e8-0294874f286c",
+                autoRegister: false,
+                notifyButton: {
+                    enable: true
+                }
             }]);
-            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-            if (isEnabled) {
-                // user has subscribed
-                OneSignal.getUserId( function(userId) {
-                    console.log('player_id of the subscribed user is : ' + userId);
-                    localStorage.setItem("player_id", userId);
-                });
-            }
-          });
+            OneSignal.getUserId( function(userId) {
+                console.log('player_id of the subscribed user is : ' + userId);
+                localStorage.setItem("player_id", userId);
+            });
         </script>
     </head>
     <body>
