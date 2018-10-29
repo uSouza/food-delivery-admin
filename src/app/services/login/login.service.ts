@@ -53,4 +53,17 @@ export class LoginService {
     });
   }
 
+  setOneSignalId(access_token: any, player_id: any) {
+    let data = {
+      player_id: player_id
+    };
+    return this.http.post<any>(this.url_api + 'api/v1/users/one_signal', data, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + access_token,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
 }

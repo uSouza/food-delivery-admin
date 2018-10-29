@@ -80,6 +80,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/orders/orders.service */ "./src/app/services/orders/orders.service.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _services_login_login_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/login/login.service */ "./src/app/services/login/login.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -95,12 +96,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(router, route, ordersService, modalService) {
+    function DashboardComponent(router, route, ordersService, modalService, loginService) {
         this.router = router;
         this.route = route;
         this.ordersService = ordersService;
         this.modalService = modalService;
+        this.loginService = loginService;
         this.page = 1;
         this.alerts = [];
     }
@@ -111,7 +114,17 @@ var DashboardComponent = /** @class */ (function () {
         if (localStorage.getItem('access_token') == null) {
             this.router.navigate(['/login']);
         }
+        if (localStorage.getItem('player_id') != null) {
+            this.setOneSignalUserID(localStorage.getItem('player_id'));
+        }
         this.getOrders();
+    };
+    DashboardComponent.prototype.setOneSignalUserID = function (id) {
+        this.loginService
+            .setOneSignalId(localStorage.getItem('access_token'), id)
+            .subscribe(function (user) {
+            console.log(user);
+        });
     };
     DashboardComponent.prototype.getOrders = function () {
         var _this = this;
@@ -154,7 +167,8 @@ var DashboardComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_3__["OrdersService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"]])
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
+            _services_login_login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"]])
     ], DashboardComponent);
     return DashboardComponent;
 }());

@@ -555,6 +555,18 @@ var LoginService = /** @class */ (function () {
             }
         });
     };
+    LoginService.prototype.setOneSignalId = function (access_token, player_id) {
+        var data = {
+            player_id: player_id
+        };
+        return this.http.post(this.url_api + 'api/v1/users/one_signal', data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
     LoginService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'

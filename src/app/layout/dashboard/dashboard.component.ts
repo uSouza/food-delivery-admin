@@ -5,6 +5,7 @@ import { OrdersService } from '../../services/orders/orders.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Injectable } from '@angular/core';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -21,7 +22,8 @@ export class DashboardComponent implements OnInit {
     constructor(public router: Router,
         public route: ActivatedRoute,
         private ordersService: OrdersService,
-        private modalService: NgbModal) {
+        private modalService: NgbModal,
+        private loginService: LoginService) {
 
     }
 
@@ -32,7 +34,20 @@ export class DashboardComponent implements OnInit {
         if (localStorage.getItem('access_token') == null) {
             this.router.navigate(['/login']);
         }
+        if (localStorage.getItem('player_id') != null) {
+            this.setOneSignalUserID(localStorage.getItem('player_id'));
+        }
         this.getOrders();
+    }
+
+    setOneSignalUserID(id) {
+        this.loginService
+            .setOneSignalId(localStorage.getItem('access_token'), id)
+            .subscribe(
+                user => {
+                    console.log(user)
+                }
+            )
     }
 
     getOrders() {
