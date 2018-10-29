@@ -16,12 +16,7 @@
                 notifyButton: {
                     enable: true
                 }
-            }]);
-            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-            if (isEnabled) {
-                OneSignal.getUserId(function(id){console.log(id)});
-            }
-          });
+            }]).getUserId(function(id){console.log(id)});
         </script>
     </head>
     <body>
