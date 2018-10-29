@@ -57,4 +57,16 @@ export class OrdersService {
         }
     });
   }
+
+  deleteOrder(access_token: any, id: any) {
+    return this.http.delete<any>(url_api + this.endpoint + '/' + id, {
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + access_token,
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+
 }

@@ -17,6 +17,15 @@
                 enable: true /* Set to false to hide */
             }
             }]);
+            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+            if (isEnabled) {
+                // user has subscribed
+                OneSignal.getUserId( function(userId) {
+                    console.log('player_id of the subscribed user is : ' + userId);
+                    localStorage.setItem("player_id", userId);
+                });
+            }
+          });
         </script>
     </head>
     <body>

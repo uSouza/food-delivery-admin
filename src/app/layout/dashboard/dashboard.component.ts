@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OrdersService } from '../../services/orders/orders.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Injectable } from '@angular/core';
 
 @Component({
     selector: 'app-dashboard',
@@ -18,9 +19,9 @@ export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
 
     constructor(public router: Router,
-                public route: ActivatedRoute,
-                private ordersService: OrdersService,
-                private modalService: NgbModal) {
+        public route: ActivatedRoute,
+        private ordersService: OrdersService,
+        private modalService: NgbModal) {
 
     }
 
@@ -62,6 +63,16 @@ export class DashboardComponent implements OnInit {
     closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
+    }
+
+    cancelOrder(order) {
+        this.ordersService
+            .deleteOrder(localStorage.getItem('access_token'), order.id)
+            .subscribe(
+                order => {
+                    this.getOrders()
+                }
+            )
     }
 
 }

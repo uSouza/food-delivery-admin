@@ -639,6 +639,15 @@ var OrdersService = /** @class */ (function () {
             }
         });
     };
+    OrdersService.prototype.deleteOrder = function (access_token, id) {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/' + id, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
     OrdersService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
