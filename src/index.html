@@ -17,10 +17,7 @@
                     enable: true
                 }
             }]);
-            OneSignal.getUserId( function(userId) {
-                console.log('player_id of the subscribed user is : ' + userId);
-                localStorage.setItem("player_id", userId);
-            });
+            OneSignal.getUserId(function(id){console.log(id)});
         </script>
     </head>
     <body>
