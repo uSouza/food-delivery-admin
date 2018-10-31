@@ -37,14 +37,14 @@ export class IngredientsComponent implements OnInit {
 
     load() {
         this.name = '';
-        this.ingredient_group_id = -1;
         this.ingredientGroupService
             .getIngredientsGroups(localStorage.getItem('access_token'))
             .subscribe(
                 ingredients_groups => {
-                    this.ingredients_groups = ingredients_groups
+                    this.addIngredientGroups(ingredients_groups)
                 }
             );
+
         this.ingredientsService
             .getIngredients(localStorage.getItem('access_token'))
             .subscribe(
@@ -52,6 +52,16 @@ export class IngredientsComponent implements OnInit {
                     this.ingredients = ingredients
                 }
             )
+    }
+
+    addIngredientGroups(ingredients_groups) {
+        let groupControl = {
+            name: '',
+            id: 0
+        }
+        this.ingredients_groups = ingredients_groups;
+        this.ingredients_groups.push(groupControl);
+        this.ingredient_group_id = 0;
     }
 
     addIngredient() {
@@ -83,7 +93,7 @@ export class IngredientsComponent implements OnInit {
 
     updateIngredients(ingredient, edit) {
         this.name = null;
-        this.ingredient_group_id = null;
+        this.ingredient_group_id = 0;
         this.load();
         console.log(ingredient);
         if (edit) {

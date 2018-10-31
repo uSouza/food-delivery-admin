@@ -22,10 +22,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label>Tamanho</label>
-                        <select class="form-control" [(ngModel)]="size" name="type">
-                            <option *ngFor="let s of sizes_available" [ngValue]="s.name">{{s.name}}</option>
-                        </select>
+                        <label>Descrição do tamanho</label>
+                        <input [(ngModel)]="size" name="size" class="form-control" >
                     </div>
                 </div>
                 <div class="col-lg-4">

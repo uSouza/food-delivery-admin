@@ -122,17 +122,25 @@ var IngredientsComponent = /** @class */ (function () {
     IngredientsComponent.prototype.load = function () {
         var _this = this;
         this.name = '';
-        this.ingredient_group_id = -1;
         this.ingredientGroupService
             .getIngredientsGroups(localStorage.getItem('access_token'))
             .subscribe(function (ingredients_groups) {
-            _this.ingredients_groups = ingredients_groups;
+            _this.addIngredientGroups(ingredients_groups);
         });
         this.ingredientsService
             .getIngredients(localStorage.getItem('access_token'))
             .subscribe(function (ingredients) {
             _this.ingredients = ingredients;
         });
+    };
+    IngredientsComponent.prototype.addIngredientGroups = function (ingredients_groups) {
+        var groupControl = {
+            name: '',
+            id: 0
+        };
+        this.ingredients_groups = ingredients_groups;
+        this.ingredients_groups.push(groupControl);
+        this.ingredient_group_id = 0;
     };
     IngredientsComponent.prototype.addIngredient = function () {
         var _this = this;
@@ -159,7 +167,7 @@ var IngredientsComponent = /** @class */ (function () {
     };
     IngredientsComponent.prototype.updateIngredients = function (ingredient, edit) {
         this.name = null;
-        this.ingredient_group_id = null;
+        this.ingredient_group_id = 0;
         this.load();
         console.log(ingredient);
         if (edit) {
