@@ -53,6 +53,33 @@ export class LoginService {
     });
   }
 
+  updateUser(access_token: any, email: string, name: string, password: string, id: any): Observable<any> {
+    let data = null;
+
+    if (password != null) {
+        let data = {
+            email: email,
+            type: 'company',
+            name: name,
+            password: password
+          };
+    } else {
+        let data = {
+            email: email,
+            type: 'company',
+            name: name
+          };
+    }
+
+    return this.http.put<any>(this.url_api + 'api/v1/users/' + id, data, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' +access_token,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
   setOneSignalId(access_token: any, player_id: any) {
     let data = {
       player_id: player_id

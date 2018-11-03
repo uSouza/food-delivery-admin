@@ -22,6 +22,7 @@ export class RestaurantsFormComponent implements OnInit {
     tags: Observable<any[]>;
     selected_tags = [];
     restaurant: Restaurant = new Restaurant();
+    restaurant_edit: any;
     access_token: any = null;
     password_confirmation: any = null;
     step: number = 1;
@@ -85,11 +86,12 @@ export class RestaurantsFormComponent implements OnInit {
             this.access_token = localStorage.getItem('access_token');
             if (this.route.snapshot.paramMap.get('id') != null) {
                 this.edit = true;
-                let restaurant = JSON.parse(localStorage.getItem('restaurant_edit'));
-                this.restaurant = restaurant;
-                restaurant.tags.forEach((i) => {
+                let restaurant_edit = JSON.parse(localStorage.getItem('restaurant_edit'));
+                this.restaurant_edit = restaurant_edit;
+                restaurant_edit.tags.forEach((i) => {
                     this.selected_tags.push(i);
                 });
+                this.setWorkedDays(this.restaurant_edit.worked_days);
             }
             this.load();
         } else {
@@ -98,21 +100,89 @@ export class RestaurantsFormComponent implements OnInit {
     }
 
     load() {
+        if (this.edit) {
+            this.updateFields();
+        }
         this.tags = this.tagsService.getTags(this.access_token);
     }
 
-    validate() {if (this.step == 1) {
-            if (this.restaurant.email == null) {
-                this.showAlert('danger', 'Informe um endereço de email!');
-                return false;
-            } else if (this.restaurant.password == null) {
-                this.showAlert('danger', 'É necessário informar uma senha!');
-                return false;
-            } else if (this.restaurant.password != this.password_confirmation) {
-                this.showAlert('danger', 'A senha informada não coincide com a confirmação!');
-                return false;
+    updateFields() {
+        console.log(this.restaurant_edit);
+        this.restaurant.email = this.restaurant_edit.user.email;
+        this.restaurant.social_name = this.restaurant_edit.social_name;
+        this.restaurant.fantasy_name = this.restaurant_edit.fantasy_name;
+        this.restaurant.responsible_name = this.restaurant_edit.responsible_name;
+        this.restaurant.responsible_phone = this.restaurant_edit.responsible_phone;
+        this.restaurant.cnpj = this.restaurant_edit.cnpj;
+        this.restaurant.cell_phone = this.restaurant_edit.cell_phone;
+        this.restaurant.phone = this.restaurant_edit.phone;
+        this.restaurant.order_limit = this.restaurant_edit.order_limit;
+        this.restaurant.delivery_value = this.restaurant_edit.delivery_value;
+        this.restaurant.avg_delivery_time = this.restaurant_edit.avg_delivery_time;
+        if (this.restaurant_edit.locations.length > 0) {
+            this.restaurant.address = this.restaurant_edit.locations[0].address;
+            this.restaurant.number = this.restaurant_edit.locations[0].number;
+            this.restaurant.postal_code = this.restaurant_edit.locations[0].postal_code;
+            this.restaurant.state = this.restaurant_edit.locations[0].state;
+            this.restaurant.city = this.restaurant_edit.locations[0].city;
+            this.restaurant.district = this.restaurant_edit.locations[0].district;
+        }
+        this.restaurant.observation = this.restaurant_edit.observation;
+        this.service_hours = this.restaurant_edit.service_hours;
+        this.restaurant.image = this.restaurant_edit.image_base64;
+    }
+
+    setWorkedDays(worked_days) {
+        worked_days.forEach((wday) => {
+            console.log(wday);
+            if (wday.sunday) {
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 0))
+            }
+            if (wday.monday) {
+                console.log(this.days_of_week.find(d => d.id == 1));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 1))
+            }
+            if (wday.tuesday) {
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 2))
+            }
+            if (wday.wednesday) {
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 3))
+            }
+            if (wday.thursday) {
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 4))
+            }
+            if (wday.friday) {
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 5))
+            }
+            if (wday.saturday) {
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 6))
+            }
+        });
+        console.log(this.selected_days_of_week);
+    }
+
+    validate() {
+        if (this.step == 1) {
+            if (! this.edit) {
+                if (this.restaurant.email == null) {
+                    this.showAlert('danger', 'Informe um endereço de email!');
+                    return false;
+                } else if (this.restaurant.password == null) {
+                    this.showAlert('danger', 'É necessário informar uma senha!');
+                    return false;
+                } else if (this.restaurant.password != this.password_confirmation) {
+                    this.showAlert('danger', 'A senha informada não coincide com a confirmação!');
+                    return false;
+                } else {
+                    return true;
+                }
             } else {
-                return true;
+                if (this.restaurant.email == null) {
+                    this.showAlert('danger', 'Informe um endereço de email!');
+                    return false;
+                } else {
+                    return true;
+                }
             }
         } else if (this.step == 2) {
             if (this.restaurant.social_name == null) {
@@ -148,7 +218,7 @@ export class RestaurantsFormComponent implements OnInit {
             if (this.selected_tags.length < 1) {
                 this.showAlert('danger', 'Selecione ao menos uma tag!');
                 return false;
-            } else if (this.selectedFile == null) {
+            } else if (this.selectedFile == null && ! this.edit) {
                 this.showAlert('danger', 'Selecione a imagem do restaurante!');
                 return false;
             } else if (this.restaurant.delivery_value == null) {
@@ -214,6 +284,7 @@ export class RestaurantsFormComponent implements OnInit {
 
     addWorkDayItem(item) {
         this.selected_days_of_week.push(item);
+        console.log(this.selected_days_of_week);
     }
 
     removeWorkItem(item) {
@@ -332,13 +403,24 @@ export class RestaurantsFormComponent implements OnInit {
 
     save() {
         if (this.validate()) {
-            this.loginService
+            if (! this.edit) {
+                this.loginService
                 .addUser(this.access_token, this.restaurant.email, this.restaurant.fantasy_name, this.restaurant.password)
                 .subscribe(
                     user => {
                         this.saveRestaurant(user)
                     }
                 )
+            } else {
+                this.loginService
+                .updateUser(this.access_token, this.restaurant.email, this.restaurant.fantasy_name, this.restaurant.password, this.restaurant_edit.user.id)
+                .subscribe(
+                    user => {
+                        this.saveRestaurant(user)
+                    }
+                )
+            }
+
         }
     }
 
@@ -353,29 +435,53 @@ export class RestaurantsFormComponent implements OnInit {
             observation: this.restaurant.complement
         }
         this.prepare();
-        this.restaurant.user_id = user.id;
-        this.restaurantsService
-            .addRestaurant(this.access_token, this.restaurant)
-            .subscribe(
-                restaurant => {
-                    this.restaurantsService
-                        .addLocation(this.access_token, location, restaurant)
-                        .subscribe(
-                            location => {
-                                this.restaurantsService
-                                    .addWorkedDays(this.access_token, this.wdays, restaurant)
-                                    .subscribe(
-                                        wdays => {
-                                            this.addServiceHours(restaurant)
-                                        }
-                                    )
-                            }
-                        )
-                }
-            )
-        this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
-    }
+        if (! this.edit) {
+            this.restaurant.user_id = user.id;
+            this.restaurantsService
+                .addRestaurant(this.access_token, this.restaurant)
+                .subscribe(
+                    restaurant => {
+                        this.restaurantsService
+                            .addLocation(this.access_token, location, restaurant)
+                            .subscribe(
+                                location => {
+                                    this.restaurantsService
+                                        .addWorkedDays(this.access_token, this.wdays, restaurant)
+                                        .subscribe(
+                                            wdays => {
+                                                this.addServiceHours(restaurant)
+                                            }
+                                        )
+                                }
+                            )
+                    }
+                )
+            this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
+        } else {
+            this.restaurantsService
+                .editRestaurant(this.access_token, this.restaurant, this.restaurant_edit.id)
+                .subscribe(
+                    restaurant => {
+                        this.restaurantsService
+                            .editLocation(this.access_token, location, restaurant, this.restaurant_edit.locations[0].id)
+                            .subscribe(
+                                location => {
+                                    this.restaurantsService
+                                        .editWorkedDays(this.access_token, this.wdays, restaurant, this.restaurant_edit.worked_days[0].id)
+                                        .subscribe(
+                                            wdays => {
+                                                this.addServiceHours(restaurant)
+                                            }
+                                        )
+                                }
+                            )
+                    }
+                )
+            this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
+        }
 
+    }
+//encerrar -> falta verificar se o service hour de fato continuou ou se foi adicionado :/
     addServiceHours(restaurant) {
         this.service_hours.forEach((s) => {
             let service_hour = {

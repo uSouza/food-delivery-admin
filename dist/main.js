@@ -562,6 +562,31 @@ var LoginService = /** @class */ (function () {
             }
         });
     };
+    LoginService.prototype.updateUser = function (access_token, email, name, password, id) {
+        var data = null;
+        if (password != null) {
+            var data_1 = {
+                email: email,
+                type: 'company',
+                name: name,
+                password: password
+            };
+        }
+        else {
+            var data_2 = {
+                email: email,
+                type: 'company',
+                name: name
+            };
+        }
+        return this.http.put(this.url_api + 'api/v1/users/' + id, data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
     LoginService.prototype.setOneSignalId = function (access_token, player_id) {
         var data = {
             player_id: player_id

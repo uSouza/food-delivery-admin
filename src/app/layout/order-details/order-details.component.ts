@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 import { OrdersService } from '../../services/orders/orders.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-order-details',
@@ -17,6 +18,7 @@ export class OrderDetailsComponent implements OnInit {
     constructor(public route: ActivatedRoute,
                 private router: Router,
                 private ordersService: OrdersService,
+                private _clipboardService: ClipboardService,
                 private modalService: NgbModal) { }
 
     ngOnInit() {
@@ -127,6 +129,45 @@ export class OrderDetailsComponent implements OnInit {
                         )
                 }
             });
+    }
+
+    copyToclipboard() {
+        let dadosCliente = '*DADOS DO CLIENTE* \n' + 'NOME: ' + this.order.client.name + '\nCELULAR: ' + this.order.client.cell_phone;
+        let dadosEntrega = null;
+        if (this.order.location.observation == null) {
+            this.order.location.observation = '';
+        }
+        if (this.order.deliver) {
+            dadosEntrega = '\n\n*DADOS PARA ENTREGA* \n' + 'ENDEREÇO: ' + this.order.location.address + ' - ' + this.order.location.number
+                + '\nBAIRRO: ' + this.order.location.district + '\nCOMPLEMENTO: ' + this.order.location.observation;
+        } else {
+            dadosEntrega = '\n\n*CLIENTE VEM BUSCAR O PEDIDO*';
+        }
+        let descricaoMarmita = '\n\n*MARMITAS*';
+        let dadosMarmita = '';
+        this.order.products.forEach(p => {
+            dadosMarmita = dadosMarmita + '\nTAMANHO: ' + p.price.size + ' - R$' + p.price.price + '\nINGREDIENTES: ';
+            p.ingredients.forEach(i => {
+                dadosMarmita = dadosMarmita + i.name + ';';
+            });
+            if (p.additionals.length > 0) {
+                dadosMarmita = dadosMarmita + '\nADICIONAIS '
+                p.additionals.forEach(add => {
+                    dadosMarmita = dadosMarmita + '\n' + add.name + ' - QTD: ' + add.pivot.quantity + ' - TOTAL: R$' + (add.value * add.pivot.quantity) + '\n'
+                });
+            }
+            dadosMarmita = dadosMarmita + '__________________________________________\n'
+        });
+
+        if (this.order.company.delivery_value == 0) {
+            this.order.company.delivery_value = 'gratuíta';
+        }
+
+        let dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
+            + '\nVALOR ENTREGA: ' + this.order.company.delivery_value + '\nHORÁRIO DE ENTREGA: ' + this.order.receive_at + '\nOBSERVAÇÕES: ' + this.order.observation;
+
+        this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n' + dadosCliente + dadosEntrega + descricaoMarmita + dadosMarmita
+             + dadosGerais);
     }
 
 }

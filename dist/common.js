@@ -485,6 +485,34 @@ var RestaurantsService = /** @class */ (function () {
             }
         });
     };
+    RestaurantsService.prototype.getLocations = function (access_token, id) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'companies_locations/company/' + id, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    RestaurantsService.prototype.editLocation = function (access_token, location, restaurant, id) {
+        var data = {
+            city: location.city,
+            state: location.state,
+            address: location.address,
+            number: location.number,
+            district: location.district,
+            postal_code: location.postal_code,
+            observation: location.observation,
+            company_id: restaurant.id
+        };
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'companies_locations/' + id, data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
     RestaurantsService.prototype.addWorkedDays = function (access_token, wdays, restaurant) {
         var data = {
             company_id: restaurant.id,
@@ -504,6 +532,25 @@ var RestaurantsService = /** @class */ (function () {
             }
         });
     };
+    RestaurantsService.prototype.editWorkedDays = function (access_token, wdays, restaurant, id) {
+        var data = {
+            company_id: restaurant.id,
+            sunday: wdays.sunday,
+            monday: wdays.monday,
+            tuesday: wdays.tuesday,
+            wednesday: wdays.wednesday,
+            thursday: wdays.thursday,
+            friday: wdays.friday,
+            saturday: wdays.saturday
+        };
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'worked_days/' + id, data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
     RestaurantsService.prototype.addServiceHours = function (access_token, service_hours, restaurant) {
         var data = {
             company_id: restaurant.id,
@@ -511,6 +558,20 @@ var RestaurantsService = /** @class */ (function () {
             closure: service_hours.closure
         };
         return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours', data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    RestaurantsService.prototype.editServiceHours = function (access_token, service_hours, restaurant, id) {
+        var data = {
+            company_id: restaurant.id,
+            opening: service_hours.opening,
+            closure: service_hours.closure
+        };
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours/' + id, data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,

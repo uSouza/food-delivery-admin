@@ -121,6 +121,36 @@ export class RestaurantsService {
         });
     }
 
+    getLocations(access_token: any, id) {
+        return this.http.get<any>(url_api + 'companies_locations/company/' + id, {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + access_token,
+            'Content-Type': 'application/json'
+          }
+        });
+    }
+
+    editLocation(access_token: any, location: any, restaurant: any, id: any) {
+        let data = {
+          city: location.city,
+          state: location.state,
+          address: location.address,
+          number: location.number,
+          district: location.district,
+          postal_code: location.postal_code,
+          observation: location.observation,
+          company_id: restaurant.id
+        };
+        return this.http.put<any>(url_api + 'companies_locations/' + id, data, {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + access_token,
+            'Content-Type': 'application/json'
+          }
+        });
+    }
+
     addWorkedDays(access_token: any, wdays: any, restaurant: any) {
         let data = {
             company_id: restaurant.id,
@@ -141,6 +171,26 @@ export class RestaurantsService {
           });
     }
 
+    editWorkedDays(access_token: any, wdays: any, restaurant: any, id: any) {
+        let data = {
+            company_id: restaurant.id,
+            sunday: wdays.sunday,
+            monday: wdays.monday,
+            tuesday: wdays.tuesday,
+            wednesday: wdays.wednesday,
+            thursday: wdays.thursday,
+            friday: wdays.friday,
+            saturday: wdays.saturday
+          };
+          return this.http.put<any>(url_api + 'worked_days/' + id, data, {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + access_token,
+              'Content-Type': 'application/json'
+            }
+          });
+    }
+
     addServiceHours(access_token: any, service_hours: any, restaurant: any) {
         let data = {
             company_id: restaurant.id,
@@ -148,6 +198,21 @@ export class RestaurantsService {
             closure: service_hours.closure
           };
           return this.http.post<any>(url_api + 'service_hours', data, {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + access_token,
+              'Content-Type': 'application/json'
+            }
+          });
+    }
+
+    editServiceHours(access_token: any, service_hours: any, restaurant: any, id: any) {
+        let data = {
+            company_id: restaurant.id,
+            opening: service_hours.opening,
+            closure: service_hours.closure
+          };
+          return this.http.put<any>(url_api + 'service_hours/' + id, data, {
             headers: {
               'Accept': 'application/json',
               'Authorization': 'Bearer ' + access_token,
