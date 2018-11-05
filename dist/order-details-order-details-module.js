@@ -617,14 +617,17 @@ var OrderDetailsComponent = /** @class */ (function () {
         });
     };
     OrderDetailsComponent.prototype.copyToclipboard = function () {
-        var dadosCliente = '*DADOS DO CLIENTE* \n' + 'NOME: ' + this.order.client.name + '\nCELULAR: ' + this.order.client.cell_phone;
+        var dadosCliente = '*DADOS DO CLIENTE* \n' + 'NOME: ' + this.order.client.name
+            + '\nCELULAR: ' + this.order.client.cell_phone;
         var dadosEntrega = null;
         if (this.order.location.observation == null) {
             this.order.location.observation = '';
         }
         if (this.order.deliver) {
-            dadosEntrega = '\n\n*DADOS PARA ENTREGA* \n' + 'ENDEREÇO: ' + this.order.location.address + ' - ' + this.order.location.number
-                + '\nBAIRRO: ' + this.order.location.district + '\nCOMPLEMENTO: ' + this.order.location.observation;
+            dadosEntrega = '\n\n*DADOS PARA ENTREGA* \n' + 'ENDEREÇO: '
+                + this.order.location.address + ' - ' + this.order.location.number
+                + '\nBAIRRO: ' + this.order.location.district + '\nCOMPLEMENTO: '
+                + this.order.location.observation;
         }
         else {
             dadosEntrega = '\n\n*CLIENTE VEM BUSCAR O PEDIDO*';
@@ -632,14 +635,17 @@ var OrderDetailsComponent = /** @class */ (function () {
         var descricaoMarmita = '\n\n*MARMITAS*';
         var dadosMarmita = '';
         this.order.products.forEach(function (p) {
-            dadosMarmita = dadosMarmita + '\nTAMANHO: ' + p.price.size + ' - R$' + p.price.price + '\nINGREDIENTES: ';
+            dadosMarmita = dadosMarmita + '\nTAMANHO: ' + p.price.size
+                + ' - R$' + p.price.price + '\nINGREDIENTES: ';
             p.ingredients.forEach(function (i) {
                 dadosMarmita = dadosMarmita + i.name + ';';
             });
             if (p.additionals.length > 0) {
                 dadosMarmita = dadosMarmita + '\nADICIONAIS ';
                 p.additionals.forEach(function (add) {
-                    dadosMarmita = dadosMarmita + '\n' + add.name + ' - QTD: ' + add.pivot.quantity + ' - TOTAL: R$' + (add.value * add.pivot.quantity) + '\n';
+                    dadosMarmita = dadosMarmita + '\n' + add.name
+                        + ' - QTD: ' + add.pivot.quantity + ' - TOTAL: R$'
+                        + (add.value * add.pivot.quantity) + '\n';
                 });
             }
             dadosMarmita = dadosMarmita + '__________________________________________\n';
@@ -647,9 +653,13 @@ var OrderDetailsComponent = /** @class */ (function () {
         if (this.order.company.delivery_value == 0) {
             this.order.company.delivery_value = 'gratuíta';
         }
-        var dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
-            + '\nVALOR ENTREGA: ' + this.order.company.delivery_value + '\nHORÁRIO DE ENTREGA: ' + this.order.receive_at + '\nOBSERVAÇÕES: ' + this.order.observation;
-        this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n' + dadosCliente + dadosEntrega + descricaoMarmita + dadosMarmita
+        var dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
+            + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
+            + '\nVALOR ENTREGA: ' + this.order.company.delivery_value
+            + '\nHORÁRIO DE ENTREGA: ' + this.order.receive_at
+            + '\nOBSERVAÇÕES: ' + this.order.observation;
+        this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n'
+            + dadosCliente + dadosEntrega + descricaoMarmita + dadosMarmita
             + dadosGerais);
     };
     OrderDetailsComponent = __decorate([

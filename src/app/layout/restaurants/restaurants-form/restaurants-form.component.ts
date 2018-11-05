@@ -126,8 +126,8 @@ export class RestaurantsFormComponent implements OnInit {
             this.restaurant.state = this.restaurant_edit.locations[0].state;
             this.restaurant.city = this.restaurant_edit.locations[0].city;
             this.restaurant.district = this.restaurant_edit.locations[0].district;
+            this.restaurant.observation = this.restaurant_edit.locations[0].observation;
         }
-        this.restaurant.observation = this.restaurant_edit.observation;
         this.service_hours = this.restaurant_edit.service_hours;
         this.restaurant.image = this.restaurant_edit.image_base64;
     }
@@ -456,8 +456,8 @@ export class RestaurantsFormComponent implements OnInit {
                             )
                     }
                 )
-            this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
         } else {
+            console.log(this.restaurant_edit.locations[0].id);
             this.restaurantsService
                 .editRestaurant(this.access_token, this.restaurant, this.restaurant_edit.id)
                 .subscribe(
@@ -477,24 +477,45 @@ export class RestaurantsFormComponent implements OnInit {
                             )
                     }
                 )
-            this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
         }
 
     }
-//encerrar -> falta verificar se o service hour de fato continuou ou se foi adicionado :/
+
     addServiceHours(restaurant) {
-        this.service_hours.forEach((s) => {
-            let service_hour = {
-                company_id: restaurant.id,
-                opening: s.opening,
-                closure: s.closure
-            }
+        if (! this.edit) {
+            this.service_hours.forEach((s) => {
+                let service_hour = {
+                    company_id: restaurant.id,
+                    opening: s.opening,
+                    closure: s.closure
+                }
+                this.restaurantsService
+                    .addServiceHours(this.access_token, service_hour, restaurant)
+                    .subscribe(
+                        service_hour => this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }])
+                    )
+            });
+        } else {
             this.restaurantsService
-                .addServiceHours(this.access_token, service_hour, restaurant)
+                .destroyServiceHours(this.access_token, restaurant)
                 .subscribe(
-                    service_hour => console.log(service_hour)
+                    service_hours => {
+                        this.service_hours.forEach((s) => {
+                            let service_hour = {
+                                company_id: restaurant.id,
+                                opening: s.opening,
+                                closure: s.closure
+                            }
+                            this.restaurantsService
+                                .addServiceHours(this.access_token, service_hour, restaurant)
+                                .subscribe(
+                                    service_hour => this.router.navigate(['/restaurants-list', { message: 'Restaurante alterado com sucesso!' }])
+                                )
+                        });
+                    }
                 )
-        });
+        }
+
     }
 
 }

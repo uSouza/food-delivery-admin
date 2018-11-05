@@ -228,8 +228,8 @@ var RestaurantsFormComponent = /** @class */ (function () {
             this.restaurant.state = this.restaurant_edit.locations[0].state;
             this.restaurant.city = this.restaurant_edit.locations[0].city;
             this.restaurant.district = this.restaurant_edit.locations[0].district;
+            this.restaurant.observation = this.restaurant_edit.locations[0].observation;
         }
-        this.restaurant.observation = this.restaurant_edit.observation;
         this.service_hours = this.restaurant_edit.service_hours;
         this.restaurant.image = this.restaurant_edit.image_base64;
     };
@@ -572,9 +572,9 @@ var RestaurantsFormComponent = /** @class */ (function () {
                     });
                 });
             });
-            this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
         }
         else {
+            console.log(this.restaurant_edit.locations[0].id);
             this.restaurantsService
                 .editRestaurant(this.access_token, this.restaurant, this.restaurant_edit.id)
                 .subscribe(function (restaurant) {
@@ -588,22 +588,38 @@ var RestaurantsFormComponent = /** @class */ (function () {
                     });
                 });
             });
-            this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
         }
     };
-    //encerrar -> falta verificar se o service hour de fato continuou ou se foi adicionado :/
     RestaurantsFormComponent.prototype.addServiceHours = function (restaurant) {
         var _this = this;
-        this.service_hours.forEach(function (s) {
-            var service_hour = {
-                company_id: restaurant.id,
-                opening: s.opening,
-                closure: s.closure
-            };
-            _this.restaurantsService
-                .addServiceHours(_this.access_token, service_hour, restaurant)
-                .subscribe(function (service_hour) { return console.log(service_hour); });
-        });
+        if (!this.edit) {
+            this.service_hours.forEach(function (s) {
+                var service_hour = {
+                    company_id: restaurant.id,
+                    opening: s.opening,
+                    closure: s.closure
+                };
+                _this.restaurantsService
+                    .addServiceHours(_this.access_token, service_hour, restaurant)
+                    .subscribe(function (service_hour) { return _this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]); });
+            });
+        }
+        else {
+            this.restaurantsService
+                .destroyServiceHours(this.access_token, restaurant)
+                .subscribe(function (service_hours) {
+                _this.service_hours.forEach(function (s) {
+                    var service_hour = {
+                        company_id: restaurant.id,
+                        opening: s.opening,
+                        closure: s.closure
+                    };
+                    _this.restaurantsService
+                        .addServiceHours(_this.access_token, service_hour, restaurant)
+                        .subscribe(function (service_hour) { return _this.router.navigate(['/restaurants-list', { message: 'Restaurante alterado com sucesso!' }]); });
+                });
+            });
+        }
     };
     RestaurantsFormComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

@@ -435,7 +435,7 @@ var RestaurantsService = /** @class */ (function () {
             responsible_phone: restaurant.responsible_phone,
             user_id: restaurant.user_id,
             observation: restaurant.observation,
-            url: restaurant.image,
+            image_base64: restaurant.image,
             order_limit: restaurant.order_limit,
             tags_ids: restaurant.tags_ids,
             delivery_value: restaurant.delivery_value,
@@ -445,7 +445,7 @@ var RestaurantsService = /** @class */ (function () {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json',
             }
         });
     };
@@ -502,8 +502,7 @@ var RestaurantsService = /** @class */ (function () {
             number: location.number,
             district: location.district,
             postal_code: location.postal_code,
-            observation: location.observation,
-            company_id: restaurant.id
+            observation: location.observation
         };
         return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'companies_locations/' + id, data, {
             headers: {
@@ -558,6 +557,15 @@ var RestaurantsService = /** @class */ (function () {
             closure: service_hours.closure
         };
         return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours', data, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    RestaurantsService.prototype.destroyServiceHours = function (access_token, restaurant) {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours/company/' + restaurant.id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,

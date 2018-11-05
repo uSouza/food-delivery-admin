@@ -67,7 +67,7 @@ export class RestaurantsService {
             responsible_phone: restaurant.responsible_phone,
             user_id: restaurant.user_id,
             observation: restaurant.observation,
-            url: restaurant.image,
+            image_base64: restaurant.image,
             order_limit: restaurant.order_limit,
             tags_ids: restaurant.tags_ids,
             delivery_value: restaurant.delivery_value,
@@ -77,7 +77,7 @@ export class RestaurantsService {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json',
             }
         });
       }
@@ -139,8 +139,7 @@ export class RestaurantsService {
           number: location.number,
           district: location.district,
           postal_code: location.postal_code,
-          observation: location.observation,
-          company_id: restaurant.id
+          observation: location.observation
         };
         return this.http.put<any>(url_api + 'companies_locations/' + id, data, {
           headers: {
@@ -198,6 +197,16 @@ export class RestaurantsService {
             closure: service_hours.closure
           };
           return this.http.post<any>(url_api + 'service_hours', data, {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + access_token,
+              'Content-Type': 'application/json'
+            }
+          });
+    }
+
+    destroyServiceHours(access_token: any, restaurant: any) {
+          return this.http.delete<any>(url_api + 'service_hours/company/' + restaurant.id, {
             headers: {
               'Accept': 'application/json',
               'Authorization': 'Bearer ' + access_token,
