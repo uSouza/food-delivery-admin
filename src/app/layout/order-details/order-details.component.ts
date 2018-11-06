@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OrdersService } from '../../services/orders/orders.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardService } from 'ngx-clipboard';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-order-details',
@@ -14,15 +15,24 @@ export class OrderDetailsComponent implements OnInit {
 
     order: any;
     closeResult: string;
+    user: any
 
     constructor(public route: ActivatedRoute,
                 private router: Router,
                 private ordersService: OrdersService,
+                private loginService: LoginService,
                 private _clipboardService: ClipboardService,
                 private modalService: NgbModal) { }
 
     ngOnInit() {
         if (localStorage.getItem('access_token') != null) {
+            this.loginService
+            .user_me(localStorage.getItem('access_token'))
+            .subscribe(
+                user => {
+                    this.user = user
+                }
+            )
             this.getOrder();
         } else {
             this.router.navigate(['/login']);

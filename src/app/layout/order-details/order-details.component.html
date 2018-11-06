@@ -30,6 +30,9 @@
             <h2>
                 Pedido nº {{order.id}}
             </h2>
+            <h3 *ngIf="user.type=='admin'">
+                <strong>Restaurante: </strong>{{ order.company.fantasy_name }}
+            </h3>
         </div>
     </div>
     <hr>
