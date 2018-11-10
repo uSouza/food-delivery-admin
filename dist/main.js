@@ -311,6 +311,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -330,6 +331,7 @@ var AppModule = /** @class */ (function () {
                 _shared__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"],
                 _services_login_login_service__WEBPACK_IMPORTED_MODULE_9__["LoginService"],
                 _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_10__["OrdersService"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_0__["DatePipe"],
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_11__["NgbModal"],
                 {
                     provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HTTP_INTERCEPTORS"],

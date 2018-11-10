@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {DatePipe} from '@angular/common';
 import { AuthGuard } from './shared';
 import { LoginService } from './services/login/login.service';
 import { OrdersService } from './services/orders/orders.service';
@@ -32,6 +33,7 @@ import { LoaderInterceptorService } from './services/loader-interceptor/loader-i
         AuthGuard,
         LoginService,
         OrdersService,
+        DatePipe,
         NgbModal,
         {
             provide: HTTP_INTERCEPTORS,

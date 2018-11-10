@@ -502,6 +502,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-clipboard */ "./node_modules/ngx-clipboard/fesm5/ngx-clipboard.js");
 /* harmony import */ var _services_login_login_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/login/login.service */ "./src/app/services/login/login.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -518,13 +519,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var OrderDetailsComponent = /** @class */ (function () {
-    function OrderDetailsComponent(route, router, ordersService, loginService, _clipboardService, modalService) {
+    function OrderDetailsComponent(route, router, ordersService, loginService, _clipboardService, datepipe, modalService) {
         this.route = route;
         this.router = router;
         this.ordersService = ordersService;
         this.loginService = loginService;
         this._clipboardService = _clipboardService;
+        this.datepipe = datepipe;
         this.modalService = modalService;
     }
     OrderDetailsComponent.prototype.ngOnInit = function () {
@@ -636,15 +639,15 @@ var OrderDetailsComponent = /** @class */ (function () {
             dadosEntrega = '\n\n*DADOS PARA ENTREGA* \n' + 'ENDEREÇO: '
                 + this.order.location.address + ' - ' + this.order.location.number
                 + '\nBAIRRO: ' + this.order.location.district + '\nCOMPLEMENTO: '
-                + this.order.location.observation;
+                + this.order.location.observation + '\n';
         }
         else {
-            dadosEntrega = '\n\n*CLIENTE VEM BUSCAR O PEDIDO*';
+            dadosEntrega = '\n\n*CLIENTE VEM BUSCAR O PEDIDO*\n';
         }
-        var descricaoMarmita = '\n\n*MARMITAS*';
         var dadosMarmita = '';
+        var count = 1;
         this.order.products.forEach(function (p) {
-            dadosMarmita = dadosMarmita + '\nTAMANHO: ' + p.price.size
+            dadosMarmita = dadosMarmita + '\n*MARMITA (' + count + '):*' + '\nTAMANHO: ' + p.price.size
                 + ' - R$' + p.price.price + '\nINGREDIENTES: ';
             p.ingredients.forEach(function (i) {
                 dadosMarmita = dadosMarmita + i.name + ';';
@@ -653,11 +656,11 @@ var OrderDetailsComponent = /** @class */ (function () {
                 dadosMarmita = dadosMarmita + '\nADICIONAIS ';
                 p.additionals.forEach(function (add) {
                     dadosMarmita = dadosMarmita + '\n' + add.name
-                        + ' - QTD: ' + add.pivot.quantity + ' - TOTAL: R$'
+                        + ' - Qtd: ' + add.pivot.quantity + ' - Total: R$'
                         + (add.value * add.pivot.quantity) + '\n';
                 });
             }
-            dadosMarmita = dadosMarmita + '__________________________________________\n';
+            ++count;
         });
         if (this.order.company.delivery_value == 0) {
             this.order.company.delivery_value = 'gratuíta';
@@ -665,10 +668,10 @@ var OrderDetailsComponent = /** @class */ (function () {
         var dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
             + '\nVALOR ENTREGA: ' + this.order.company.delivery_value
-            + '\nHORÁRIO DE ENTREGA: ' + this.order.receive_at
+            + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm')
             + '\nOBSERVAÇÕES: ' + this.order.observation;
         this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n'
-            + dadosCliente + dadosEntrega + descricaoMarmita + dadosMarmita
+            + dadosCliente + dadosEntrega + dadosMarmita
             + dadosGerais);
     };
     OrderDetailsComponent = __decorate([
@@ -682,6 +685,7 @@ var OrderDetailsComponent = /** @class */ (function () {
             _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_2__["OrdersService"],
             _services_login_login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"],
             ngx_clipboard__WEBPACK_IMPORTED_MODULE_4__["ClipboardService"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_6__["DatePipe"],
             _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"]])
     ], OrderDetailsComponent);
     return OrderDetailsComponent;

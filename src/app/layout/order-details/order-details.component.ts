@@ -5,11 +5,12 @@ import { OrdersService } from '../../services/orders/orders.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardService } from 'ngx-clipboard';
 import { LoginService } from '../../services/login/login.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-order-details',
-  templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss']
+    selector: 'app-order-details',
+    templateUrl: './order-details.component.html',
+    styleUrls: ['./order-details.component.scss']
 })
 export class OrderDetailsComponent implements OnInit {
 
@@ -18,21 +19,22 @@ export class OrderDetailsComponent implements OnInit {
     user: any
 
     constructor(public route: ActivatedRoute,
-                private router: Router,
-                private ordersService: OrdersService,
-                private loginService: LoginService,
-                private _clipboardService: ClipboardService,
-                private modalService: NgbModal) { }
+        private router: Router,
+        private ordersService: OrdersService,
+        private loginService: LoginService,
+        private _clipboardService: ClipboardService,
+        public datepipe: DatePipe,
+        private modalService: NgbModal) { }
 
     ngOnInit() {
         if (localStorage.getItem('access_token') != null) {
             this.loginService
-            .user_me(localStorage.getItem('access_token'))
-            .subscribe(
-                user => {
-                    this.user = user
-                }
-            )
+                .user_me(localStorage.getItem('access_token'))
+                .subscribe(
+                    user => {
+                        this.user = user
+                    }
+                )
             this.getOrder();
         } else {
             this.router.navigate(['/login']);
@@ -42,12 +44,12 @@ export class OrderDetailsComponent implements OnInit {
 
     getOrder() {
         this.ordersService
-        .getOrder(localStorage.getItem('access_token'), this.route.snapshot.paramMap.get('id'))
-        .subscribe(
-            order => {
-                this.setOrder(order)
-            }
-        )
+            .getOrder(localStorage.getItem('access_token'), this.route.snapshot.paramMap.get('id'))
+            .subscribe(
+                order => {
+                    this.setOrder(order)
+                }
+            )
     }
 
     setOrder(order) {
@@ -152,15 +154,15 @@ export class OrderDetailsComponent implements OnInit {
             dadosEntrega = '\n\n*DADOS PARA ENTREGA* \n' + 'ENDEREÇO: '
                 + this.order.location.address + ' - ' + this.order.location.number
                 + '\nBAIRRO: ' + this.order.location.district + '\nCOMPLEMENTO: '
-                + this.order.location.observation;
+                + this.order.location.observation + '\n';
         } else {
-            dadosEntrega = '\n\n*CLIENTE VEM BUSCAR O PEDIDO*';
+            dadosEntrega = '\n\n*CLIENTE VEM BUSCAR O PEDIDO*\n';
         }
-        let descricaoMarmita = '\n\n*MARMITAS*';
         let dadosMarmita = '';
-        this.order.products.forEach(p => {
-            dadosMarmita = dadosMarmita + '\nTAMANHO: ' + p.price.size
-            + ' - R$' + p.price.price + '\nINGREDIENTES: ';
+        let count = 1;
+        this.order.products.forEach((p) => {
+            dadosMarmita = dadosMarmita + '\n*MARMITA (' + count + '):*' + '\nTAMANHO: ' + p.price.size
+                + ' - R$' + p.price.price + '\nINGREDIENTES: ';
             p.ingredients.forEach(i => {
                 dadosMarmita = dadosMarmita + i.name + ';';
             });
@@ -168,11 +170,11 @@ export class OrderDetailsComponent implements OnInit {
                 dadosMarmita = dadosMarmita + '\nADICIONAIS '
                 p.additionals.forEach(add => {
                     dadosMarmita = dadosMarmita + '\n' + add.name
-                        + ' - QTD: ' + add.pivot.quantity + ' - TOTAL: R$'
+                        + ' - Qtd: ' + add.pivot.quantity + ' - Total: R$'
                         + (add.value * add.pivot.quantity) + '\n'
                 });
             }
-            dadosMarmita = dadosMarmita + '__________________________________________\n'
+            ++count;
         });
 
         if (this.order.company.delivery_value == 0) {
@@ -182,11 +184,11 @@ export class OrderDetailsComponent implements OnInit {
         let dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
             + '\nVALOR ENTREGA: ' + this.order.company.delivery_value
-            + '\nHORÁRIO DE ENTREGA: ' + this.order.receive_at
+            + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm')
             + '\nOBSERVAÇÕES: ' + this.order.observation;
 
         this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n'
-            + dadosCliente + dadosEntrega + descricaoMarmita + dadosMarmita
+            + dadosCliente + dadosEntrega + dadosMarmita
             + dadosGerais);
     }
 
