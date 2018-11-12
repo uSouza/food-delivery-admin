@@ -9,22 +9,22 @@
                 <table *ngIf="orders.length > 0" class="card-body table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Cliente</th>
                             <th>Endereço</th>
                             <th>Bairro</th>
                             <th>Preço</th>
+                            <th>Qtd. Marmitas</th>
                             <th>Aberto às</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let order of orders | paginate: { itemsPerPage: 7, currentPage: page }">
                         <tr *ngIf="order.deliver && order.status_id==1" class="table-warning">
-                            <th>{{order.id}}</th>
                             <td>{{order.client.name}}</td>
                             <td>{{order.location.address}} - {{order.location.number}}</td>
                             <td>{{order.location.district}}</td>
                             <td>{{order.price | currency: 'BRL': true}}</td>
+                            <td>{{order.products.length}}</td>
                             <td>{{order.created_at | date: 'H:mm'}}</td>
                             <td>
                                 <button (click)="showOrder(order)" type="button" class="btn btn-sm btn-success">Visualizar</button>

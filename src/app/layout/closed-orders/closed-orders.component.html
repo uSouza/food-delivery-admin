@@ -8,21 +8,23 @@
                  <table *ngIf="orders.length > 0" class="card-body table">
                     <thead>
                        <tr>
-                          <th>#</th>
                           <th>Cliente</th>
-                          <th>Forma de pagamento</th>
+                          <th>Restaurante</th>
                           <th>Preço</th>
-                          <th>Confirmado às</th>
+                          <th>Qtde. Marmitas</th>
+                          <th>Aberto em</th>
+                          <th>Confirmado em</th>
                           <th>Ação</th>
                        </tr>
                     </thead>
                     <tbody *ngFor="let order of orders | paginate: { itemsPerPage: 7, currentPage: page }">
                        <tr *ngIf="order.deliver" class="table-default">
-                          <th>{{order.id}}</th>
                           <td>{{order.client.name}}</td>
-                          <td>{{ order.form_payment.description }}</td>
+                          <td>{{ order.company.fantasy_name }}</td>
                           <td>{{order.price | currency: 'BRL': true}}</td>
-                          <td>{{order.created_at | date: 'H:m'}}</td>
+                          <td>{{ order.products.length }}</td>
+                          <td>{{order.created_at | date: 'dd/MM/yyyy H:mm'}}</td>
+                          <td>{{order.updated_at | date: 'dd/MM/yyyy H:mm'}}</td>
                           <td>
                                 <button (click)="showOrder(order)" type="button" class="btn btn-sm btn-success">Visualizar</button>
                           </td>

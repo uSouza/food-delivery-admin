@@ -29,8 +29,13 @@ export class ClosedOrdersComponent implements OnInit {
         this.ordersService
             .getClosedOrders(localStorage.getItem('access_token'))
             .subscribe(
-                orders => this.orders = orders
+                orders => this.setOrders(orders)
             )
+    }
+
+    setOrders(orders) {
+        console.log(orders);
+        this.orders = orders;
     }
 
     showOrder(order: any) {
