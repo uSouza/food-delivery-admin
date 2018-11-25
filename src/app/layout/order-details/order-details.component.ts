@@ -184,12 +184,9 @@ export class OrderDetailsComponent implements OnInit {
         let dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
             + '\nVALOR ENTREGA: ' + this.order.company.delivery_value
+            + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm')
             + '\nOBSERVAÇÕES: ' + this.order.observation;
-        if (this.order.receive_at == '2018-01-01 00:00:00') {
-            dadosGerais = dadosGerais + '\nENTREGAR EM: ' + this.order.time_delivery;
-        } else {
-            dadosGerais = dadosGerais + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm');
-        }
+
         this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n'
             + dadosCliente + dadosEntrega + dadosMarmita
             + dadosGerais);

@@ -31,7 +31,6 @@
                             </td>
                         </tr>
                         <tr *ngIf="!order.deliver && order.status_id==1" class="table-default">
-                            <th>{{order.id}}</th>
                             <td>{{order.client.name}}</td>
                             <td>Retirar no balcão</td>
                             <td>Retirar no balcão</td>
@@ -42,7 +41,6 @@
                             </td>
                         </tr>
                         <tr *ngIf="order.deliver && order.status_id==5" class="table-danger">
-                            <th>{{order.id}}</th>
                             <td>{{order.client.name}}</td>
                             <td>{{order.location.address}} - {{order.location.number}}</td>
                             <td>{{order.location.district}}</td>
@@ -53,7 +51,6 @@
                             </td>
                         </tr>
                         <tr *ngIf="!order.deliver && order.status_id==5" class="table-danger">
-                            <th>{{order.id}}</th>
                             <td>{{order.client.name}}</td>
                             <td>Retirar no balcão</td>
                             <td>Retirar no balcão</td>
