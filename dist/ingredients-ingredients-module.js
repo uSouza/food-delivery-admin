@@ -154,6 +154,12 @@ var IngredientsComponent = /** @class */ (function () {
                     .addIngredient(localStorage.getItem('access_token'), ingredient)
                     .subscribe(function (ingredient) {
                     _this.updateIngredients(ingredient, false);
+                }, function (err) {
+                    if (err.error.text == 'ingredient already registered') {
+                        _this.showAlert('danger', 'Ingrediente já está cadastrado!');
+                        _this.name = null;
+                        _this.ingredient_group_id = null;
+                    }
                 });
             }
             else {

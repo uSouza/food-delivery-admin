@@ -77,6 +77,13 @@ export class IngredientsComponent implements OnInit {
                     .subscribe(
                         ingredient => {
                             this.updateIngredients(ingredient, false)
+                        },
+                        err => {
+                            if (err.error.text == 'ingredient already registered') {
+                                this.showAlert('danger', 'Ingrediente já está cadastrado!');
+                                this.name = null;
+                                this.ingredient_group_id = null;
+                            }
                         }
                     )
             } else {
