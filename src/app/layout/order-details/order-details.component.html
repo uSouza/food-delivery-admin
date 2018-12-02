@@ -148,6 +148,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12 text-right">
+            <button type="button" class="btn btn-lg btn-default" style="margin-right: 10px" routerLink="/dashboard">Voltar</button>
             <button type="button" class="btn btn-lg btn-warning" (click)="copyToclipboard()" style="margin-right: 10px">Copiar</button>
             <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-danger" (click)="refuseOrder(reject)" style="margin-right:10px">Rejeitar</button>
             <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-success" (click)="confirm(content)">Confirmar</button>
