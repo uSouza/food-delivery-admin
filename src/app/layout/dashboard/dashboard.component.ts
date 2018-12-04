@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Injectable } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-dashboard',
@@ -24,7 +25,9 @@ export class DashboardComponent implements OnInit {
         private ordersService: OrdersService,
         private modalService: NgbModal,
         private loginService: LoginService) {
-
+            setInterval(()=> {
+                this.getOrders();
+            }, 10000)
     }
 
     ngOnInit() {

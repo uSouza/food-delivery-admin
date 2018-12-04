@@ -99,6 +99,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var DashboardComponent = /** @class */ (function () {
     function DashboardComponent(router, route, ordersService, modalService, loginService) {
+        var _this = this;
         this.router = router;
         this.route = route;
         this.ordersService = ordersService;
@@ -106,6 +107,9 @@ var DashboardComponent = /** @class */ (function () {
         this.loginService = loginService;
         this.page = 1;
         this.alerts = [];
+        setInterval(function () {
+            _this.getOrders();
+        }, 10000);
     }
     DashboardComponent.prototype.ngOnInit = function () {
         if (this.route.snapshot.paramMap.get('message') != null) {
