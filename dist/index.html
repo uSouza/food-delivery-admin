@@ -25,6 +25,9 @@
                         localStorage.setItem("player_id", userId);
                     });
                 });
+                OneSignal.on('pushReceived', function (push) {
+                    alert('Pedido recebido!');
+                });
             });
         </script>
     </head>
