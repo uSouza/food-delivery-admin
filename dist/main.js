@@ -85,6 +85,10 @@ var map = {
 		"./src/app/not-found/not-found.module.ts",
 		"not-found-not-found-module"
 	],
+	"./notifications/notifications.module": [
+		"./src/app/layout/notifications/notifications.module.ts",
+		"notifications-notifications-module"
+	],
 	"./order-details/order-details.module": [
 		"./src/app/layout/order-details/order-details.module.ts",
 		"order-details-order-details-module"
@@ -597,6 +601,21 @@ var LoginService = /** @class */ (function () {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json'
+            }
+        });
+    };
+    LoginService.prototype.sendPushNotification = function (title, content) {
+        var data = {
+            app_id: '18e4fb1f-4d47-4196-8ded-4883a763d9d7',
+            included_segments: ['All'],
+            data: { foo: 'bar' },
+            contents: { en: content },
+            headings: { en: title }
+        };
+        return this.http.post('https://onesignal.com/api/v1/notifications', data, {
+            headers: {
+                'Authorization': 'Basic NjgxNTYxYzctN2FiMi00ZjlmLWE3ODItNmI1NTdmNDgxOGEy',
                 'Content-Type': 'application/json'
             }
         });

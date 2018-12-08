@@ -12,6 +12,7 @@ const routes: Routes = [
             { path: 'orders', loadChildren: './order-details/order-details.module#OrderDetailsModule' },
             { path: 'ingredient-group', loadChildren: './ingredient-groups/ingredient-groups-form/ingredient-groups-form.module#IngredientGroupsFormModule' },
             { path: 'ingredients', loadChildren: './ingredients/ingredients.module#IngredientsModule' },
+            { path: 'notifications', loadChildren: './notifications/notifications.module#NotificationsModule' },
             { path: 'additionals', loadChildren: './additionals/additionals.module#AdditionalsModule' },
             { path: 'form-payments', loadChildren: './form-payments/form-payments.module#FormPaymentsModule' },
             { path: 'tags', loadChildren: './tags/tags.module#TagsModule' },

@@ -93,4 +93,21 @@ export class LoginService {
     });
   }
 
+  sendPushNotification(title: any, content: any) {
+    let data = {
+      app_id: '18e4fb1f-4d47-4196-8ded-4883a763d9d7',
+      included_segments: ['All'],
+      data: {foo: 'bar'},
+      contents: {en: content},
+      headings: {en: title}
+    }
+    return this.http.post<any>('https://onesignal.com/api/v1/notifications', data, {
+      headers: {
+        'Authorization': 'Basic NjgxNTYxYzctN2FiMi00ZjlmLWE3ODItNmI1NTdmNDgxOGEy',
+        'Content-Type': 'application/json'
+      }
+    });
+
+  }
+
 }
