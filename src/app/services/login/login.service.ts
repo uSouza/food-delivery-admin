@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   endpoint = 'oauth/token';
-  url_api = 'http://localhost:8000/';//'http://api.pandeco.com.br/'
+  url_api = 'http://api.pandeco.com.br/'; //'http://localhost:8000/';
 
   constructor(public http: HttpClient) { }
 

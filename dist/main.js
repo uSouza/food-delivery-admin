@@ -528,7 +528,7 @@ var LoginService = /** @class */ (function () {
     function LoginService(http) {
         this.http = http;
         this.endpoint = 'oauth/token';
-        this.url_api = 'http://localhost:8000/'; //'http://api.pandeco.com.br/'
+        this.url_api = 'http://api.pandeco.com.br/'; //'http://localhost:8000/';
     }
     LoginService.prototype.authenticate = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
