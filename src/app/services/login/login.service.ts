@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   endpoint = 'oauth/token';
-  url_api = 'http://api.pandeco.com.br/'
+  url_api = 'http://localhost:8000/';//'http://api.pandeco.com.br/'
 
   constructor(public http: HttpClient) { }
 
@@ -17,10 +17,10 @@ export class LoginService {
     headers.append('Content-Type', 'application/json');
     let data = {
       grant_type: 'password',
-      client_id: 1,
-      client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
-      //client_id: 5,
-      //client_secret: 'HEFwoBM8Z3bvZh6HyUtO2AVWArorUiKfwp7ToAzy',
+      //client_id: 1,
+      //client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
+      client_id: 7,
+      client_secret: 'ByFwhpPZlrEJH4JijXzGFXSt38jGn5ocjAR1NLt5',
       username: user.email,
       password: user.password,
       scope: ''

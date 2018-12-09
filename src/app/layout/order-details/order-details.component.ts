@@ -82,6 +82,7 @@ export class OrderDetailsComponent implements OnInit {
     }
 
     confirm(content) {
+        console.log(content);
         this.modalService
             .open(content, { size: 'lg' })
             .result.then((result) => {

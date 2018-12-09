@@ -1,3 +1,32 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Novo pedido recebido</h4>
+    </div>
+    <div class="modal-body">
+        <table class="card-body table">
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Preço</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let order of orderModal">
+                <tr class="table-default">
+                    <td>{{order.client.name}}</td>
+                    <td>{{order.price | currency: 'BRL': true}}</td>
+                    <td>
+                        <button (click)="showOrder(order)" type="button" class="btn btn-sm btn-success">Visualizar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="c('close')">Fechar</button>
+    </div>
+</ng-template>
+
 <div [@routerTransition]>
     <div class="row">
         <div class="col-lg-12">

@@ -385,7 +385,7 @@ var Config = /** @class */ (function () {
 
 var sender_id = '825111433849';
 var oneSignalAppId = '18e4fb1f-4d47-4196-8ded-4883a763d9d7';
-var url_api = 'http://api.pandeco.com.br/api/v1/';
+var url_api = 'http://localhost:8000/api/v1/'; //'http://api.pandeco.com.br/api/v1/';
 
 
 /***/ }),
@@ -528,7 +528,7 @@ var LoginService = /** @class */ (function () {
     function LoginService(http) {
         this.http = http;
         this.endpoint = 'oauth/token';
-        this.url_api = 'http://api.pandeco.com.br/';
+        this.url_api = 'http://localhost:8000/'; //'http://api.pandeco.com.br/'
     }
     LoginService.prototype.authenticate = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
@@ -536,10 +536,10 @@ var LoginService = /** @class */ (function () {
         headers.append('Content-Type', 'application/json');
         var data = {
             grant_type: 'password',
-            client_id: 1,
-            client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
-            //client_id: 5,
-            //client_secret: 'HEFwoBM8Z3bvZh6HyUtO2AVWArorUiKfwp7ToAzy',
+            //client_id: 1,
+            //client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
+            client_id: 7,
+            client_secret: 'ByFwhpPZlrEJH4JijXzGFXSt38jGn5ocjAR1NLt5',
             username: user.email,
             password: user.password,
             scope: ''

@@ -582,6 +582,7 @@ var OrderDetailsComponent = /** @class */ (function () {
     };
     OrderDetailsComponent.prototype.confirm = function (content) {
         var _this = this;
+        console.log(content);
         this.modalService
             .open(content, { size: 'lg' })
             .result.then(function (result) {

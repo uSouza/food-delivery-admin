@@ -7,6 +7,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Injectable } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { Observable } from 'rxjs/Rx';
+import { ViewChild } from '@angular/core';
+import { TemplateRef } from '@angular/core';
+import {Howl, Howler} from 'howler';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,8 +20,10 @@ import { Observable } from 'rxjs/Rx';
 export class DashboardComponent implements OnInit {
 
     orders: any[];
+    ordersModal: any[];
     page: number = 1;
     public alerts: Array<any> = [];
+    @ViewChild("content") modalContent: TemplateRef<any>;
 
     constructor(public router: Router,
         public route: ActivatedRoute,
@@ -26,7 +31,7 @@ export class DashboardComponent implements OnInit {
         private modalService: NgbModal,
         private loginService: LoginService) {
             setInterval(()=> {
-                this.getOrders();
+                this.getOrders(true);
             }, 10000)
     }
 
@@ -40,7 +45,7 @@ export class DashboardComponent implements OnInit {
         if (localStorage.getItem('player_id') != null) {
             this.setOneSignalUserID(localStorage.getItem('player_id'));
         }
-        this.getOrders();
+        this.getOrders(false);
     }
 
     setOneSignalUserID(id) {
@@ -53,14 +58,33 @@ export class DashboardComponent implements OnInit {
             )
     }
 
-    getOrders() {
+    getOrders(isAutomatic) {
         this.ordersService
             .getOpenOrders(localStorage.getItem('access_token'))
             .subscribe(
                 orders => {
                     this.orders = orders;
+                    if (isAutomatic) {
+                        if (orders.length > 0) {
+                            var sound = new Howl({
+                                src: ['assets/sounds/notification.mp3']
+                              });
+                              sound.play();
+                            this.orderModal(orders);
+                        }
+                    }
                 }
             )
+    }
+
+    orderModal(orders) {
+        this.orderModal = orders;
+        this.modalService
+            .open(this.modalContent, { size: 'lg' })
+            .result.then((result) => {
+                if (result == 'close') {
+                }
+            });
     }
 
     showOrder(order: any) {
@@ -88,7 +112,7 @@ export class DashboardComponent implements OnInit {
             .deleteOrder(localStorage.getItem('access_token'), order.id)
             .subscribe(
                 order => {
-                    this.getOrders()
+                    this.getOrders(false)
                 }
             )
     }
