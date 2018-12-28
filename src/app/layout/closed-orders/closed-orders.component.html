@@ -18,7 +18,7 @@
                        </tr>
                     </thead>
                     <tbody *ngFor="let order of orders | paginate: { itemsPerPage: 7, currentPage: page }">
-                       <tr *ngIf="order.deliver" class="table-default">
+                       <tr class="table-default">
                           <td>{{order.client.name}}</td>
                           <td>{{ order.company.fantasy_name }}</td>
                           <td>{{order.price | currency: 'BRL': true}}</td>
