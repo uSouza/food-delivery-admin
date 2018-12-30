@@ -19,7 +19,7 @@ export class MenusFormComponent implements OnInit {
 
     public alerts: Array<any> = [];
 
-    edit: boolean = false;
+    edit = false;
     ingredients: Observable<any[]>;
     selected_ingredients = [];
     sizes: Observable<any[]>;
@@ -45,7 +45,6 @@ export class MenusFormComponent implements OnInit {
                 this.edit = true;
                 let menu = JSON.parse(localStorage.getItem('menu_edit'));
                 this.menu = menu;
-                this.date = this.datepipe.transform(menu.date, 'dd/MM/yyyy');
                 menu.ingredients.forEach((i) => {
                     this.selected_ingredients.push(i);
                 });
@@ -75,22 +74,20 @@ export class MenusFormComponent implements OnInit {
                     .addMenu(this.access_token, this.menu)
                     .subscribe(
                         menu => this.router.navigate(['/menus-list', { message: 'Menu cadastrado com sucesso!' }])
-                    )
+                    );
             } else {
                 this.menusService
                     .editMenu(this.access_token, this.menu, this.menu.id)
                     .subscribe(
                         menu => this.router.navigate(['/menus-list', { message: 'Menu alterado com sucesso!' }])
-                    )
+                    );
             }
         }
     }
 
     validate() {
         let today = new Date();
-        this.menu.date = this.date.substr(4, 4) + '-'
-                        + this.date.substr(2, 2) + '-'
-                        + this.date.substr(0, 2);
+        this.menu.date = this.date.year + '-' + this.date.month + '-' + this.date.day;
         if (this.selected_ingredients.length < 1) {
             this.showAlert('danger', 'Selecione os ingredientes da marmita!');
             return false;
@@ -117,7 +114,7 @@ export class MenusFormComponent implements OnInit {
         });
         this.selected_sizes.forEach((s) => {
             this.prices_ids.push(s.id);
-        })
+        });
         this.menu.ingredients_ids = this.ingredients_ids;
         this.menu.prices_ids = this.prices_ids;
     }
@@ -129,7 +126,7 @@ export class MenusFormComponent implements OnInit {
                 type: type,
                 message: err
             }
-        )
+        );
     }
 
     closeAlert(alert: any) {

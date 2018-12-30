@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
                 type: 'danger',
                 message: `Email ou senha incorretos. Tente novamente!`
             }
-        )
+        );
     }
     closeErrorAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);

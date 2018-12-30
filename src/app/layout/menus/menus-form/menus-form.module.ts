@@ -9,7 +9,11 @@ import { MenusFormComponent } from './menus-form.component';
 import {NgxMaskModule} from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {DatePipe} from '@angular/common';
-import { MenuProvider } from "../../../providers/menu";
+
+import { NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatePTParserFormatter } from './../../../../environments/NgbDatePTParserFormatter';
+import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDatepickerI18n, I18n } from './../../../../environments/CustomDatepickerI18n';
 
 @NgModule({
     imports: [
@@ -24,6 +28,10 @@ import { MenuProvider } from "../../../providers/menu";
         NgxMaskModule.forRoot()
     ],
     declarations: [MenusFormComponent],
-    providers: [DatePipe, MenuProvider],
+    providers: [
+        DatePipe,
+        [I18n, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }],
+        [{provide: NgbDateParserFormatter, useClass: NgbDatePTParserFormatter}],
+    ],
 })
 export class MenusFormModule {}
