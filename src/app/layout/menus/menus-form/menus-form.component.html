@@ -33,6 +33,16 @@
             </div>
             <div class="row">
                     <div class="col-lg-6">
+            <div class="form-check">
+                    <input [(ngModel)]="menu.fixed_menu" name="fixed_menu" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <h5>
+                      Cardápio fixo?
+                    </h5>
+                  </div>
+                  </div>
+            </div>
+            <div class="row" *ngIf="! menu.fixed_menu || menu.fixed_menu == null">
+                    <div class="col-lg-6">
                         <div class="form-group">
                                 <h5>Data do cardápio</h5>
                                 <div class="input-group">

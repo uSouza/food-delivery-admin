@@ -13,7 +13,7 @@ export class Restaurant {
     order_limit: number;
     tags_ids: number[];
     delivery_value: number;
-    avg_delivery_time: string;
+    avg_delivery_time: any;
     city: string;
     state: string;
     number: string;
@@ -25,3 +25,7 @@ export class Restaurant {
     password: string;
 }
 
+export class BootstrapTime {
+    hour: number;
+    minute: number;
+}

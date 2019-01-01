@@ -71,7 +71,7 @@ var MenusFormRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-lg-3\">\n    </div>\n    <div class=\"col-lg-6\">\n        <h3 *ngIf=\"edit\">Edição de cardápio</h3>\n        <h3 *ngIf=\"!edit\">Novo cardápio</h3>\n        <hr>\n        <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n        <div class=\"ingredients\">\n            <h5>Ingredientes</h5>\n            <ng-select\n                [items]=\"ingredients | async\"\n                [multiple]=\"true\"\n                [closeOnSelect]=\"false\"\n                [hideSelected]=\"true\"\n                bindLabel=\"name\"\n                placeholder=\"Selecione os ingredientes\"\n                [(ngModel)]=\"selected_ingredients\">\n            </ng-select>\n        </div>\n\n        <div class=\"ingredients\">\n                <h5>Tamanhos disponíveis</h5>\n                <ng-select\n                    [items]=\"sizes | async\"\n                    [multiple]=\"true\"\n                    [closeOnSelect]=\"false\"\n                    [hideSelected]=\"true\"\n                    bindLabel=\"size\"\n                    placeholder=\"Selecione os tamanhos\"\n                    [(ngModel)]=\"selected_sizes\">\n                </ng-select>\n            </div>\n            <div class=\"row\">\n                    <div class=\"col-lg-6\">\n                        <div class=\"form-group\">\n                                <h5>Data do cardápio</h5>\n                                <div class=\"input-group\">\n                                        <input class=\"form-control\" placeholder=\"dd/mm/yyyy\"\n                                               name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\" (click)=\"d.toggle()\">\n                                      </div>\n                        </div>\n                    </div>\n                </div>\n        <form role=\"form\">\n            <div class=\"row\">\n                <div class=\"col-lg-12\">\n                    <div class=\"form-group\">\n                        <h5>Descrição</h5>\n                        <input [(ngModel)]=\"menu.description\" name=\"description\" class=\"form-control\" type=\"text\">\n                    </div>\n                </div>\n                <div class=\"col-lg-12\">\n                    <div class=\"form-group\">\n                        <h5>Observação</h5>\n                        <input [(ngModel)]=\"menu.observation\" name=\"observation\" class=\"form-control\" type=\"text\">\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row\">\n                    <div class=\"col-xl-12 text-right\">\n                        <button *ngIf=\"!edit\" type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"addMenu()\">Adicionar</button>\n                        <button *ngIf=\"edit\" type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"addMenu()\">Editar</button>\n                    </div>\n                </div>\n            </div>\n        </form>\n\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n    <div class=\"col-lg-3\">\n    </div>\n    <div class=\"col-lg-6\">\n        <h3 *ngIf=\"edit\">Edição de cardápio</h3>\n        <h3 *ngIf=\"!edit\">Novo cardápio</h3>\n        <hr>\n        <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n        <div class=\"ingredients\">\n            <h5>Ingredientes</h5>\n            <ng-select\n                [items]=\"ingredients | async\"\n                [multiple]=\"true\"\n                [closeOnSelect]=\"false\"\n                [hideSelected]=\"true\"\n                bindLabel=\"name\"\n                placeholder=\"Selecione os ingredientes\"\n                [(ngModel)]=\"selected_ingredients\">\n            </ng-select>\n        </div>\n\n        <div class=\"ingredients\">\n                <h5>Tamanhos disponíveis</h5>\n                <ng-select\n                    [items]=\"sizes | async\"\n                    [multiple]=\"true\"\n                    [closeOnSelect]=\"false\"\n                    [hideSelected]=\"true\"\n                    bindLabel=\"size\"\n                    placeholder=\"Selecione os tamanhos\"\n                    [(ngModel)]=\"selected_sizes\">\n                </ng-select>\n            </div>\n            <div class=\"row\">\n                    <div class=\"col-lg-6\">\n            <div class=\"form-check\">\n                    <input [(ngModel)]=\"menu.fixed_menu\" name=\"fixed_menu\" class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"defaultCheck1\">\n                    <h5>\n                      Cardápio fixo?\n                    </h5>\n                  </div>\n                  </div>\n            </div>\n            <div class=\"row\" *ngIf=\"! menu.fixed_menu || menu.fixed_menu == null\">\n                    <div class=\"col-lg-6\">\n                        <div class=\"form-group\">\n                                <h5>Data do cardápio</h5>\n                                <div class=\"input-group\">\n                                        <input class=\"form-control\" placeholder=\"dd/mm/yyyy\"\n                                               name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\" (click)=\"d.toggle()\">\n                                      </div>\n                        </div>\n                    </div>\n                </div>\n        <form role=\"form\">\n            <div class=\"row\">\n                <div class=\"col-lg-12\">\n                    <div class=\"form-group\">\n                        <h5>Descrição</h5>\n                        <input [(ngModel)]=\"menu.description\" name=\"description\" class=\"form-control\" type=\"text\">\n                    </div>\n                </div>\n                <div class=\"col-lg-12\">\n                    <div class=\"form-group\">\n                        <h5>Observação</h5>\n                        <input [(ngModel)]=\"menu.observation\" name=\"observation\" class=\"form-control\" type=\"text\">\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row\">\n                    <div class=\"col-xl-12 text-right\">\n                        <button *ngIf=\"!edit\" type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"addMenu()\">Adicionar</button>\n                        <button *ngIf=\"edit\" type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"addMenu()\">Editar</button>\n                    </div>\n                </div>\n            </div>\n        </form>\n\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -173,6 +173,10 @@ var MenusFormComponent = /** @class */ (function () {
                 this.menu.observation = this.menu.description;
             }
             this.prepareIds();
+            if (this.menu.fixed_menu) {
+                this.date = '2000-01-01';
+                this.menu.date = '2000-01-01';
+            }
             if (!this.edit) {
                 this.menusService
                     .addMenu(this.access_token, this.menu)
@@ -187,7 +191,9 @@ var MenusFormComponent = /** @class */ (function () {
     };
     MenusFormComponent.prototype.validate = function () {
         var today = new Date();
-        this.menu.date = this.date.year + '-' + this.date.month + '-' + this.date.day;
+        if (this.date != null) {
+            this.menu.date = this.date.year + '-' + this.date.month + '-' + this.date.day;
+        }
         if (this.selected_ingredients.length < 1) {
             this.showAlert('danger', 'Selecione os ingredientes da marmita!');
             return false;
@@ -200,11 +206,12 @@ var MenusFormComponent = /** @class */ (function () {
             this.showAlert('danger', 'Informe a descrição da marmita!');
             return false;
         }
-        else if (this.menu.date == null) {
+        else if (this.menu.date == null && (!this.menu.fixed_menu || this.menu.fixed_menu == null)) {
             this.showAlert('danger', 'Informe a data da marmita!');
             return false;
         }
-        else if (this.datepipe.transform(today, 'yyyy-MM-dd') > this.menu.date) {
+        else if (this.datepipe.transform(today, 'yyyy-MM-dd') > this.menu.date
+            && (!this.menu.fixed_menu || this.menu.fixed_menu == null)) {
             this.showAlert('danger', 'Informe uma data igual ou posterior a atual!');
             return false;
         }

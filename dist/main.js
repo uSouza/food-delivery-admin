@@ -293,13 +293,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_login_login_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/login/login.service */ "./src/app/services/login/login.service.ts");
 /* harmony import */ var _services_orders_orders_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/orders/orders.service */ "./src/app/services/orders/orders.service.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _services_loader_interceptor_loader_interceptor_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/loader-interceptor/loader-interceptor.service */ "./src/app/services/loader-interceptor/loader-interceptor.service.ts");
+/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ngx-mask */ "./node_modules/ngx-mask/fesm5/ngx-mask.js");
+/* harmony import */ var _services_loader_interceptor_loader_interceptor_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/loader-interceptor/loader-interceptor.service */ "./src/app/services/loader-interceptor/loader-interceptor.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -328,6 +330,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_11__["NgbModule"].forRoot(),
+                ngx_mask__WEBPACK_IMPORTED_MODULE_12__["NgxMaskModule"].forRoot(),
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"]
             ],
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
@@ -339,7 +342,7 @@ var AppModule = /** @class */ (function () {
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_11__["NgbModal"],
                 {
                     provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HTTP_INTERCEPTORS"],
-                    useClass: _services_loader_interceptor_loader_interceptor_service__WEBPACK_IMPORTED_MODULE_12__["LoaderInterceptorService"],
+                    useClass: _services_loader_interceptor_loader_interceptor_service__WEBPACK_IMPORTED_MODULE_13__["LoaderInterceptorService"],
                     multi: true
                 }
             ],
@@ -526,7 +529,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var LoginService = /** @class */ (function () {
-    //url_api = 'http://localhost:8000/';
+    // url_api = 'http://localhost:8000/';
     function LoginService(http) {
         this.http = http;
         this.endpoint = 'oauth/token';

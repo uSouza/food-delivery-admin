@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Restaurant } from '../restaurant';
+import { Restaurant, BootstrapTime } from '../restaurant';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -18,18 +18,28 @@ export class RestaurantsFormComponent implements OnInit {
 
     public alerts: Array<any> = [];
 
-    edit: boolean = false;
+    edit = false;
     tags: Observable<any[]>;
     selected_tags = [];
     restaurant: Restaurant = new Restaurant();
     restaurant_edit: any;
     access_token: any = null;
     password_confirmation: any = null;
-    step: number = 1;
-    step_number: number = 6;
+    avg_delivery_time = {
+        hour: 0,
+        minute: 40
+    };
+    step = 1;
+    step_number = 6;
     service_hours = [];
-    opening: any = null;
-    closure: any = null;
+    opening = {
+        hour: 0,
+        minute: 0
+    };
+    closure = {
+        hour: 0,
+        minute: 0
+    };
     wdays = {
         sunday: false,
         monday: false,
@@ -108,6 +118,11 @@ export class RestaurantsFormComponent implements OnInit {
 
     updateFields() {
         console.log(this.restaurant_edit);
+        console.log(this.restaurant_edit.avg_delivery_time.split(':')[0]);
+        console.log(this.restaurant_edit.avg_delivery_time.split(':')[1]);
+        this.avg_delivery_time.hour = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[0]);
+        this.avg_delivery_time.minute = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[1]);
+        console.log(this.avg_delivery_time);
         this.restaurant.email = this.restaurant_edit.user.email;
         this.restaurant.social_name = this.restaurant_edit.social_name;
         this.restaurant.fantasy_name = this.restaurant_edit.fantasy_name;
@@ -136,26 +151,26 @@ export class RestaurantsFormComponent implements OnInit {
         worked_days.forEach((wday) => {
             console.log(wday);
             if (wday.sunday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 0))
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 0));
             }
             if (wday.monday) {
                 console.log(this.days_of_week.find(d => d.id == 1));
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 1))
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 1));
             }
             if (wday.tuesday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 2))
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 2));
             }
             if (wday.wednesday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 3))
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 3));
             }
             if (wday.thursday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 4))
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 4));
             }
             if (wday.friday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 5))
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 5));
             }
             if (wday.saturday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 6))
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 6));
             }
         });
         console.log(this.selected_days_of_week);
@@ -224,16 +239,11 @@ export class RestaurantsFormComponent implements OnInit {
             } else if (this.restaurant.delivery_value == null) {
                 this.showAlert('danger', 'Informe a taxa de entrega!');
                 return false;
-            } else if (this.restaurant.avg_delivery_time == null) {
+            } else if (this.avg_delivery_time == null) {
                 this.showAlert('danger', 'Informe tempo médio de entrega!');
                 return false;
             } else if (this.restaurant.order_limit == null) {
                 this.showAlert('danger', 'Informe a quantidade máxima de pedidos por dia!');
-                return false;
-            } else if (parseInt(this.restaurant.avg_delivery_time.substr(0, 2)) > 23
-                       || parseInt(this.restaurant.avg_delivery_time.substr(2, 2)) > 59
-                       || parseInt(this.restaurant.avg_delivery_time.substr(4, 2)) > 59) {
-                this.showAlert('danger', 'O tempo médio informado não é válido!');
                 return false;
             } else if (this.restaurant.order_limit < 1) {
                 this.showAlert('danger', 'O limite de pedidos não pode ser menor que 1!');
@@ -242,7 +252,10 @@ export class RestaurantsFormComponent implements OnInit {
                 this.showAlert('danger', 'A taxa de entrega não pode ser menor que zero!');
                 return false;
             } else {
-                this.restaurant.avg_delivery_time = this.restaurant.avg_delivery_time.substr(0, 2) + ':' + this.restaurant.avg_delivery_time.substr(2, 2) + ':' + this.restaurant.avg_delivery_time.substr(4, 2);
+                console.log(this.avg_delivery_time);
+                this.restaurant.avg_delivery_time = this.padLeft(this.avg_delivery_time.hour.toString(), '0', 2) +
+                    ':' + this.padLeft(this.avg_delivery_time.minute.toString(), '0', 2) + ':00';
+                console.log(this.restaurant.avg_delivery_time);
                 return true;
             }
         } else if (this.step == 5) {
@@ -280,6 +293,10 @@ export class RestaurantsFormComponent implements OnInit {
                 return true;
             }
         }
+    }
+
+    padLeft(text: string, padChar: string, size: number): string {
+        return (String(padChar).repeat(size) + text).substr( (size * -1), size) ;
     }
 
     addWorkDayItem(item) {
@@ -342,28 +359,25 @@ export class RestaurantsFormComponent implements OnInit {
 
     addServiceHour() {
         if (this.opening != null && this.closure != null) {
-            if (parseInt(this.opening.substr(0, 2)) > 23
-                || parseInt(this.opening.substr(2, 2)) > 59
-                || parseInt(this.opening.substr(4, 2)) > 59
-                || parseInt(this.closure.substr(0, 2)) > 23
-                || parseInt(this.closure.substr(2, 2)) > 59
-                || parseInt(this.closure.substr(4, 2)) > 59) {
-                this.showAlert('danger', 'Os horários informados para o atendimento não são válidos!');
-                this.opening = null;
-                this.closure = null;
-                return false;
-            } else {
-                this.opening = this.opening.substr(0, 2) + ':' + this.opening.substr(2, 2) + ':' + this.opening.substr(4, 2);
-                this.closure = this.closure.substr(0, 2) + ':' + this.closure.substr(2, 2) + ':' + this.closure.substr(4, 2);
 
-                let service_hour = {
-                    opening: this.opening,
-                    closure: this.closure
-                }
-                this.service_hours.push(service_hour);
-            }
-            this.opening = null;
-            this.closure = null;
+            const service_hour = {
+                opening: this.padLeft(this.opening.hour.toString(), '0', 2) + ':' +
+                    this.padLeft(this.opening.minute.toString(), '0', 2) + ':00',
+                closure: this.padLeft(this.closure.hour.toString(), '0', 2) + ':' +
+                this.padLeft(this.closure.minute.toString(), '0', 2) + ':00',
+            };
+
+            this.service_hours.push(service_hour);
+
+            this.opening = {
+                hour: 0,
+                minute: 0
+            };
+            this.closure = {
+                hour: 0,
+                minute: 0
+            };
+
         } else {
             this.showAlert('danger', 'Informe os dados de atendimento!');
         }
@@ -408,7 +422,7 @@ export class RestaurantsFormComponent implements OnInit {
                 .addUser(this.access_token, this.restaurant.email, this.restaurant.fantasy_name, this.restaurant.password)
                 .subscribe(
                     user => {
-                        this.saveRestaurant(user)
+                        this.saveRestaurant(user);
                     }
                 )
             } else {

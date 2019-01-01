@@ -69,6 +69,10 @@ export class MenusFormComponent implements OnInit {
                 this.menu.observation = this.menu.description;
             }
             this.prepareIds();
+            if (this.menu.fixed_menu) {
+                this.date = '2000-01-01';
+                this.menu.date = '2000-01-01';
+            }
             if (!this.edit) {
                 this.menusService
                     .addMenu(this.access_token, this.menu)
@@ -87,7 +91,9 @@ export class MenusFormComponent implements OnInit {
 
     validate() {
         let today = new Date();
-        this.menu.date = this.date.year + '-' + this.date.month + '-' + this.date.day;
+        if (this.date != null) {
+            this.menu.date = this.date.year + '-' + this.date.month + '-' + this.date.day;
+        }
         if (this.selected_ingredients.length < 1) {
             this.showAlert('danger', 'Selecione os ingredientes da marmita!');
             return false;
@@ -97,10 +103,11 @@ export class MenusFormComponent implements OnInit {
         } else if (this.menu.description == null) {
             this.showAlert('danger', 'Informe a descrição da marmita!');
             return false;
-        } else if (this.menu.date == null) {
+        } else if (this.menu.date == null && (! this.menu.fixed_menu || this.menu.fixed_menu == null)) {
             this.showAlert('danger', 'Informe a data da marmita!');
             return false;
-        } else if (this.datepipe.transform(today, 'yyyy-MM-dd') > this.menu.date) {
+        } else if (this.datepipe.transform(today, 'yyyy-MM-dd') > this.menu.date
+            && (! this.menu.fixed_menu || this.menu.fixed_menu == null)) {
             this.showAlert('danger', 'Informe uma data igual ou posterior a atual!');
             return false;
         } else {

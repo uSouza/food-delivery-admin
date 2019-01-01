@@ -9,8 +9,7 @@ import { RestaurantsFormComponent } from './restaurants-form.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatePipe } from '@angular/common';
-import { CurrencyMaskModule } from "ng2-currency-mask";
-
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
     imports: [

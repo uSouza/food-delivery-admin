@@ -34,6 +34,7 @@ export class MenusService {
                 description: menu.description,
                 observation: menu.observation,
                 date: menu.date,
+                fixed_menu: menu.fixed_menu,
                 ingredients_ids: menu.ingredients_ids,
                 prices_ids: menu.prices_ids
             };
@@ -51,6 +52,7 @@ export class MenusService {
                 description: menu.description,
                 observation: menu.observation,
                 date: menu.date,
+                fixed_menu: menu.fixed_menu,
                 ingredients_ids: menu.ingredients_ids,
                 prices_ids: menu.prices_ids
             };
