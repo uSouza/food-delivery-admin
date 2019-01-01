@@ -21,7 +21,8 @@
                       <th>{{menu.id}}</th>
                       <td>{{menu.description}}</td>
                       <td>{{menu.observation}}</td>
-                      <td>{{menu.date | date: 'dd/MM/yyyy'}}</td>
+                      <td *ngIf="! menu.fixed_menu || menu.fixed_menu == null">{{menu.date | date: 'dd/MM/yyyy'}}</td>
+                      <td *ngIf="menu.fixed_menu">Fixo</td>
                       <td>Ativo</td>
                       <td>
                          <button (click)="showMenu(menu)" type="button" class="btn btn-sm btn-success">Visualizar</button>
@@ -31,7 +32,8 @@
                     <th>{{menu.id}}</th>
                     <td>{{menu.description}}</td>
                     <td>{{menu.observation}}</td>
-                    <td>{{menu.date | date: 'dd/MM/yyyy'}}</td>
+                    <td *ngIf="! menu.fixed_menu || menu.fixed_menu == null">{{menu.date | date: 'dd/MM/yyyy'}}</td>
+                    <td *ngIf="menu.fixed_menu">Fixo</td>
                     <td>Inativo</td>
                     <td>
                        <button (click)="showMenu(menu)" type="button" class="btn btn-sm btn-success">Visualizar</button>
