@@ -51,7 +51,7 @@
                         <tr *ngIf="order.deliver && order.status_id==1" class="table-warning">
                             <td>{{order.client.name}}</td>
                             <td>{{order.location.address}} - {{order.location.number}}</td>
-                            <td>{{order.location.district}}</td>
+                            <td>{{order.location.district.name}}</td>
                             <td>{{order.price | currency: 'BRL': true}}</td>
                             <td>{{order.products.length}}</td>
                             <td>{{order.created_at | date: 'H:mm'}}</td>
@@ -72,7 +72,7 @@
                         <tr *ngIf="order.deliver && order.status_id==5" class="table-danger">
                             <td>{{order.client.name}}</td>
                             <td>{{order.location.address}} - {{order.location.number}}</td>
-                            <td>{{order.location.district}}</td>
+                            <td>{{order.location.district.name}}</td>
                             <td>{{order.price | currency: 'BRL': true}}</td>
                             <td>{{order.created_at | date: 'H:mm'}}</td>
                             <td>
