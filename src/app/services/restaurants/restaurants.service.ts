@@ -45,7 +45,7 @@ export class RestaurantsService {
             tags_ids: restaurant.tags_ids,
             delivery_value: restaurant.delivery_value,
             avg_delivery_time: restaurant.avg_delivery_time
-        }
+        };
 
         console.log(data.image_base64);
 
@@ -103,11 +103,9 @@ export class RestaurantsService {
 
     addLocation(access_token: any, location: any, restaurant: any) {
         let data = {
-          city: location.city,
-          state: location.state,
           address: location.address,
           number: location.number,
-          district: location.district,
+          district_id: location.district,
           postal_code: location.postal_code,
           observation: location.observation,
           company_id: restaurant.id
@@ -131,13 +129,31 @@ export class RestaurantsService {
         });
     }
 
+    getCities(access_token: any) {
+        return this.http.get<any[]>(url_api + 'cities',
+          {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + access_token
+            }
+          });
+      }
+
+      getDistricts(access_token: any, city_id: any) {
+        return this.http.get<any[]>(url_api + 'districts/city/' + city_id,
+          {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + access_token
+            }
+          });
+      }
+
     editLocation(access_token: any, location: any, restaurant: any, id: any) {
         let data = {
-          city: location.city,
-          state: location.state,
           address: location.address,
           number: location.number,
-          district: location.district,
+          district_id: location.district,
           postal_code: location.postal_code,
           observation: location.observation
         };
@@ -204,6 +220,31 @@ export class RestaurantsService {
             }
           });
     }
+
+    addFreights(access_token: any, freight: any) {
+        let data = {
+            company_id: freight.company_id,
+            district_id: freight.district_id,
+            value: freight.value
+          };
+          return this.http.post<any>(url_api + 'freights', data, {
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + access_token,
+              'Content-Type': 'application/json'
+            }
+          });
+    }
+
+    destroyFreights(access_token: any, restaurant: any) {
+        return this.http.delete<any>(url_api + 'freights/company/' + restaurant.id, {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + access_token,
+            'Content-Type': 'application/json'
+          }
+        });
+  }
 
     destroyServiceHours(access_token: any, restaurant: any) {
           return this.http.delete<any>(url_api + 'service_hours/company/' + restaurant.id, {

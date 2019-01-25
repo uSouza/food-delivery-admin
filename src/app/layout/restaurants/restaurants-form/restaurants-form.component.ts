@@ -30,7 +30,7 @@ export class RestaurantsFormComponent implements OnInit {
         minute: 40
     };
     step = 1;
-    step_number = 6;
+    step_number = 7;
     service_hours = [];
     opening = {
         hour: 0,
@@ -83,6 +83,13 @@ export class RestaurantsFormComponent implements OnInit {
     ];
     selected_days_of_week = [];
 
+    districts = [];
+    cities = [];
+
+    freights = [];
+    freight_district: any = null;
+    freight_value: any = null;
+
     constructor(public route: ActivatedRoute,
                 private router: Router,
                 public datepipe: DatePipe,
@@ -114,15 +121,26 @@ export class RestaurantsFormComponent implements OnInit {
             this.updateFields();
         }
         this.tags = this.tagsService.getTags(this.access_token);
+        this.restaurantsService
+            .getCities(this.access_token)
+            .subscribe(cities => {
+                this.cities = cities;
+            });
+    }
+
+    getDistricts(city) {
+        console.log(city);
+        this.restaurantsService
+            .getDistricts(this.access_token, city)
+            .subscribe(
+                districts => this.districts = districts
+            );
     }
 
     updateFields() {
-        console.log(this.restaurant_edit);
-        console.log(this.restaurant_edit.avg_delivery_time.split(':')[0]);
-        console.log(this.restaurant_edit.avg_delivery_time.split(':')[1]);
         this.avg_delivery_time.hour = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[0]);
         this.avg_delivery_time.minute = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[1]);
-        console.log(this.avg_delivery_time);
+        this.getDistricts(this.restaurant_edit.locations[0].district.city_id);
         this.restaurant.email = this.restaurant_edit.user.email;
         this.restaurant.social_name = this.restaurant_edit.social_name;
         this.restaurant.fantasy_name = this.restaurant_edit.fantasy_name;
@@ -139,11 +157,12 @@ export class RestaurantsFormComponent implements OnInit {
             this.restaurant.number = this.restaurant_edit.locations[0].number;
             this.restaurant.postal_code = this.restaurant_edit.locations[0].postal_code;
             this.restaurant.state = this.restaurant_edit.locations[0].state;
-            this.restaurant.city = this.restaurant_edit.locations[0].city;
-            this.restaurant.district = this.restaurant_edit.locations[0].district;
+            this.restaurant.city = this.restaurant_edit.locations[0].district.city_id;
+            this.restaurant.district = this.restaurant_edit.locations[0].district_id;
             this.restaurant.observation = this.restaurant_edit.locations[0].observation;
         }
         this.service_hours = this.restaurant_edit.service_hours;
+        this.freights = this.restaurant_edit.freights;
         this.restaurant.image = this.restaurant_edit.image_base64;
     }
 
@@ -268,13 +287,10 @@ export class RestaurantsFormComponent implements OnInit {
             } else if (this.restaurant.postal_code == null) {
                 this.showAlert('danger', 'Informe o código postal!');
                 return false;
-            } else if (this.restaurant.state == null) {
-                this.showAlert('danger', 'Informe o estado!');
-                return false;
             } else if (this.restaurant.city == null) {
                 this.showAlert('danger', 'Informe a cidade!');
                 return false;
-            } else if (this.restaurant.city == null) {
+            } else if (this.restaurant.district == null) {
                 this.showAlert('danger', 'Informe o bairro!');
                 return false;
             } else {
@@ -349,7 +365,7 @@ export class RestaurantsFormComponent implements OnInit {
                 type: type,
                 message: err
             }
-        )
+        );
     }
 
     closeAlert(alert: any) {
@@ -383,9 +399,34 @@ export class RestaurantsFormComponent implements OnInit {
         }
     }
 
+    addFreight() {
+        let district = null;
+        if (this.freight_district != null && this.freight_value != null) {
+            this.districts.forEach(d => {
+                if (d.id == this.freight_district) {
+                    district = d;
+                }
+            });
+            const freight = {
+                district: district,
+                value: this.freight_value
+            };
+            this.freights.push(freight);
+        } else {
+            this.showAlert('danger', 'Informe os dados corretamente!');
+        }
+        this.freight_district = null;
+        this.freight_value = null;
+    }
+
     deleteServiceHour(hour) {
         const index: number = this.service_hours.indexOf(hour);
         this.service_hours.splice(index, 1);
+    }
+
+    deleteFreight(freight) {
+        const index: number = this.freights.indexOf(freight);
+        this.freights.splice(index, 1);
     }
 
     nextStep() {
@@ -404,15 +445,15 @@ export class RestaurantsFormComponent implements OnInit {
 
     fileChange(event) {
         this.selectedFile = event.target.files[0];
-        var reader:FileReader = new FileReader();
-        reader.onload =this._handleReaderLoaded.bind(this);
+        var reader: FileReader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
         reader.readAsBinaryString(this.selectedFile);
     }
 
     _handleReaderLoaded(readerEvt) {
         var binaryString = readerEvt.target.result;
-        let header ='data:' + this.selectedFile.type + ';base64,';
-        this.restaurant.image= header + '' + btoa(binaryString);
+        let header = 'data:' + this.selectedFile.type + ';base64,';
+        this.restaurant.image = header + '' + btoa(binaryString);
     }
 
     save() {
@@ -440,8 +481,6 @@ export class RestaurantsFormComponent implements OnInit {
 
     saveRestaurant(user) {
         let location = {
-            city: this.restaurant.city,
-            state: this.restaurant.state,
             address: this.restaurant.address,
             number: this.restaurant.number,
             postal_code: this.restaurant.postal_code.substr(0, 5) + '-' + this.restaurant.postal_code.substr(5, 3),
@@ -506,7 +545,7 @@ export class RestaurantsFormComponent implements OnInit {
                 this.restaurantsService
                     .addServiceHours(this.access_token, service_hour, restaurant)
                     .subscribe(
-                        service_hour => this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }])
+                        service_hour => this.addFreights(restaurant)
                     )
             });
         } else {
@@ -519,15 +558,54 @@ export class RestaurantsFormComponent implements OnInit {
                                 company_id: restaurant.id,
                                 opening: s.opening,
                                 closure: s.closure
-                            }
+                            };
                             this.restaurantsService
                                 .addServiceHours(this.access_token, service_hour, restaurant)
                                 .subscribe(
-                                    service_hour => this.router.navigate(['/restaurants-list', { message: 'Restaurante alterado com sucesso!' }])
-                                )
+                                    service_hour => this.addFreights(restaurant)
+                                );
                         });
                     }
                 )
+        }
+
+    }
+
+    addFreights(restaurant) {
+        if (! this.edit) {
+            this.freights.forEach((f) => {
+                const freight = {
+                    company_id: restaurant.id,
+                    district_id: f.district.id,
+                    value: f.value
+                };
+                this.restaurantsService
+                    .addFreights(this.access_token, freight)
+                    .subscribe(
+                        service_hour => this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }])
+                    );
+            });
+        } else {
+            this.restaurantsService
+                .destroyFreights(this.access_token, restaurant)
+                .subscribe(
+                    freights => {
+                        this.freights.forEach((f) => {
+                            const freight = {
+                                company_id: restaurant.id,
+                                district_id: f.district.id,
+                                value: f.value
+                            };
+                            this.restaurantsService
+                                .addFreights(this.access_token, freight)
+                                .subscribe(
+                                    service_hour => {
+                                        this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
+                                    }
+                                );
+                        });
+                    }
+                );
         }
 
     }

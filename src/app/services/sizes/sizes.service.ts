@@ -21,7 +21,7 @@ export class SizesService {
       }
 
       addSize(access_token: any, size: any) {
-            let data = {
+            const data = {
                 size: size.size,
                 price: size.price
             };
@@ -36,7 +36,7 @@ export class SizesService {
       }
 
       editSize(access_token: any, size: any, id: any) {
-            let data = {
+            const data = {
                 size: size.size,
                 price: size.price
             };

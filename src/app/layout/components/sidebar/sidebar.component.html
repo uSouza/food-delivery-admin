@@ -96,5 +96,26 @@
                     </ul>
                 </li>
             </div>
+            <div *ngIf="user.type=='admin'" class="nested-menu">
+                    <a class="list-group-item" (click)="addExpandClass('utils')">
+                        <span><i class="fa fa-cogs"></i>Utilitários</span>
+                        <i *ngIf="!expanded_utils" class="fa fa-caret-square-o-right" style="margin-left: 20px"></i>
+                        <i *ngIf="expanded_utils" class="fa fa-caret-square-o-down" style="margin-left: 20px"></i>
+                    </a>
+                    <li class="nested" [class.expand]="showMenu === 'utils'">
+                        <ul class="submenu">
+                            <li>
+                                <a routerLink="/cities" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                    <span>{{ 'Cidades' }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/districts" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                    <span>{{ 'Bairros' }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
     </div>
 </nav>

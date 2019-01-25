@@ -15,6 +15,7 @@ export class SidebarComponent {
     expanded_crud: boolean = false;
     expanded_menu: boolean = false;
     expanded_restaurant: boolean = false;
+    expanded_utils: boolean = false;
     user: any;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
@@ -67,8 +68,16 @@ export class SidebarComponent {
             if (this.expanded_restaurant) {
                 this.expanded_restaurant = false;
             }
-        } else {
+        } else if (element == 'restaurant') {
             this.expanded_restaurant = !this.expanded_restaurant;
+            if (this.expanded_menu) {
+                this.expanded_menu = false;
+            }
+            if (this.expanded_crud) {
+                this.expanded_crud = false;
+            }
+        } else {
+            this.expanded_utils = !this.expanded_utils;
             if (this.expanded_menu) {
                 this.expanded_menu = false;
             }

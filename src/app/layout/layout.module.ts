@@ -17,7 +17,7 @@ import { LoaderComponent } from './loader/loader.component';
         TranslateModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, LoaderComponent],
-    providers: [LoginService],
+    declarations: [ LayoutComponent, SidebarComponent, HeaderComponent, LoaderComponent ],
+    providers: [ LoginService ],
 })
 export class LayoutModule {}

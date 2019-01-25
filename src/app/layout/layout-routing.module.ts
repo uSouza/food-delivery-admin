@@ -10,7 +10,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'orders', loadChildren: './order-details/order-details.module#OrderDetailsModule' },
-            { path: 'ingredient-group', loadChildren: './ingredient-groups/ingredient-groups-form/ingredient-groups-form.module#IngredientGroupsFormModule' },
+            { path: 'ingredient-group',
+                loadChildren: './ingredient-groups/ingredient-groups-form/ingredient-groups-form.module#IngredientGroupsFormModule' },
             { path: 'ingredients', loadChildren: './ingredients/ingredients.module#IngredientsModule' },
             { path: 'notifications', loadChildren: './notifications/notifications.module#NotificationsModule' },
             { path: 'additionals', loadChildren: './additionals/additionals.module#AdditionalsModule' },
@@ -24,6 +25,8 @@ const routes: Routes = [
             { path: 'restaurants-form', loadChildren: './restaurants/restaurants-form/restaurants-form.module#RestaurantsFormModule' },
             { path: 'restaurants-list', loadChildren: './restaurants/restaurants-list/restaurants-list.module#RestaurantsListModule' },
             { path: 'restaurants-show', loadChildren: './restaurants/restaurants-show/restaurants-show.module#RestaurantsShowModule' },
+            { path: 'cities', loadChildren: './cities/cities.module#CitiesModule' },
+            { path: 'districts', loadChildren: './districts/districts.module#DistrictsModule' },
         ]
     }
 ];

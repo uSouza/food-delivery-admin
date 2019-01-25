@@ -47,28 +47,28 @@ export class SizesComponent implements OnInit {
             .getSizes(localStorage.getItem('access_token'))
             .subscribe(
                 sizes => {
-                    this.sizes = sizes
+                    this.sizes = sizes;
                 }
-            )
+            );
     }
 
     addSize() {
 
         if (this.validate()) {
 
-            let size = {
+            const size = {
                 size: this.size,
                 price: this.price
-            }
+            };
 
             if (this.size_edit == null) {
                 this.sizesService
                 .addSize(localStorage.getItem('access_token'), size)
                 .subscribe(
                     size => {
-                        this.updateSizes(size, false)
+                        this.updateSizes(size, false);
                     }
-                )
+                );
             } else {
                 this.sizesService
                 .editSize(localStorage.getItem('access_token'), size, this.size_edit.id)
@@ -140,7 +140,7 @@ export class SizesComponent implements OnInit {
                 type: type,
                 message: err
             }
-        )
+        );
     }
 
     closeAlert(alert: any) {
