@@ -36,6 +36,15 @@ export class LocationsService {
           });
     }
 
+    getDistricts(access_token: any) {
+        return this.http.get<any[]>(url_api + 'districts',
+          {headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + access_token
+                  }
+          });
+    }
+
     addCity(access_token: any, city: any) {
         const data = {
             name: city.name,
@@ -55,7 +64,7 @@ export class LocationsService {
             name: district.name,
             city_id: district.city_id
         };
-        return this.http.post<any>(url_api + 'district', data, {
+        return this.http.post<any>(url_api + 'districts', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,

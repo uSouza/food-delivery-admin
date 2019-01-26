@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b"],{
 
 /***/ "./node_modules/ngx-pagination/dist/ngx-pagination.js":
 /*!************************************************************!*\
@@ -557,4 +557,4 @@ var NgxPaginationModule = (function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf.js.map
+//# sourceMappingURL=default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b.js.map

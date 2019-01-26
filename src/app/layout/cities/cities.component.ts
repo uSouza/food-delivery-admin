@@ -108,10 +108,10 @@ export class CitiesComponent implements OnInit {
 
     validate() {
         if (this.cityName == null) {
-            this.showAlert('error', 'Informe o nome da cidade!');
+            this.showAlert('danger', 'Informe o nome da cidade!');
             return false;
         } else if (this.state == null) {
-            this.showAlert('error', 'Informe o estado da cidade!');
+            this.showAlert('danger', 'Informe o estado da cidade!');
             return false;
         } else {
             return true;

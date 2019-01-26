@@ -14,40 +14,61 @@ var map = {
 	],
 	"./additionals/additionals.module": [
 		"./src/app/layout/additionals/additionals.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
 		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
 		"common",
 		"additionals-additionals-module"
 	],
+	"./cities/cities.module": [
+		"./src/app/layout/cities/cities.module.ts",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
+		"common",
+		"cities-cities-module"
+	],
 	"./closed-orders/closed-orders.module": [
 		"./src/app/layout/closed-orders/closed-orders.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
 		"common",
 		"closed-orders-closed-orders-module"
 	],
 	"./dashboard/dashboard.module": [
 		"./src/app/layout/dashboard/dashboard.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
 		"common",
 		"dashboard-dashboard-module"
 	],
+	"./districts/districts.module": [
+		"./src/app/layout/districts/districts.module.ts",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
+		"common",
+		"districts-districts-module"
+	],
 	"./form-payments/form-payments.module": [
 		"./src/app/layout/form-payments/form-payments.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
 		"common",
 		"form-payments-form-payments-module"
 	],
+	"./freights/freights.module": [
+		"./src/app/layout/freights/freights.module.ts",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
+		"common",
+		"freights-freights-module"
+	],
 	"./ingredient-groups/ingredient-groups-form/ingredient-groups-form.module": [
 		"./src/app/layout/ingredient-groups/ingredient-groups-form/ingredient-groups-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
 		"common",
 		"ingredient-groups-ingredient-groups-form-ingredient-groups-form-module"
 	],
 	"./ingredients/ingredients.module": [
 		"./src/app/layout/ingredients/ingredients.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
 		"common",
 		"ingredients-ingredients-module"
 	],
@@ -62,22 +83,22 @@ var map = {
 	],
 	"./menus/menus-form/menus-form.module": [
 		"./src/app/layout/menus/menus-form/menus-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
 		"common",
 		"menus-menus-form-menus-form-module"
 	],
 	"./menus/menus-list/menus-list.module": [
 		"./src/app/layout/menus/menus-list/menus-list.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
 		"common",
 		"menus-menus-list-menus-list-module"
 	],
 	"./menus/menus-show/menus-show.module": [
 		"./src/app/layout/menus/menus-show/menus-show.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
 		"common",
 		"menus-menus-show-menus-show-module"
 	],
@@ -95,23 +116,26 @@ var map = {
 	],
 	"./restaurants/restaurants-form/restaurants-form.module": [
 		"./src/app/layout/restaurants/restaurants-form/restaurants-form.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
 		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
+		"default~restaurants-restaurants-form-restaurants-form-module~restaurants-restaurants-list-restaurant~3187ef39",
 		"common",
 		"restaurants-restaurants-form-restaurants-form-module"
 	],
 	"./restaurants/restaurants-list/restaurants-list.module": [
 		"./src/app/layout/restaurants/restaurants-list/restaurants-list.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
+		"default~restaurants-restaurants-form-restaurants-form-module~restaurants-restaurants-list-restaurant~3187ef39",
 		"common",
 		"restaurants-restaurants-list-restaurants-list-module"
 	],
 	"./restaurants/restaurants-show/restaurants-show.module": [
 		"./src/app/layout/restaurants/restaurants-show/restaurants-show.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
+		"default~restaurants-restaurants-form-restaurants-form-module~restaurants-restaurants-list-restaurant~3187ef39",
 		"common",
 		"restaurants-restaurants-show-restaurants-show-module"
 	],
@@ -126,15 +150,15 @@ var map = {
 	],
 	"./sizes/sizes.module": [
 		"./src/app/layout/sizes/sizes.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
 		"default~additionals-additionals-module~restaurants-restaurants-form-restaurants-form-module~sizes-si~f25b5466",
 		"common",
 		"sizes-sizes-module"
 	],
 	"./tags/tags.module": [
 		"./src/app/layout/tags/tags.module.ts",
-		"default~additionals-additionals-module~closed-orders-closed-orders-module~dashboard-dashboard-module~8c687aaf",
-		"default~closed-orders-closed-orders-module~form-payments-form-payments-module~menus-menus-form-menus~d0a965a9",
+		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
+		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
 		"common",
 		"tags-tags-module"
 	]
@@ -388,8 +412,8 @@ var Config = /** @class */ (function () {
 
 var sender_id = '825111433849';
 var oneSignalAppId = '18e4fb1f-4d47-4196-8ded-4883a763d9d7';
-var url_api = 'http://api.pandeco.com.br/api/v1/';
-// export const url_api = 'http://localhost:8000/api/v1/';
+//export const url_api = 'http://api.pandeco.com.br/api/v1/';
+var url_api = 'http://localhost:8000/api/v1/';
 
 
 /***/ }),
@@ -529,11 +553,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var LoginService = /** @class */ (function () {
-    // url_api = 'http://localhost:8000/';
     function LoginService(http) {
         this.http = http;
         this.endpoint = 'oauth/token';
-        this.url_api = 'http://api.pandeco.com.br/';
+        //url_api = 'http://api.pandeco.com.br/';
+        this.url_api = 'http://localhost:8000/';
     }
     LoginService.prototype.authenticate = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();

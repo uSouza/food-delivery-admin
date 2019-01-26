@@ -1,3 +1,73 @@
-<p>
-  districts works!
-</p>
+<ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Exclusão de bairro</h4>
+        </div>
+        <div class="modal-body">
+            <p>Tem certeza de que deseja excluir?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="c('dismiss')">Não</button>
+            <button type="button" class="btn btn-light" (click)="c('delete')">Sim</button>
+        </div>
+    </ng-template>
+
+    <div class="row">
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-6">
+            <h3>Gerenciamento de bairros</h3>
+            <hr>
+            <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+            <form role="form">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label>Nome do bairro</label>
+                            <input [(ngModel)]="districtName" name="districtName" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <select class="form-control" [(ngModel)]="city" name="city">
+                                    <option value="-1">Selecione...</option>
+                                <option *ngFor="let c of cities" [ngValue]="c.id">{{ c.name }} - {{ c.state.nomenclature }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xl-12 text-right">
+                            <button type="button" class="btn btn btn-success" (click)="addDistrict()">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <table *ngIf="districts.length > 0" class="card-body table">
+                <thead>
+                   <tr>
+                      <th>Nome</th>
+                      <th>Cidade</th>
+                      <th>Estado</th>
+                      <th>Ações</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let district of districts  | paginate: { itemsPerPage: 4, currentPage: page }">
+                   <tr class="table-default">
+                      <td>{{ district.name }}</td>
+                      <td>{{ district.city.name }}</td>
+                      <td>{{ district.city.state.nomenclature }}</td>
+                      <td>
+                         <button type="button" class="btn btn-sm btn-success" (click)="editDistrict(district)">Editar</button>
+                         <button type="button" class="btn btn-sm btn-danger" (click)="deleteDistrict(content, district)">Deletar</button>
+                      </td>
+                   </tr>
+                </tbody>
+             </table>
+             <div class="has-text-centered">
+                <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+            </div>
+        </div>
+    </div>

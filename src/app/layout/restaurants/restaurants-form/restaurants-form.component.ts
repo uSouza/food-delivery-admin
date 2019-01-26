@@ -21,6 +21,8 @@ export class RestaurantsFormComponent implements OnInit {
     edit = false;
     tags: Observable<any[]>;
     selected_tags = [];
+    allDistricts: Observable<any[]>;
+    selected_districts = [];
     restaurant: Restaurant = new Restaurant();
     restaurant_edit: any;
     access_token: any = null;
@@ -83,11 +85,9 @@ export class RestaurantsFormComponent implements OnInit {
     ];
     selected_days_of_week = [];
 
-    districts = [];
     cities = [];
-
+    districts = [];
     freights = [];
-    freight_district: any = null;
     freight_value: any = null;
 
     constructor(public route: ActivatedRoute,
@@ -103,7 +103,7 @@ export class RestaurantsFormComponent implements OnInit {
             this.access_token = localStorage.getItem('access_token');
             if (this.route.snapshot.paramMap.get('id') != null) {
                 this.edit = true;
-                let restaurant_edit = JSON.parse(localStorage.getItem('restaurant_edit'));
+                const restaurant_edit = JSON.parse(localStorage.getItem('restaurant_edit'));
                 this.restaurant_edit = restaurant_edit;
                 restaurant_edit.tags.forEach((i) => {
                     this.selected_tags.push(i);
@@ -121,6 +121,7 @@ export class RestaurantsFormComponent implements OnInit {
             this.updateFields();
         }
         this.tags = this.tagsService.getTags(this.access_token);
+        this.allDistricts = this.restaurantsService.getDistricts(this.access_token, this.restaurant_edit.locations[0].district.city_id);
         this.restaurantsService
             .getCities(this.access_token)
             .subscribe(cities => {
@@ -129,7 +130,6 @@ export class RestaurantsFormComponent implements OnInit {
     }
 
     getDistricts(city) {
-        console.log(city);
         this.restaurantsService
             .getDistricts(this.access_token, city)
             .subscribe(
@@ -138,8 +138,8 @@ export class RestaurantsFormComponent implements OnInit {
     }
 
     updateFields() {
-        this.avg_delivery_time.hour = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[0]);
-        this.avg_delivery_time.minute = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[1]);
+        this.avg_delivery_time.hour = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[0], 10);
+        this.avg_delivery_time.minute = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[1], 10);
         this.getDistricts(this.restaurant_edit.locations[0].district.city_id);
         this.restaurant.email = this.restaurant_edit.user.email;
         this.restaurant.social_name = this.restaurant_edit.social_name;
@@ -196,7 +196,7 @@ export class RestaurantsFormComponent implements OnInit {
     }
 
     validate() {
-        if (this.step == 1) {
+        if (this.step === 1) {
             if (! this.edit) {
                 if (this.restaurant.email == null) {
                     this.showAlert('danger', 'Informe um endereço de email!');
@@ -218,7 +218,7 @@ export class RestaurantsFormComponent implements OnInit {
                     return true;
                 }
             }
-        } else if (this.step == 2) {
+        } else if (this.step === 2) {
             if (this.restaurant.social_name == null) {
                 this.showAlert('danger', 'Informe a razão social do restaurante!');
                 return false;
@@ -237,7 +237,7 @@ export class RestaurantsFormComponent implements OnInit {
             } else {
                 return true;
             }
-        } else if (this.step == 3) {
+        } else if (this.step === 3) {
             if (this.restaurant.responsible_name == null) {
                 this.showAlert('danger', 'Informe o nome do responsável pelo restaurante!');
                 return false;
@@ -247,7 +247,7 @@ export class RestaurantsFormComponent implements OnInit {
             } else {
                 return true;
             }
-        } else if (this.step == 4) {
+        } else if (this.step === 4) {
             console.log(this.restaurant.delivery_value);
             if (this.selected_tags.length < 1) {
                 this.showAlert('danger', 'Selecione ao menos uma tag!');
@@ -277,7 +277,7 @@ export class RestaurantsFormComponent implements OnInit {
                 console.log(this.restaurant.avg_delivery_time);
                 return true;
             }
-        } else if (this.step == 5) {
+        } else if (this.step === 5) {
             if (this.restaurant.address == null) {
                 this.showAlert('danger', 'Informe o endereço!');
                 return false;
@@ -304,8 +304,7 @@ export class RestaurantsFormComponent implements OnInit {
             } else if (this.selected_days_of_week.length < 1) {
                 this.showAlert('danger', 'Selecione os dias de atendimento!');
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
@@ -332,6 +331,15 @@ export class RestaurantsFormComponent implements OnInit {
     removeTagItem(item) {
         const index: number = this.selected_tags.indexOf(item);
         this.selected_tags.splice(index, 1);
+    }
+
+    addDistrictItem(item) {
+        this.selected_districts.push(item);
+    }
+
+    removeDistrictItem(item) {
+        const index: number = this.selected_districts.indexOf(item);
+        this.selected_districts.splice(index, 1);
     }
 
     prepare() {
@@ -400,22 +408,25 @@ export class RestaurantsFormComponent implements OnInit {
     }
 
     addFreight() {
-        let district = null;
-        if (this.freight_district != null && this.freight_value != null) {
-            this.districts.forEach(d => {
-                if (d.id == this.freight_district) {
-                    district = d;
-                }
+        if (this.selected_districts.length > 0 && this.freight_value != null) {
+            this.selected_districts.forEach(d => {
+                const freight = {
+                    district: d,
+                    value: this.freight_value
+                };
+                this.freights.forEach(f => {
+                    if (f.district.id === d.id) {
+                        const index: number = this.freights.indexOf(f);
+                        this.freights.splice(index, 1);
+                    }
+                });
+                this.freights.push(freight);
             });
-            const freight = {
-                district: district,
-                value: this.freight_value
-            };
-            this.freights.push(freight);
         } else {
             this.showAlert('danger', 'Informe os dados corretamente!');
         }
-        this.freight_district = null;
+        console.log(this.freights);
+        this.selected_districts = null;
         this.freight_value = null;
     }
 

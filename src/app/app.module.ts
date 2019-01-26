@@ -16,7 +16,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptorService } from './services/loader-interceptor/loader-interceptor.service';
-import { LayoutcitiesComponent } from './layoutcities/layoutcities.component';
 
 @NgModule({
     imports: [
@@ -29,7 +28,7 @@ import { LayoutcitiesComponent } from './layoutcities/layoutcities.component';
         NgxMaskModule.forRoot(),
         AppRoutingModule
     ],
-    declarations: [AppComponent, LayoutcitiesComponent],
+    declarations: [AppComponent],
     providers: [
         AuthGuard,
         LoginService,

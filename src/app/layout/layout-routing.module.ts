@@ -27,6 +27,7 @@ const routes: Routes = [
             { path: 'restaurants-show', loadChildren: './restaurants/restaurants-show/restaurants-show.module#RestaurantsShowModule' },
             { path: 'cities', loadChildren: './cities/cities.module#CitiesModule' },
             { path: 'districts', loadChildren: './districts/districts.module#DistrictsModule' },
+            { path: 'freights', loadChildren: './freights/freights.module#FreightsModule' },
         ]
     }
 ];

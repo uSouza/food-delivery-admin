@@ -78,7 +78,7 @@ var RestaurantsFormRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-lg-3\">\n    </div>\n    <div class=\"col-lg-6\">\n       <h3 *ngIf=\"edit\">Edição de restaurante</h3>\n       <h3 *ngIf=\"!edit\">Novo restaurante</h3>\n       <span class=\"badge badge-success\">Etapa {{ step }} de {{ step_number }}</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 1\" class=\"badge badge-secondary\">Cadastro do usuário</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 2\" class=\"badge badge-secondary\">Dados gerais do restaurante</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 3\" class=\"badge badge-secondary\">Dados do responsável</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 4\" class=\"badge badge-secondary\">Configurações do restaurante</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 5\" class=\"badge badge-secondary\">Dados de endereço</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 6\" class=\"badge badge-secondary\">Dados de atendimento</span>\n       <hr>\n       <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n       <form *ngIf=\"step == 1\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Email</h5>\n                   <input [(ngModel)]=\"restaurant.email\" name=\"email\" class=\"form-control\" type=\"email\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Senha</h5>\n                   <input [(ngModel)]=\"restaurant.password\" name=\"password\" class=\"form-control\" type=\"password\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Confirmação de senha</h5>\n                   <input [(ngModel)]=\"password_confirmation\" name=\"password_confirmation\" class=\"form-control\" type=\"password\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 2\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Razão social</h5>\n                   <input [(ngModel)]=\"restaurant.social_name\" name=\"social_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Nome fantasia</h5>\n                   <input [(ngModel)]=\"restaurant.fantasy_name\" name=\"fantasy_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>CNPJ</h5>\n                   <input [(ngModel)]=\"restaurant.cnpj\" name=\"cnpj\" mask='99.999.999/9999-99' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Celular</h5>\n                   <input [(ngModel)]=\"restaurant.cell_phone\" name=\"cell_phone\" mask='(99)99999-9999' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Telefone fixo</h5>\n                   <input [(ngModel)]=\"restaurant.phone\" name=\"phone\" mask='(99)9999-9999' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 3\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Nome do responsável</h5>\n                   <input [(ngModel)]=\"restaurant.responsible_name\" name=\"responsible_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Celular do responsável</h5>\n                   <input [(ngModel)]=\"restaurant.responsible_phone\" name=\"responsible_phone\" mask='(99)99999-9999' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 4\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"tags\" style=\"margin-bottom: 10px;\">\n                   <h5>Tags</h5>\n                   <ng-select\n                     name=\"tags\"\n                     [items]=\"tags | async\"\n                     [multiple]=\"true\"\n                     [closeOnSelect]=\"false\"\n                     [hideSelected]=\"true\"\n                     (add)=\"addTagItem($event)\"\n                     (remove)=\"removeTagItem($event)\"\n                     bindLabel=\"name\"\n                     placeholder=\"Selecione as tags\"\n                     [(ngModel)]=\"selected_tags\">\n                   </ng-select>\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Imagem do restaurante</h5>\n                   <input type=\"file\" (change)=\"fileChange($event)\" class=\"form-control\" name=\"image\" [(ngModel)]=\"restaurant.image\" placeholder=\"Selecione a imagem\" accept=\".png,.jpg,.jpeg\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Pedidos por dia</h5>\n                   <input type=\"number\" class=\"form-control\" name=\"order_limit\" [(ngModel)]=\"restaurant.order_limit\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Taxa de entrega</h5>\n                   <input currencyMask [(ngModel)]=\"restaurant.delivery_value\" name=\"delivery_value\" class=\"form-control\" [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" >\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Tempo médio de entrega</h5>\n                   <ngb-timepicker [(ngModel)]=\"avg_delivery_time\" name=\"avg_delivery_time\"></ngb-timepicker>\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 5\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-9\">\n                <div class=\"form-group\">\n                   <h5>Endereço</h5>\n                   <input [(ngModel)]=\"restaurant.address\" name=\"address\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-3\">\n                <div class=\"form-group\">\n                   <h5>Número</h5>\n                   <input [(ngModel)]=\"restaurant.number\" name=\"number\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>CEP</h5>\n                   <input class=\"form-control\" name=\"postal_code\" [(ngModel)]=\"restaurant.postal_code\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Estado</h5>\n                   <input class=\"form-control\" name=\"state\" [(ngModel)]=\"restaurant.state\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Cidade</h5>\n                   <input class=\"form-control\" name=\"city\" [(ngModel)]=\"restaurant.city\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Bairro</h5>\n                   <input class=\"form-control\" name=\"district\" [(ngModel)]=\"restaurant.district\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Complemento</h5>\n                   <input class=\"form-control\" name=\"observation\" [(ngModel)]=\"restaurant.observation\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 6\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-5\">\n                <div class=\"form-group\">\n                   <h5>Abertura</h5>\n                   <ngb-timepicker [(ngModel)]=\"opening\" name=\"opening\"></ngb-timepicker>\n                </div>\n             </div>\n             <div class=\"col-lg-5\">\n                <div class=\"form-group\">\n                   <h5>Fechamento</h5>\n                   <ngb-timepicker [(ngModel)]=\"closure\" name=\"closure\"></ngb-timepicker>\n                </div>\n             </div>\n             <div class=\"col-lg-2\">\n                <div class=\"form-group\">\n                   <button type=\"button\" class=\"btn btn-sm btn-success\" (click)=\"addServiceHour()\" style=\"margin-top: 75px; margin-left: -15px\">Adicionar</button>\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <table *ngIf=\"service_hours.length > 0\" class=\"card-body table\">\n                   <thead>\n                      <tr>\n                         <th>Abertura</th>\n                         <th>Fechamento</th>\n                         <th>Ações</th>\n                      </tr>\n                   </thead>\n                   <tbody *ngFor=\"let hour of service_hours  | paginate: { itemsPerPage: 2, currentPage: page }\">\n                      <tr class=\"table-default\">\n                         <td>{{hour.opening}}</td>\n                         <td>{{hour.closure}}</td>\n                         <td>\n                            <button type=\"button\" class=\"btn btn-sm btn-danger\" (click)=\"deleteServiceHour(hour)\">Deletar</button>\n                         </td>\n                      </tr>\n                   </tbody>\n                </table>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"days_of_week\" style=\"margin-bottom: 10px;\">\n                   <h5>Dias de trabalho</h5>\n                   <ng-select\n                   [items]=\"days_of_week\"\n                   [multiple]=\"true\"\n                   name=\"selected_days_of_week\"\n                   [closeOnSelect]=\"false\"\n                   [hideSelected]=\"true\"\n                   (add) = \"addWorkDayItem($event)\"\n                   (remove) = \"removeWorkItem($vent)\"\n                   bindLabel=\"name\"\n                   placeholder=\"Selecione os dias\"\n                   dropdownPosition=\"top\"\n                   [(ngModel)]=\"selected_days_of_week\">\n                   </ng-select>\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"save()\">Concluir</button>\n                </div>\n             </div>\n          </div>\n       </form>\n    </div>\n </div>\n"
+module.exports = "<div class=\"row\">\n    <div class=\"col-lg-3\">\n    </div>\n    <div class=\"col-lg-6\">\n       <h3 *ngIf=\"edit\">Edição de restaurante</h3>\n       <h3 *ngIf=\"!edit\">Novo restaurante</h3>\n       <span class=\"badge badge-success\">Etapa {{ step }} de {{ step_number }}</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 1\" class=\"badge badge-secondary\">Cadastro do usuário</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 2\" class=\"badge badge-secondary\">Dados gerais do restaurante</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 3\" class=\"badge badge-secondary\">Dados do responsável</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 4\" class=\"badge badge-secondary\">Configurações do restaurante</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 5\" class=\"badge badge-secondary\">Dados de endereço</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 6\" class=\"badge badge-secondary\">Dados de atendimento</span>\n       <span style=\"margin-left: 5px\" *ngIf=\"step == 7\" class=\"badge badge-secondary\">Freteamento</span>\n       <hr>\n       <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n       <form *ngIf=\"step == 1\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Email</h5>\n                   <input [(ngModel)]=\"restaurant.email\" name=\"email\" class=\"form-control\" type=\"email\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Senha</h5>\n                   <input [(ngModel)]=\"restaurant.password\" name=\"password\" class=\"form-control\" type=\"password\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Confirmação de senha</h5>\n                   <input [(ngModel)]=\"password_confirmation\" name=\"password_confirmation\" class=\"form-control\" type=\"password\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 2\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Razão social</h5>\n                   <input [(ngModel)]=\"restaurant.social_name\" name=\"social_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Nome fantasia</h5>\n                   <input [(ngModel)]=\"restaurant.fantasy_name\" name=\"fantasy_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>CNPJ</h5>\n                   <input [(ngModel)]=\"restaurant.cnpj\" mask='00.000.000/0000-00' name=\"cnpj\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Celular</h5>\n                   <input [(ngModel)]=\"restaurant.cell_phone\" mask='(00)00000-0000' name=\"cell_phone\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Telefone fixo</h5>\n                   <input [(ngModel)]=\"restaurant.phone\" mask='(00)00000-0000' name=\"phone\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 3\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Nome do responsável</h5>\n                   <input [(ngModel)]=\"restaurant.responsible_name\" name=\"responsible_name\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Celular do responsável</h5>\n                   <input [(ngModel)]=\"restaurant.responsible_phone\" name=\"responsible_phone\" mask='(00)00000-0000' class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 4\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-12\">\n                <div class=\"tags\" style=\"margin-bottom: 10px;\">\n                   <h5>Tags</h5>\n                   <ng-select\n                     name=\"tags\"\n                     [items]=\"tags | async\"\n                     [multiple]=\"true\"\n                     [closeOnSelect]=\"false\"\n                     [hideSelected]=\"true\"\n                     (add)=\"addTagItem($event)\"\n                     (remove)=\"removeTagItem($event)\"\n                     bindLabel=\"name\"\n                     placeholder=\"Selecione as tags\"\n                     [(ngModel)]=\"selected_tags\">\n                   </ng-select>\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Imagem do restaurante</h5>\n                   <input type=\"file\" (change)=\"fileChange($event)\" class=\"form-control\" name=\"image\" [(ngModel)]=\"restaurant.image\" placeholder=\"Selecione a imagem\" accept=\".png,.jpg,.jpeg\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Pedidos por dia</h5>\n                   <input type=\"number\" class=\"form-control\" name=\"order_limit\" [(ngModel)]=\"restaurant.order_limit\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Taxa de entrega</h5>\n                   <input currencyMask [(ngModel)]=\"restaurant.delivery_value\" name=\"delivery_value\" class=\"form-control\" [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" >\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Tempo médio de entrega</h5>\n                   <ngb-timepicker [(ngModel)]=\"avg_delivery_time\" name=\"avg_delivery_time\"></ngb-timepicker>\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 5\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-9\">\n                <div class=\"form-group\">\n                   <h5>Endereço</h5>\n                   <input [(ngModel)]=\"restaurant.address\" name=\"address\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-3\">\n                <div class=\"form-group\">\n                   <h5>Número</h5>\n                   <input [(ngModel)]=\"restaurant.number\" name=\"number\" class=\"form-control\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>CEP</h5>\n                   <input class=\"form-control\" mask='00000-000' name=\"postal_code\" [(ngModel)]=\"restaurant.postal_code\" type=\"text\">\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Cidade</h5>\n                   <select class=\"form-control\" name=\"city\" [(ngModel)]=\"restaurant.city\" (ngModelChange)=\"getDistricts($event)\">\n                       <option value=\"{{c.id}}\" *ngFor=\"let c of cities\">{{ c.name }}</option>\n                   </select>\n                </div>\n             </div>\n             <div class=\"col-lg-6\">\n                <div class=\"form-group\">\n                   <h5>Bairro</h5>\n                   <select class=\"form-control\" name=\"district\" [(ngModel)]=\"restaurant.district\">\n                    <option *ngIf=\"districts.length == 0\">Não há bairros para exibir.</option>\n                    <option value=\"{{d.id}}\" *ngFor=\"let d of districts\">{{ d.name }}</option>\n                </select>\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"form-group\">\n                   <h5>Complemento</h5>\n                   <input class=\"form-control\" name=\"observation\" [(ngModel)]=\"restaurant.observation\" type=\"text\">\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 6\" role=\"form\">\n          <div class=\"row\">\n             <div class=\"col-lg-5\">\n                <div class=\"form-group\">\n                   <h5>Abertura</h5>\n                   <ngb-timepicker [(ngModel)]=\"opening\" name=\"opening\"></ngb-timepicker>\n                </div>\n             </div>\n             <div class=\"col-lg-5\">\n                <div class=\"form-group\">\n                   <h5>Fechamento</h5>\n                   <ngb-timepicker [(ngModel)]=\"closure\" name=\"closure\"></ngb-timepicker>\n                </div>\n             </div>\n             <div class=\"col-lg-2\">\n                <div class=\"form-group\">\n                   <button type=\"button\" class=\"btn btn-sm btn-success\" (click)=\"addServiceHour()\" style=\"margin-top: 75px; margin-left: -15px\">Adicionar</button>\n                </div>\n             </div>\n             <div class=\"col-lg-12\">\n                <table *ngIf=\"service_hours.length > 0\" class=\"card-body table\">\n                   <thead>\n                      <tr>\n                         <th>Abertura</th>\n                         <th>Fechamento</th>\n                         <th>Ações</th>\n                      </tr>\n                   </thead>\n                   <tbody *ngFor=\"let hour of service_hours\">\n                      <tr class=\"table-default\">\n                         <td>{{hour.opening}}</td>\n                         <td>{{hour.closure}}</td>\n                         <td>\n                            <button type=\"button\" class=\"btn btn-sm btn-danger\" (click)=\"deleteServiceHour(hour)\">Deletar</button>\n                         </td>\n                      </tr>\n                   </tbody>\n                </table>\n             </div>\n             <div class=\"col-lg-12\">\n                <div class=\"days_of_week\" style=\"margin-bottom: 10px;\">\n                   <h5>Dias de trabalho</h5>\n                   <ng-select\n                   [items]=\"days_of_week\"\n                   [multiple]=\"true\"\n                   name=\"selected_days_of_week\"\n                   [closeOnSelect]=\"false\"\n                   [hideSelected]=\"true\"\n                   (add) = \"addWorkDayItem($event)\"\n                   (remove) = \"removeWorkItem($vent)\"\n                   bindLabel=\"name\"\n                   placeholder=\"Selecione os dias\"\n                   dropdownPosition=\"top\"\n                   [(ngModel)]=\"selected_days_of_week\">\n                   </ng-select>\n                </div>\n             </div>\n          </div>\n          <div class=\"form-group\">\n             <div class=\"row\">\n                <div class=\"col-xl-12 text-right\">\n                   <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                   <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"nextStep()()\">Avançar</button>\n                </div>\n             </div>\n          </div>\n       </form>\n       <form *ngIf=\"step == 7\" role=\"form\">\n            <div class=\"row\">\n                <div class=\"col-lg-12\">\n                    <div class=\"tags\" style=\"margin-bottom: 10px;\">\n                        <h5>Bairros</h5>\n                            <ng-select\n                                 name=\"districts\"\n                                 [items]=\"allDistricts | async\"\n                                 [multiple]=\"true\"\n                                 [closeOnSelect]=\"false\"\n                                 [hideSelected]=\"true\"\n                                 (add)=\"addDistrictItem($event)\"\n                                 (remove)=\"removeDistrictItem($event)\"\n                                 bindLabel=\"name\"\n                                 placeholder=\"Selecione os bairros\"\n                                 [(ngModel)]=\"selected_districts\">\n                            </ng-select>\n                    </div>\n                </div>\n               <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                     <h5>Valor</h5>\n                     <input class=\"form-control\" currencyMask [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',' }\" [(ngModel)]=\"freight_value\" name=\"freight_value\">\n                  </div>\n               </div>\n               <div class=\"col-lg-12 text-right\">\n                    <div class=\"form-group\">\n                        <button type=\"button\" class=\"btn btn-success\" (click)=\"addFreight()\">Adicionar</button>\n                    </div>\n               </div>\n            </div>\n               <div class=\"col-lg-12\">\n                  <table *ngIf=\"freights.length > 0\" class=\"card-body table\">\n                     <thead>\n                        <tr>\n                           <th>Bairro</th>\n                           <th>Valor</th>\n                           <th>Ações</th>\n                        </tr>\n                     </thead>\n                     <tbody *ngFor=\"let f of freights \">\n                        <tr class=\"table-default\">\n                           <td>{{f.district.name}}</td>\n                           <td>{{f.value | currency: 'BRL': true}}</td>\n                           <td>\n                              <button type=\"button\" class=\"btn btn-sm btn-danger\" (click)=\"deleteFreight(f)\">Deletar</button>\n                           </td>\n                        </tr>\n                     </tbody>\n                  </table>\n               </div>\n            <div class=\"form-group\">\n               <div class=\"row\">\n                  <div class=\"col-xl-12 text-right\">\n                     <button type=\"button\" class=\"btn btn-lg btn-default\" (click)=\"backStep()\" style=\"margin-right: 10px\">Voltar</button>\n                     <button type=\"button\" class=\"btn btn-lg btn-success\" (click)=\"save()\">Concluir</button>\n                  </div>\n               </div>\n            </div>\n         </form>\n    </div>\n </div>\n"
 
 /***/ }),
 
@@ -141,6 +141,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
         this.alerts = [];
         this.edit = false;
         this.selected_tags = [];
+        this.selected_districts = [];
         this.restaurant = new _restaurant__WEBPACK_IMPORTED_MODULE_1__["Restaurant"]();
         this.access_token = null;
         this.password_confirmation = null;
@@ -149,7 +150,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
             minute: 40
         };
         this.step = 1;
-        this.step_number = 6;
+        this.step_number = 7;
         this.service_hours = [];
         this.opening = {
             hour: 0,
@@ -199,6 +200,10 @@ var RestaurantsFormComponent = /** @class */ (function () {
             }
         ];
         this.selected_days_of_week = [];
+        this.cities = [];
+        this.districts = [];
+        this.freights = [];
+        this.freight_value = null;
     }
     RestaurantsFormComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -220,18 +225,28 @@ var RestaurantsFormComponent = /** @class */ (function () {
         }
     };
     RestaurantsFormComponent.prototype.load = function () {
+        var _this = this;
         if (this.edit) {
             this.updateFields();
         }
         this.tags = this.tagsService.getTags(this.access_token);
+        this.allDistricts = this.restaurantsService.getDistricts(this.access_token, this.restaurant_edit.locations[0].district.city_id);
+        this.restaurantsService
+            .getCities(this.access_token)
+            .subscribe(function (cities) {
+            _this.cities = cities;
+        });
+    };
+    RestaurantsFormComponent.prototype.getDistricts = function (city) {
+        var _this = this;
+        this.restaurantsService
+            .getDistricts(this.access_token, city)
+            .subscribe(function (districts) { return _this.districts = districts; });
     };
     RestaurantsFormComponent.prototype.updateFields = function () {
-        console.log(this.restaurant_edit);
-        console.log(this.restaurant_edit.avg_delivery_time.split(':')[0]);
-        console.log(this.restaurant_edit.avg_delivery_time.split(':')[1]);
-        this.avg_delivery_time.hour = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[0]);
-        this.avg_delivery_time.minute = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[1]);
-        console.log(this.avg_delivery_time);
+        this.avg_delivery_time.hour = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[0], 10);
+        this.avg_delivery_time.minute = parseInt(this.restaurant_edit.avg_delivery_time.split(':')[1], 10);
+        this.getDistricts(this.restaurant_edit.locations[0].district.city_id);
         this.restaurant.email = this.restaurant_edit.user.email;
         this.restaurant.social_name = this.restaurant_edit.social_name;
         this.restaurant.fantasy_name = this.restaurant_edit.fantasy_name;
@@ -248,11 +263,12 @@ var RestaurantsFormComponent = /** @class */ (function () {
             this.restaurant.number = this.restaurant_edit.locations[0].number;
             this.restaurant.postal_code = this.restaurant_edit.locations[0].postal_code;
             this.restaurant.state = this.restaurant_edit.locations[0].state;
-            this.restaurant.city = this.restaurant_edit.locations[0].city;
-            this.restaurant.district = this.restaurant_edit.locations[0].district;
+            this.restaurant.city = this.restaurant_edit.locations[0].district.city_id;
+            this.restaurant.district = this.restaurant_edit.locations[0].district_id;
             this.restaurant.observation = this.restaurant_edit.locations[0].observation;
         }
         this.service_hours = this.restaurant_edit.service_hours;
+        this.freights = this.restaurant_edit.freights;
         this.restaurant.image = this.restaurant_edit.image_base64;
     };
     RestaurantsFormComponent.prototype.setWorkedDays = function (worked_days) {
@@ -285,7 +301,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
         console.log(this.selected_days_of_week);
     };
     RestaurantsFormComponent.prototype.validate = function () {
-        if (this.step == 1) {
+        if (this.step === 1) {
             if (!this.edit) {
                 if (this.restaurant.email == null) {
                     this.showAlert('danger', 'Informe um endereço de email!');
@@ -313,7 +329,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 }
             }
         }
-        else if (this.step == 2) {
+        else if (this.step === 2) {
             if (this.restaurant.social_name == null) {
                 this.showAlert('danger', 'Informe a razão social do restaurante!');
                 return false;
@@ -338,7 +354,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 return true;
             }
         }
-        else if (this.step == 3) {
+        else if (this.step === 3) {
             if (this.restaurant.responsible_name == null) {
                 this.showAlert('danger', 'Informe o nome do responsável pelo restaurante!');
                 return false;
@@ -351,7 +367,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 return true;
             }
         }
-        else if (this.step == 4) {
+        else if (this.step === 4) {
             console.log(this.restaurant.delivery_value);
             if (this.selected_tags.length < 1) {
                 this.showAlert('danger', 'Selecione ao menos uma tag!');
@@ -389,7 +405,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 return true;
             }
         }
-        else if (this.step == 5) {
+        else if (this.step === 5) {
             if (this.restaurant.address == null) {
                 this.showAlert('danger', 'Informe o endereço!');
                 return false;
@@ -402,15 +418,11 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 this.showAlert('danger', 'Informe o código postal!');
                 return false;
             }
-            else if (this.restaurant.state == null) {
-                this.showAlert('danger', 'Informe o estado!');
-                return false;
-            }
             else if (this.restaurant.city == null) {
                 this.showAlert('danger', 'Informe a cidade!');
                 return false;
             }
-            else if (this.restaurant.city == null) {
+            else if (this.restaurant.district == null) {
                 this.showAlert('danger', 'Informe o bairro!');
                 return false;
             }
@@ -450,6 +462,13 @@ var RestaurantsFormComponent = /** @class */ (function () {
     RestaurantsFormComponent.prototype.removeTagItem = function (item) {
         var index = this.selected_tags.indexOf(item);
         this.selected_tags.splice(index, 1);
+    };
+    RestaurantsFormComponent.prototype.addDistrictItem = function (item) {
+        this.selected_districts.push(item);
+    };
+    RestaurantsFormComponent.prototype.removeDistrictItem = function (item) {
+        var index = this.selected_districts.indexOf(item);
+        this.selected_districts.splice(index, 1);
     };
     RestaurantsFormComponent.prototype.prepare = function () {
         var _this = this;
@@ -514,9 +533,37 @@ var RestaurantsFormComponent = /** @class */ (function () {
             this.showAlert('danger', 'Informe os dados de atendimento!');
         }
     };
+    RestaurantsFormComponent.prototype.addFreight = function () {
+        var _this = this;
+        if (this.selected_districts.length > 0 && this.freight_value != null) {
+            this.selected_districts.forEach(function (d) {
+                var freight = {
+                    district: d,
+                    value: _this.freight_value
+                };
+                _this.freights.forEach(function (f) {
+                    if (f.district.id === d.id) {
+                        var index = _this.freights.indexOf(f);
+                        _this.freights.splice(index, 1);
+                    }
+                });
+                _this.freights.push(freight);
+            });
+        }
+        else {
+            this.showAlert('danger', 'Informe os dados corretamente!');
+        }
+        console.log(this.freights);
+        this.selected_districts = null;
+        this.freight_value = null;
+    };
     RestaurantsFormComponent.prototype.deleteServiceHour = function (hour) {
         var index = this.service_hours.indexOf(hour);
         this.service_hours.splice(index, 1);
+    };
+    RestaurantsFormComponent.prototype.deleteFreight = function (freight) {
+        var index = this.freights.indexOf(freight);
+        this.freights.splice(index, 1);
     };
     RestaurantsFormComponent.prototype.nextStep = function () {
         if (this.validate()) {
@@ -563,8 +610,6 @@ var RestaurantsFormComponent = /** @class */ (function () {
     RestaurantsFormComponent.prototype.saveRestaurant = function (user) {
         var _this = this;
         var location = {
-            city: this.restaurant.city,
-            state: this.restaurant.state,
             address: this.restaurant.address,
             number: this.restaurant.number,
             postal_code: this.restaurant.postal_code.substr(0, 5) + '-' + this.restaurant.postal_code.substr(5, 3),
@@ -616,7 +661,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 };
                 _this.restaurantsService
                     .addServiceHours(_this.access_token, service_hour, restaurant)
-                    .subscribe(function (service_hour) { return _this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]); });
+                    .subscribe(function (service_hour) { return _this.addFreights(restaurant); });
             });
         }
         else {
@@ -631,7 +676,40 @@ var RestaurantsFormComponent = /** @class */ (function () {
                     };
                     _this.restaurantsService
                         .addServiceHours(_this.access_token, service_hour, restaurant)
-                        .subscribe(function (service_hour) { return _this.router.navigate(['/restaurants-list', { message: 'Restaurante alterado com sucesso!' }]); });
+                        .subscribe(function (service_hour) { return _this.addFreights(restaurant); });
+                });
+            });
+        }
+    };
+    RestaurantsFormComponent.prototype.addFreights = function (restaurant) {
+        var _this = this;
+        if (!this.edit) {
+            this.freights.forEach(function (f) {
+                var freight = {
+                    company_id: restaurant.id,
+                    district_id: f.district.id,
+                    value: f.value
+                };
+                _this.restaurantsService
+                    .addFreights(_this.access_token, freight)
+                    .subscribe(function (service_hour) { return _this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]); });
+            });
+        }
+        else {
+            this.restaurantsService
+                .destroyFreights(this.access_token, restaurant)
+                .subscribe(function (freights) {
+                _this.freights.forEach(function (f) {
+                    var freight = {
+                        company_id: restaurant.id,
+                        district_id: f.district.id,
+                        value: f.value
+                    };
+                    _this.restaurantsService
+                        .addFreights(_this.access_token, freight)
+                        .subscribe(function (service_hour) {
+                        _this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
+                    });
                 });
             });
         }
