@@ -553,11 +553,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var LoginService = /** @class */ (function () {
+    // url_api = 'http://localhost:8000/';
     function LoginService(http) {
         this.http = http;
         this.endpoint = 'oauth/token';
-        //url_api = 'http://api.pandeco.com.br/';
-        this.url_api = 'http://localhost:8000/';
+        this.url_api = 'http://api.pandeco.com.br/';
     }
     LoginService.prototype.authenticate = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
@@ -567,8 +567,6 @@ var LoginService = /** @class */ (function () {
             grant_type: 'password',
             client_id: 1,
             client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
-            //client_id: 7,
-            //client_secret: 'ByFwhpPZlrEJH4JijXzGFXSt38jGn5ocjAR1NLt5',
             username: user.email,
             password: user.password,
             scope: ''
@@ -600,7 +598,7 @@ var LoginService = /** @class */ (function () {
     LoginService.prototype.updateUser = function (access_token, email, name, password, id) {
         var data = null;
         if (password != null) {
-            var data_1 = {
+            data = {
                 email: email,
                 type: 'company',
                 name: name,
@@ -608,7 +606,7 @@ var LoginService = /** @class */ (function () {
             };
         }
         else {
-            var data_2 = {
+            data = {
                 email: email,
                 type: 'company',
                 name: name
