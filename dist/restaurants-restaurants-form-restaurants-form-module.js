@@ -274,31 +274,28 @@ var RestaurantsFormComponent = /** @class */ (function () {
     RestaurantsFormComponent.prototype.setWorkedDays = function (worked_days) {
         var _this = this;
         worked_days.forEach(function (wday) {
-            console.log(wday);
             if (wday.sunday) {
-                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id == 0; }));
+                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id === 0; }));
             }
             if (wday.monday) {
-                console.log(_this.days_of_week.find(function (d) { return d.id == 1; }));
-                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id == 1; }));
+                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id === 1; }));
             }
             if (wday.tuesday) {
-                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id == 2; }));
+                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id === 2; }));
             }
             if (wday.wednesday) {
-                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id == 3; }));
+                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id === 3; }));
             }
             if (wday.thursday) {
-                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id == 4; }));
+                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id === 4; }));
             }
             if (wday.friday) {
-                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id == 5; }));
+                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id === 5; }));
             }
             if (wday.saturday) {
-                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id == 6; }));
+                _this.selected_days_of_week.push(_this.days_of_week.find(function (d) { return d.id === 6; }));
             }
         });
-        console.log(this.selected_days_of_week);
     };
     RestaurantsFormComponent.prototype.validate = function () {
         if (this.step === 1) {
@@ -311,7 +308,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
                     this.showAlert('danger', 'É necessário informar uma senha!');
                     return false;
                 }
-                else if (this.restaurant.password != this.password_confirmation) {
+                else if (this.restaurant.password !== this.password_confirmation) {
                     this.showAlert('danger', 'A senha informada não coincide com a confirmação!');
                     return false;
                 }
@@ -368,7 +365,6 @@ var RestaurantsFormComponent = /** @class */ (function () {
             }
         }
         else if (this.step === 4) {
-            console.log(this.restaurant.delivery_value);
             if (this.selected_tags.length < 1) {
                 this.showAlert('danger', 'Selecione ao menos uma tag!');
                 return false;
@@ -398,10 +394,8 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 return false;
             }
             else {
-                console.log(this.avg_delivery_time);
                 this.restaurant.avg_delivery_time = this.padLeft(this.avg_delivery_time.hour.toString(), '0', 2) +
                     ':' + this.padLeft(this.avg_delivery_time.minute.toString(), '0', 2) + ':00';
-                console.log(this.restaurant.avg_delivery_time);
                 return true;
             }
         }
@@ -431,7 +425,6 @@ var RestaurantsFormComponent = /** @class */ (function () {
             }
         }
         else {
-            console.log(this.selected_days_of_week);
             if (this.service_hours.length < 1) {
                 this.showAlert('danger', 'Informe os dados de atendimento!');
                 return false;
@@ -450,7 +443,6 @@ var RestaurantsFormComponent = /** @class */ (function () {
     };
     RestaurantsFormComponent.prototype.addWorkDayItem = function (item) {
         this.selected_days_of_week.push(item);
-        console.log(this.selected_days_of_week);
     };
     RestaurantsFormComponent.prototype.removeWorkItem = function (item) {
         var index = this.selected_days_of_week.indexOf(item);
@@ -477,22 +469,22 @@ var RestaurantsFormComponent = /** @class */ (function () {
             _this.restaurant.tags_ids.push(i.id);
         });
         this.selected_days_of_week.forEach(function (wday) {
-            if (wday.id == 0) {
+            if (wday.id === 0) {
                 _this.wdays.sunday = true;
             }
-            else if (wday.id == 1) {
+            else if (wday.id === 1) {
                 _this.wdays.monday = true;
             }
-            else if (wday.id == 2) {
+            else if (wday.id === 2) {
                 _this.wdays.tuesday = true;
             }
-            else if (wday.id == 3) {
+            else if (wday.id === 3) {
                 _this.wdays.wednesday = true;
             }
-            else if (wday.id == 4) {
+            else if (wday.id === 4) {
                 _this.wdays.thursday = true;
             }
-            else if (wday.id == 5) {
+            else if (wday.id === 5) {
                 _this.wdays.friday = true;
             }
             else {
@@ -553,7 +545,6 @@ var RestaurantsFormComponent = /** @class */ (function () {
         else {
             this.showAlert('danger', 'Informe os dados corretamente!');
         }
-        console.log(this.freights);
         this.selected_districts = null;
         this.freight_value = null;
     };
@@ -624,26 +615,25 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 .subscribe(function (restaurant) {
                 _this.restaurantsService
                     .addLocation(_this.access_token, location, restaurant)
-                    .subscribe(function (location) {
+                    .subscribe(function () {
                     _this.restaurantsService
                         .addWorkedDays(_this.access_token, _this.wdays, restaurant)
-                        .subscribe(function (wdays) {
+                        .subscribe(function () {
                         _this.addServiceHours(restaurant);
                     });
                 });
             });
         }
         else {
-            console.log(this.restaurant_edit.locations[0].id);
             this.restaurantsService
                 .editRestaurant(this.access_token, this.restaurant, this.restaurant_edit.id)
                 .subscribe(function (restaurant) {
                 _this.restaurantsService
                     .editLocation(_this.access_token, location, restaurant, _this.restaurant_edit.locations[0].id)
-                    .subscribe(function (location) {
+                    .subscribe(function () {
                     _this.restaurantsService
                         .editWorkedDays(_this.access_token, _this.wdays, restaurant, _this.restaurant_edit.worked_days[0].id)
-                        .subscribe(function (wdays) {
+                        .subscribe(function () {
                         _this.addServiceHours(restaurant);
                     });
                 });
@@ -661,13 +651,14 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 };
                 _this.restaurantsService
                     .addServiceHours(_this.access_token, service_hour, restaurant)
-                    .subscribe(function (service_hour) { return _this.addFreights(restaurant); });
+                    .subscribe(function () { });
             });
+            this.addFreights(restaurant);
         }
         else {
             this.restaurantsService
                 .destroyServiceHours(this.access_token, restaurant)
-                .subscribe(function (service_hours) {
+                .subscribe(function () {
                 _this.service_hours.forEach(function (s) {
                     var service_hour = {
                         company_id: restaurant.id,
@@ -676,9 +667,10 @@ var RestaurantsFormComponent = /** @class */ (function () {
                     };
                     _this.restaurantsService
                         .addServiceHours(_this.access_token, service_hour, restaurant)
-                        .subscribe(function (service_hour) { return _this.addFreights(restaurant); });
+                        .subscribe(function () { });
                 });
             });
+            this.addFreights(restaurant);
         }
     };
     RestaurantsFormComponent.prototype.addFreights = function (restaurant) {
@@ -692,13 +684,13 @@ var RestaurantsFormComponent = /** @class */ (function () {
                 };
                 _this.restaurantsService
                     .addFreights(_this.access_token, freight)
-                    .subscribe(function (service_hour) { return _this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]); });
+                    .subscribe(function () { return _this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]); });
             });
         }
         else {
             this.restaurantsService
                 .destroyFreights(this.access_token, restaurant)
-                .subscribe(function (freights) {
+                .subscribe(function () {
                 _this.freights.forEach(function (f) {
                     var freight = {
                         company_id: restaurant.id,
@@ -707,7 +699,7 @@ var RestaurantsFormComponent = /** @class */ (function () {
                     };
                     _this.restaurantsService
                         .addFreights(_this.access_token, freight)
-                        .subscribe(function (service_hour) {
+                        .subscribe(function () {
                         _this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
                     });
                 });

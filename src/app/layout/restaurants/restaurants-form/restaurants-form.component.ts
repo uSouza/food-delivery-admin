@@ -168,31 +168,28 @@ export class RestaurantsFormComponent implements OnInit {
 
     setWorkedDays(worked_days) {
         worked_days.forEach((wday) => {
-            console.log(wday);
             if (wday.sunday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 0));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id === 0));
             }
             if (wday.monday) {
-                console.log(this.days_of_week.find(d => d.id == 1));
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 1));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id === 1));
             }
             if (wday.tuesday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 2));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id === 2));
             }
             if (wday.wednesday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 3));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id === 3));
             }
             if (wday.thursday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 4));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id === 4));
             }
             if (wday.friday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 5));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id === 5));
             }
             if (wday.saturday) {
-                this.selected_days_of_week.push(this.days_of_week.find(d => d.id == 6));
+                this.selected_days_of_week.push(this.days_of_week.find(d => d.id === 6));
             }
         });
-        console.log(this.selected_days_of_week);
     }
 
     validate() {
@@ -204,7 +201,7 @@ export class RestaurantsFormComponent implements OnInit {
                 } else if (this.restaurant.password == null) {
                     this.showAlert('danger', 'É necessário informar uma senha!');
                     return false;
-                } else if (this.restaurant.password != this.password_confirmation) {
+                } else if (this.restaurant.password !== this.password_confirmation) {
                     this.showAlert('danger', 'A senha informada não coincide com a confirmação!');
                     return false;
                 } else {
@@ -248,7 +245,6 @@ export class RestaurantsFormComponent implements OnInit {
                 return true;
             }
         } else if (this.step === 4) {
-            console.log(this.restaurant.delivery_value);
             if (this.selected_tags.length < 1) {
                 this.showAlert('danger', 'Selecione ao menos uma tag!');
                 return false;
@@ -271,10 +267,8 @@ export class RestaurantsFormComponent implements OnInit {
                 this.showAlert('danger', 'A taxa de entrega não pode ser menor que zero!');
                 return false;
             } else {
-                console.log(this.avg_delivery_time);
                 this.restaurant.avg_delivery_time = this.padLeft(this.avg_delivery_time.hour.toString(), '0', 2) +
                     ':' + this.padLeft(this.avg_delivery_time.minute.toString(), '0', 2) + ':00';
-                console.log(this.restaurant.avg_delivery_time);
                 return true;
             }
         } else if (this.step === 5) {
@@ -297,7 +291,6 @@ export class RestaurantsFormComponent implements OnInit {
                 return true;
             }
         } else {
-            console.log(this.selected_days_of_week);
             if (this.service_hours.length < 1) {
                 this.showAlert('danger', 'Informe os dados de atendimento!');
                 return false;
@@ -316,7 +309,6 @@ export class RestaurantsFormComponent implements OnInit {
 
     addWorkDayItem(item) {
         this.selected_days_of_week.push(item);
-        console.log(this.selected_days_of_week);
     }
 
     removeWorkItem(item) {
@@ -348,17 +340,17 @@ export class RestaurantsFormComponent implements OnInit {
             this.restaurant.tags_ids.push(i.id);
         });
         this.selected_days_of_week.forEach((wday) => {
-            if (wday.id == 0) {
+            if (wday.id === 0) {
                 this.wdays.sunday = true;
-            } else if (wday.id == 1) {
+            } else if (wday.id === 1) {
                 this.wdays.monday = true;
-            } else if (wday.id == 2) {
+            } else if (wday.id === 2) {
                 this.wdays.tuesday = true;
-            } else if (wday.id == 3) {
+            } else if (wday.id === 3) {
                 this.wdays.wednesday = true;
-            } else if (wday.id == 4) {
+            } else if (wday.id === 4) {
                 this.wdays.thursday = true;
-            } else if (wday.id == 5) {
+            } else if (wday.id === 5) {
                 this.wdays.friday = true;
             } else {
                 this.wdays.saturday = true;
@@ -425,7 +417,6 @@ export class RestaurantsFormComponent implements OnInit {
         } else {
             this.showAlert('danger', 'Informe os dados corretamente!');
         }
-        console.log(this.freights);
         this.selected_districts = null;
         this.freight_value = null;
     }
@@ -456,14 +447,14 @@ export class RestaurantsFormComponent implements OnInit {
 
     fileChange(event) {
         this.selectedFile = event.target.files[0];
-        var reader: FileReader = new FileReader();
+        const reader: FileReader = new FileReader();
         reader.onload = this._handleReaderLoaded.bind(this);
         reader.readAsBinaryString(this.selectedFile);
     }
 
     _handleReaderLoaded(readerEvt) {
-        var binaryString = readerEvt.target.result;
-        let header = 'data:' + this.selectedFile.type + ';base64,';
+        const binaryString = readerEvt.target.result;
+        const header = 'data:' + this.selectedFile.type + ';base64,';
         this.restaurant.image = header + '' + btoa(binaryString);
     }
 
@@ -476,28 +467,29 @@ export class RestaurantsFormComponent implements OnInit {
                     user => {
                         this.saveRestaurant(user);
                     }
-                )
+                );
             } else {
                 this.loginService
-                .updateUser(this.access_token, this.restaurant.email, this.restaurant.fantasy_name, this.restaurant.password, this.restaurant_edit.user.id)
+                .updateUser(this.access_token, this.restaurant.email,
+                    this.restaurant.fantasy_name, this.restaurant.password,
+                    this.restaurant_edit.user.id)
                 .subscribe(
                     user => {
-                        this.saveRestaurant(user)
+                        this.saveRestaurant(user);
                     }
-                )
+                );
             }
-
         }
     }
 
     saveRestaurant(user) {
-        let location = {
+        const location = {
             address: this.restaurant.address,
             number: this.restaurant.number,
             postal_code: this.restaurant.postal_code.substr(0, 5) + '-' + this.restaurant.postal_code.substr(5, 3),
             district: this.restaurant.district,
             observation: this.restaurant.complement
-        }
+        };
         this.prepare();
         if (! this.edit) {
             this.restaurant.user_id = user.id;
@@ -508,20 +500,19 @@ export class RestaurantsFormComponent implements OnInit {
                         this.restaurantsService
                             .addLocation(this.access_token, location, restaurant)
                             .subscribe(
-                                location => {
+                                () => {
                                     this.restaurantsService
                                         .addWorkedDays(this.access_token, this.wdays, restaurant)
                                         .subscribe(
-                                            wdays => {
-                                                this.addServiceHours(restaurant)
+                                            () => {
+                                                this.addServiceHours(restaurant);
                                             }
-                                        )
+                                        );
                                 }
-                            )
+                            );
                     }
-                )
+                );
         } else {
-            console.log(this.restaurant_edit.locations[0].id);
             this.restaurantsService
                 .editRestaurant(this.access_token, this.restaurant, this.restaurant_edit.id)
                 .subscribe(
@@ -529,18 +520,18 @@ export class RestaurantsFormComponent implements OnInit {
                         this.restaurantsService
                             .editLocation(this.access_token, location, restaurant, this.restaurant_edit.locations[0].id)
                             .subscribe(
-                                location => {
+                                () => {
                                     this.restaurantsService
                                         .editWorkedDays(this.access_token, this.wdays, restaurant, this.restaurant_edit.worked_days[0].id)
                                         .subscribe(
-                                            wdays => {
-                                                this.addServiceHours(restaurant)
+                                            () => {
+                                                this.addServiceHours(restaurant);
                                             }
-                                        )
+                                        );
                                 }
-                            )
+                            );
                     }
-                )
+                );
         }
 
     }
@@ -548,24 +539,25 @@ export class RestaurantsFormComponent implements OnInit {
     addServiceHours(restaurant) {
         if (! this.edit) {
             this.service_hours.forEach((s) => {
-                let service_hour = {
+                const service_hour = {
                     company_id: restaurant.id,
                     opening: s.opening,
                     closure: s.closure
-                }
+                };
                 this.restaurantsService
                     .addServiceHours(this.access_token, service_hour, restaurant)
                     .subscribe(
-                        service_hour => this.addFreights(restaurant)
-                    )
+                        () => { }
+                    );
             });
+            this.addFreights(restaurant);
         } else {
             this.restaurantsService
                 .destroyServiceHours(this.access_token, restaurant)
                 .subscribe(
-                    service_hours => {
+                    () => {
                         this.service_hours.forEach((s) => {
-                            let service_hour = {
+                            const service_hour = {
                                 company_id: restaurant.id,
                                 opening: s.opening,
                                 closure: s.closure
@@ -573,11 +565,12 @@ export class RestaurantsFormComponent implements OnInit {
                             this.restaurantsService
                                 .addServiceHours(this.access_token, service_hour, restaurant)
                                 .subscribe(
-                                    service_hour => this.addFreights(restaurant)
+                                    () => { }
                                 );
                         });
                     }
-                )
+                );
+                this.addFreights(restaurant);
         }
 
     }
@@ -593,14 +586,14 @@ export class RestaurantsFormComponent implements OnInit {
                 this.restaurantsService
                     .addFreights(this.access_token, freight)
                     .subscribe(
-                        service_hour => this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }])
+                        () => this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }])
                     );
             });
         } else {
             this.restaurantsService
                 .destroyFreights(this.access_token, restaurant)
                 .subscribe(
-                    freights => {
+                    () => {
                         this.freights.forEach((f) => {
                             const freight = {
                                 company_id: restaurant.id,
@@ -610,7 +603,7 @@ export class RestaurantsFormComponent implements OnInit {
                             this.restaurantsService
                                 .addFreights(this.access_token, freight)
                                 .subscribe(
-                                    service_hour => {
+                                    () => {
                                         this.router.navigate(['/restaurants-list', { message: 'Restaurante cadastrado com sucesso!' }]);
                                     }
                                 );
@@ -618,7 +611,5 @@ export class RestaurantsFormComponent implements OnInit {
                     }
                 );
         }
-
     }
-
 }
