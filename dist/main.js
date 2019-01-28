@@ -412,8 +412,8 @@ var Config = /** @class */ (function () {
 
 var sender_id = '825111433849';
 var oneSignalAppId = '18e4fb1f-4d47-4196-8ded-4883a763d9d7';
-// export const url_api = 'http://api.pandeco.com.br/api/v1/';
-var url_api = 'http://localhost:8000/api/v1/';
+var url_api = 'http://api.pandeco.com.br/api/v1/';
+// export const url_api = 'http://localhost:8000/api/v1/';
 
 
 /***/ }),
@@ -553,11 +553,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var LoginService = /** @class */ (function () {
+    // url_api = 'http://localhost:8000/';
     function LoginService(http) {
         this.http = http;
         this.endpoint = 'oauth/token';
-        // url_api = 'http://api.pandeco.com.br/';
-        this.url_api = 'http://localhost:8000/';
+        this.url_api = 'http://api.pandeco.com.br/';
     }
     LoginService.prototype.authenticate = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
