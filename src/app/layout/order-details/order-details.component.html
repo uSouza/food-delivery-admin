@@ -136,7 +136,7 @@
                         <h5 class="card-title"><strong>Preço: </strong>{{ order.price | currency: 'BRL': true}}</h5>
                         <p class="card-text"><strong>Forma de pagamento: </strong>{{ order.form_payment.description }}</p>
                         <p *ngIf="order.status_id == 1 || order.status_id == 3" class="card-text"><strong>Status: </strong>pendente de confirmação</p>
-                        <p *ngIf="order.deliver && order.company.delivery_value > 0" class="card-text"><strong>Valor de entrega: </strong>{{ order.company.delivery_value | currency: 'BRL': true }}</p>
+                        <p *ngIf="order.freight_id != null" class="card-text"><strong>Valor de entrega: </strong>{{ order.freight.value | currency: 'BRL': true }}</p>
                         <p *ngIf="order.deliver && order.time_delivery == null" class="card-text"><strong>Horário de entrega: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
                         <p *ngIf="!order.deliver && order.time_delivery == null" class="card-text"><strong>Horário de retirada: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
                         <p *ngIf="order.deliver && order.time_delivery != null" class="card-text"><strong>Entregar em: </strong>{{ order.time_delivery }}</p>

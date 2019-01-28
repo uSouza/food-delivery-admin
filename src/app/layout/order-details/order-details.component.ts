@@ -16,7 +16,7 @@ export class OrderDetailsComponent implements OnInit {
 
     order: any;
     closeResult: string;
-    user: any
+    user: any;
 
     constructor(public route: ActivatedRoute,
         private router: Router,
@@ -32,9 +32,9 @@ export class OrderDetailsComponent implements OnInit {
                 .user_me(localStorage.getItem('access_token'))
                 .subscribe(
                     user => {
-                        this.user = user
+                        this.user = user;
                     }
-                )
+                );
             this.getOrder();
         } else {
             this.router.navigate(['/login']);
@@ -47,9 +47,9 @@ export class OrderDetailsComponent implements OnInit {
             .getOrder(localStorage.getItem('access_token'), this.route.snapshot.paramMap.get('id'))
             .subscribe(
                 order => {
-                    this.setOrder(order)
+                    this.setOrder(order);
                 }
-            )
+            );
     }
 
     setOrder(order) {
@@ -62,22 +62,22 @@ export class OrderDetailsComponent implements OnInit {
     }
 
     seeIngredients(product) {
-        if (product.seeIngredients == true) {
+        if (product.seeIngredients) {
             product.seeIngredients = false;
-            product.textIngredients = 'Ver ingredientes'
+            product.textIngredients = 'Ver ingredientes';
         } else {
             product.seeIngredients = true;
-            product.textIngredients = 'Ocultar ingredientes'
+            product.textIngredients = 'Ocultar ingredientes';
         }
     }
 
     seeAdditionals(product) {
-        if (product.seeAdditionals == true) {
+        if (product.seeAdditionals) {
             product.seeAdditionals = false;
-            product.textAdditionals = 'Ver adicionais'
+            product.textAdditionals = 'Ver adicionais';
         } else {
             product.seeAdditionals = true;
-            product.textAdditionals = 'Ocultar adicionais'
+            product.textAdditionals = 'Ocultar adicionais';
         }
     }
 
@@ -86,7 +86,7 @@ export class OrderDetailsComponent implements OnInit {
         this.modalService
             .open(content, { size: 'lg' })
             .result.then((result) => {
-                if (result == 'Print') {
+                if (result === 'Print') {
                     this.printOrder();
                 } else {
                     this.confirmOrder();
@@ -114,15 +114,15 @@ export class OrderDetailsComponent implements OnInit {
     }
 
     confirmOrder() {
-        if (this.order.status_id == 1) {
+        if (this.order.status_id === 1) {
             this.order.status_id = 2;
             this.ordersService
                 .updateOrder(localStorage.getItem('access_token'), this.order)
                 .subscribe(
-                    order => {
+                    () => {
                         this.router.navigate(['/dashboard', { message: 'Pedido confirmado com sucesso!' }]);
                     }
-                )
+                );
         }
 
     }
@@ -131,21 +131,21 @@ export class OrderDetailsComponent implements OnInit {
         this.modalService
             .open(content, { size: 'lg' })
             .result.then((result) => {
-                if (result == 'reject') {
+                if (result === 'reject') {
                     this.order.status_id = 4;
                     this.ordersService
                         .updateOrder(localStorage.getItem('access_token'), this.order)
                         .subscribe(
-                            order => {
+                            () => {
                                 this.router.navigate(['/dashboard', { message: 'Pedido rejeitado com sucesso!' }]);
                             }
-                        )
+                        );
                 }
             });
     }
 
     copyToclipboard() {
-        let dadosCliente = '*DADOS DO CLIENTE* \n' + 'NOME: ' + this.order.client.name
+        const dadosCliente = '*DADOS DO CLIENTE* \n' + 'NOME: ' + this.order.client.name
             + '\nCELULAR: ' + this.order.client.cell_phone;
         let dadosEntrega = null;
         if (this.order.location.observation == null) {
@@ -168,23 +168,23 @@ export class OrderDetailsComponent implements OnInit {
                 dadosMarmita = dadosMarmita + i.name + ';';
             });
             if (p.additionals.length > 0) {
-                dadosMarmita = dadosMarmita + '\nADICIONAIS '
+                dadosMarmita = dadosMarmita + '\nADICIONAIS ';
                 p.additionals.forEach(add => {
                     dadosMarmita = dadosMarmita + '\n' + add.name
                         + ' - Qtd: ' + add.pivot.quantity + ' - Total: R$'
-                        + (add.value * add.pivot.quantity) + '\n'
+                        + (add.value * add.pivot.quantity) + '\n';
                 });
             }
             ++count;
         });
 
-        if (this.order.company.delivery_value == 0) {
-            this.order.company.delivery_value = 'gratuíta';
+        if (this.order.freight == null || this.order.freight.value === 0) {
+            this.order.freight.value = 'gratuito';
         }
 
-        let dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
+        const dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
-            + '\nVALOR ENTREGA: ' + this.order.company.delivery_value
+            + '\nVALOR ENTREGA: R$' + this.order.freight.value
             + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm')
             + '\nOBSERVAÇÕES: ' + this.order.observation;
 
