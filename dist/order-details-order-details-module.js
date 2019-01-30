@@ -550,6 +550,7 @@ var OrderDetailsComponent = /** @class */ (function () {
             .getOrder(localStorage.getItem('access_token'), this.route.snapshot.paramMap.get('id'))
             .subscribe(function (order) {
             _this.setOrder(order);
+            console.log(order);
         });
     };
     OrderDetailsComponent.prototype.setOrder = function (order) {
@@ -639,7 +640,7 @@ var OrderDetailsComponent = /** @class */ (function () {
         if (this.order.deliver) {
             dadosEntrega = '\n\n*DADOS PARA ENTREGA* \n' + 'ENDEREÇO: '
                 + this.order.location.address + ' - ' + this.order.location.number
-                + '\nBAIRRO: ' + this.order.location.district + '\nCOMPLEMENTO: '
+                + '\nBAIRRO: ' + this.order.location.district.name + '\nCOMPLEMENTO: '
                 + this.order.location.observation + '\n';
         }
         else {
@@ -663,12 +664,12 @@ var OrderDetailsComponent = /** @class */ (function () {
             }
             ++count;
         });
-        if (this.order.freight == null || this.order.freight.value === 0) {
+        if (this.order.freight == null || this.order.freight.value == 0) {
             this.order.freight.value = 'gratuito';
         }
         var dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
-            + '\nVALOR ENTREGA: R$' + this.order.freight.value
+            + '\nVALOR ENTREGA: ' + this.order.freight.value
             + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm')
             + '\nOBSERVAÇÕES: ' + this.order.observation;
         this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n'
