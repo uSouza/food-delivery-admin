@@ -48,6 +48,7 @@ export class OrderDetailsComponent implements OnInit {
             .subscribe(
                 order => {
                     this.setOrder(order);
+                    console.log(order);
                 }
             );
     }
@@ -154,7 +155,7 @@ export class OrderDetailsComponent implements OnInit {
         if (this.order.deliver) {
             dadosEntrega = '\n\n*DADOS PARA ENTREGA* \n' + 'ENDEREÇO: '
                 + this.order.location.address + ' - ' + this.order.location.number
-                + '\nBAIRRO: ' + this.order.location.district + '\nCOMPLEMENTO: '
+                + '\nBAIRRO: ' + this.order.location.district.name + '\nCOMPLEMENTO: '
                 + this.order.location.observation + '\n';
         } else {
             dadosEntrega = '\n\n*CLIENTE VEM BUSCAR O PEDIDO*\n';
@@ -178,13 +179,13 @@ export class OrderDetailsComponent implements OnInit {
             ++count;
         });
 
-        if (this.order.freight == null || this.order.freight.value === 0) {
+        if (this.order.freight == null || this.order.freight.value == 0) {
             this.order.freight.value = 'gratuito';
         }
 
         const dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
-            + '\nVALOR ENTREGA: R$' + this.order.freight.value
+            + '\nVALOR ENTREGA: ' + this.order.freight.value
             + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm')
             + '\nOBSERVAÇÕES: ' + this.order.observation;
 
