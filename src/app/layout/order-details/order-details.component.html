@@ -12,16 +12,16 @@
 </ng-template>
 
 <ng-template #reject let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title">Rejeição do pedido</h4>
-        </div>
-        <div class="modal-body">
-            <p>Deseja realmente rejeitar o pedido?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-light" (click)="c('noReject')">Não</button>
-            <button type="button" class="btn btn-light" (click)="c('reject')">Sim</button>
-        </div>
+    <div class="modal-header">
+        <h4 class="modal-title">Rejeição do pedido</h4>
+    </div>
+    <div class="modal-body">
+        <p>Deseja realmente rejeitar o pedido?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="c('noReject')">Não</button>
+        <button type="button" class="btn btn-light" (click)="c('reject')">Sim</button>
+    </div>
 </ng-template>
 
 <div class="content">
@@ -40,23 +40,24 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-header">
-                  Dados do cliente
+                    Dados do cliente
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title"><strong>Nome: </strong>{{ order.client.name }}</h5>
-                  <p class="card-text"><strong>Celular: </strong>{{ order.client.cell_phone }}</p>
+                    <h5 class="card-title"><strong>Nome: </strong>{{ order.client.name }}</h5>
+                    <p class="card-text"><strong>Celular: </strong>{{ order.client.cell_phone }}</p>
                 </div>
             </div>
         </div>
         <div *ngIf="order.deliver" class="col-xl-6">
             <div class="card">
                 <div class="card-header">
-                  Dados de entrega
+                    Dados de entrega
                 </div>
                 <div class="card-body">
-                  <p class="card-text"><strong>Endereço: </strong>{{ order.location.address }} - {{ order.location.number }}</p>
-                  <p class="card-text"><strong>Bairro: </strong>{{ order.location.district.name }}</p>
-                  <p class="card-text"><strong>Observações: </strong>{{ order.location.observation }}</p>
+                    <p class="card-text"><strong>Endereço: </strong>{{ order.location.address }} - {{
+                        order.location.number }}</p>
+                    <p class="card-text"><strong>Bairro: </strong>{{ order.location.district.name }}</p>
+                    <p class="card-text"><strong>Observações: </strong>{{ order.location.observation }}</p>
                 </div>
             </div>
         </div>
@@ -65,7 +66,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                  Marmitas
+                    Marmitas
                 </div>
                 <div class="card-body">
                     <div class="row" *ngFor="let product of order.products">
@@ -75,11 +76,12 @@
                                     {{ product.menu.description }}
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text"><strong>Marmita: </strong>{{ product.price.size }} - {{ product.price.price | currency: 'BRL': true }}</p>
-                                    <p class="card-text"><strong>Data do cardápio: </strong>{{ product.menu.date | date:'dd/MM/yyyy'}}</p>
+                                    <p class="card-text"><strong>Marmita: </strong>{{ product.price.size }} - {{
+                                        product.price.price | currency: 'BRL': true }}</p>
+                                    <p class="card-text"><strong>Data do cardápio: </strong>{{ product.menu.date |
+                                        date:'dd/MM/yyyy'}}</p>
                                     <div class="card-text">
-                                        <button  class="btn btn-default"
-                                            (click)="seeIngredients(product)">
+                                        <button class="btn btn-default" (click)="seeIngredients(product)">
                                             {{ product.textIngredients }}
                                         </button>
                                         <div *ngIf="product.seeIngredients">
@@ -93,8 +95,7 @@
                                         </div>
                                     </div>
                                     <div style="margin-top: 10px" class="card-text">
-                                        <button *ngIf="product.additionals.length > 0" class="btn btn-default"
-                                            (click)="seeAdditionals(product)">
+                                        <button *ngIf="product.additionals.length > 0" class="btn btn-default" (click)="seeAdditionals(product)">
                                             {{ product.textAdditionals }}
                                         </button>
                                         <div *ngIf="product.seeAdditionals">
@@ -111,7 +112,8 @@
                                                             preço unitário: {{ add.value | currency: 'BRL': true }}
                                                         </p>
                                                         <p style="font-size: small; margin-top: -20px">
-                                                            total: {{ add.value * add.pivot.quantity | currency: 'BRL': true }}
+                                                            total: {{ add.value * add.pivot.quantity | currency: 'BRL':
+                                                            true }}
                                                         </p>
                                                     </li>
                                                 </ul>
@@ -127,30 +129,38 @@
         </div>
     </div>
     <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header">
-                        Dados gerais do pedido
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><strong>Preço: </strong>{{ order.price | currency: 'BRL': true}}</h5>
-                        <p class="card-text"><strong>Forma de pagamento: </strong>{{ order.form_payment.description }}</p>
-                        <p *ngIf="order.status_id == 1 || order.status_id == 3" class="card-text"><strong>Status: </strong>pendente de confirmação</p>
-                        <p *ngIf="order.freight_id != null" class="card-text"><strong>Valor de entrega: </strong>{{ order.freight.value | currency: 'BRL': true }}</p>
-                        <p *ngIf="order.deliver && order.time_delivery == null" class="card-text"><strong>Horário de entrega: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
-                        <p *ngIf="!order.deliver && order.time_delivery == null" class="card-text"><strong>Horário de retirada: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
-                        <p *ngIf="order.deliver && order.time_delivery != null" class="card-text"><strong>Entregar em: </strong>{{ order.time_delivery }}</p>
-                        <p *ngIf="!order.deliver && order.time_delivery != null" class="card-text"><strong>Retirar em: </strong>{{ order.time_delivery }}</p>
-                        <p class="card-text"><strong>Observações: </strong>{{ order.observation }}</p>
-                    </div>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    Dados gerais do pedido
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Preço: </strong>{{ order.price | currency: 'BRL': true}}</h5>
+                    <p class="card-text"><strong>Forma de pagamento: </strong>{{ order.form_payment.description }}</p>
+                    <p *ngIf="order.status_id == 1 || order.status_id == 3" class="card-text"><strong>Status: </strong>pendente
+                        de confirmação</p>
+                    <p *ngIf="order.freight_id != null" class="card-text"><strong>Valor de entrega: </strong>{{
+                        order.freight.value | currency: 'BRL': true }}</p>
+                    <p *ngIf="order.deliver && order.time_delivery == null" class="card-text"><strong>Horário de
+                            entrega: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
+                    <p *ngIf="!order.deliver && order.time_delivery == null" class="card-text"><strong>Horário de
+                            retirada: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
+                    <p *ngIf="order.deliver && order.time_delivery != null" class="card-text"><strong>Entregar em:
+                        </strong>{{ order.time_delivery }}</p>
+                    <p *ngIf="!order.deliver && order.time_delivery != null" class="card-text"><strong>Retirar em:
+                        </strong>{{ order.time_delivery }}</p>
+                    <p class="card-text"><strong>Observações: </strong>{{ order.observation }}</p>
                 </div>
             </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-xl-12 text-right">
             <button type="button" class="btn btn-lg btn-default" style="margin-right: 10px" routerLink="/dashboard">Voltar</button>
             <button type="button" class="btn btn-lg btn-warning" (click)="copyToclipboard()" style="margin-right: 10px">Copiar</button>
-            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-danger" (click)="refuseOrder(reject)" style="margin-right:10px">Rejeitar</button>
+            <!-- <button type="button" class="btn btn-lg btn-success" (click)="sendWhatsApp()" style="margin-right: 10px">WhatsApp</button> -->
+            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-danger" (click)="refuseOrder(reject)"
+                style="margin-right:10px">Rejeitar</button>
             <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-success" (click)="confirm(content)">Confirmar</button>
             <button *ngIf="order.status_id == 2" type="button" class="btn btn-lg btn-success" (click)="printOrder()">Imprimir</button>
         </div>
@@ -166,7 +176,8 @@
     </div>
     <div>
         <h3>Dados de entrega</h3>
-        <p style="font-size: small"><strong>Endereço: </strong>{{ order.location.address }} - {{ order.location.number }}</p>
+        <p style="font-size: small"><strong>Endereço: </strong>{{ order.location.address }} - {{ order.location.number
+            }}</p>
         <p style="font-size: small"><strong>Bairro: </strong>{{ order.location.district }}</p>
         <p style="font-size: small"><strong>Observações: </strong>{{ order.location.observation }}</p>
     </div>
@@ -174,7 +185,8 @@
         <h3>Marmitas</h3>
         <div *ngFor="let product of order.products">
             <h4>{{ product.menu.description }}</h4>
-            <p style="font-size: small"><strong>Marmita: </strong>{{ product.price.size }} - {{ product.price.price | currency: 'BRL': true }}</p>
+            <p style="font-size: small"><strong>Marmita: </strong>{{ product.price.size }} - {{ product.price.price |
+                currency: 'BRL': true }}</p>
             <p style="font-size: small"><strong>Data do cardápio: </strong>{{ product.menu.date | date:'dd/MM/yyyy'}}</p>
             <p style="font-size: small"><strong>Ingredientes: </strong></p>
             <ul>
@@ -208,9 +220,11 @@
         <h3>Dados gerais do pedido</h3>
         <p style="font-size: small"><strong>Preço: </strong>{{ order.price | currency: 'BRL': true}}</p>
         <p style="font-size: small"><strong>Forma de pagamento: </strong>{{ order.form_payment.description }}</p>
-        <p style="font-size: small" *ngIf="order.deliver && order.company.delivery_value > 0"><strong>Valor de entrega: </strong>{{ order.company.delivery_value | currency: 'BRL': true }}</p>
-        <p style="font-size: small" *ngIf="order.deliver"><strong>Horário de entrega: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
-        <p style="font-size: small" *ngIf="!order.deliver"><strong>Horário de retirada: </strong>{{ order.receive_at | date: 'dd/MM/yyy hh:mm' }}</p>
+        <p style="font-size: small" *ngIf="order.deliver && order.company.delivery_value > 0"><strong>Valor de entrega:
+            </strong>{{ order.company.delivery_value | currency: 'BRL': true }}</p>
+        <p style="font-size: small" *ngIf="order.deliver"><strong>Horário de entrega: </strong>{{ order.receive_at |
+            date: 'dd/MM/yyy hh:mm' }}</p>
+        <p style="font-size: small" *ngIf="!order.deliver"><strong>Horário de retirada: </strong>{{ order.receive_at |
+            date: 'dd/MM/yyy hh:mm' }}</p>
     </div>
 </div>
-

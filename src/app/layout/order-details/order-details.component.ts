@@ -145,7 +145,16 @@ export class OrderDetailsComponent implements OnInit {
             });
     }
 
+    // TODO testar esse método
+    sendWhatsApp() {
+        window.location.href = `https://api.whatsapp.com/send?phone=55${this.order.company.cell_phone}&text=${this.getOrderFormat()}`;;
+    }
+
     copyToclipboard() {
+        this._clipboardService.copyFromContent(this.getOrderFormat());
+    }
+
+    getOrderFormat() {
         const dadosCliente = '*DADOS DO CLIENTE* \n' + 'NOME: ' + this.order.client.name
             + '\nCELULAR: ' + this.order.client.cell_phone;
         let dadosEntrega = null;
@@ -179,19 +188,22 @@ export class OrderDetailsComponent implements OnInit {
             ++count;
         });
 
-        if (this.order.freight == null || this.order.freight.value == 0) {
-            this.order.freight.value = 'gratuito';
+        let freight = null;
+
+        if (this.order.freight == null || this.order.freight.value === 0) {
+            freight = 'gratuito';
+        } else {
+            freight = `R$ ${this.order.freight}`;
         }
 
         const dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description
-            + '\nVALOR ENTREGA: ' + this.order.freight.value
+            + '\nVALOR ENTREGA: ' + freight
             + '\nHORÁRIO DE ENTREGA: ' + this.datepipe.transform(this.order.receive_at, 'HH:mm')
             + '\nOBSERVAÇÕES: ' + this.order.observation;
-
-        this._clipboardService.copyFromContent('*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n'
+        return '*PEDIDO REALIZADO PELO PANDECO!* 🚀🚀🚀🚀\n\n'
             + dadosCliente + dadosEntrega + dadosMarmita
-            + dadosGerais);
+            + dadosGerais;
     }
 
 }
