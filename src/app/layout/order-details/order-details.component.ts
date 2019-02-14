@@ -145,9 +145,8 @@ export class OrderDetailsComponent implements OnInit {
             });
     }
 
-    // TODO testar esse método
     sendWhatsApp() {
-        window.location.href = `https://api.whatsapp.com/send?phone=55${this.order.company.cell_phone}&text=${this.getOrderFormat()}`;;
+        window.location.href = `https://api.whatsapp.com/send?phone=55${this.order.company.cell_phone}&text=${this.getOrderFormat()}`;
     }
 
     copyToclipboard() {

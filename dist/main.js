@@ -574,7 +574,8 @@ var LoginService = /** @class */ (function () {
         return this.http.post(this.url_api + this.endpoint, data, { headers: headers });
     };
     LoginService.prototype.user_me = function (access_token) {
-        return this.http.get(this.url_api + 'api/v1/users/me', { headers: {
+        return this.http.get(this.url_api + 'api/v1/users/me', {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }

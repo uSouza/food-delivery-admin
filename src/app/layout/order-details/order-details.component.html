@@ -45,6 +45,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><strong>Nome: </strong>{{ order.client.name }}</h5>
                     <p class="card-text"><strong>Celular: </strong>{{ order.client.cell_phone }}</p>
+                    <p class="card-text"><strong>Dispositivo: </strong>{{ order.platform }}</p>
                 </div>
             </div>
         </div>
@@ -95,7 +96,8 @@
                                         </div>
                                     </div>
                                     <div style="margin-top: 10px" class="card-text">
-                                        <button *ngIf="product.additionals.length > 0" class="btn btn-default" (click)="seeAdditionals(product)">
+                                        <button *ngIf="product.additionals.length > 0" class="btn btn-default"
+                                            (click)="seeAdditionals(product)">
                                             {{ product.textAdditionals }}
                                         </button>
                                         <div *ngIf="product.seeAdditionals">
@@ -137,7 +139,8 @@
                 <div class="card-body">
                     <h5 class="card-title"><strong>Preço: </strong>{{ order.price | currency: 'BRL': true}}</h5>
                     <p class="card-text"><strong>Forma de pagamento: </strong>{{ order.form_payment.description }}</p>
-                    <p *ngIf="order.status_id == 1 || order.status_id == 3" class="card-text"><strong>Status: </strong>pendente
+                    <p *ngIf="order.status_id == 1 || order.status_id == 3" class="card-text"><strong>Status:
+                        </strong>pendente
                         de confirmação</p>
                     <p *ngIf="order.freight_id != null" class="card-text"><strong>Valor de entrega: </strong>{{
                         order.freight.value | currency: 'BRL': true }}</p>
@@ -156,13 +159,18 @@
     </div>
     <div class="row">
         <div class="col-xl-12 text-right">
-            <button type="button" class="btn btn-lg btn-default" style="margin-right: 10px" routerLink="/dashboard">Voltar</button>
-            <button type="button" class="btn btn-lg btn-warning" (click)="copyToclipboard()" style="margin-right: 10px">Copiar</button>
-            <!-- <button type="button" class="btn btn-lg btn-success" (click)="sendWhatsApp()" style="margin-right: 10px">WhatsApp</button> -->
-            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-danger" (click)="refuseOrder(reject)"
-                style="margin-right:10px">Rejeitar</button>
-            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-success" (click)="confirm(content)">Confirmar</button>
-            <button *ngIf="order.status_id == 2" type="button" class="btn btn-lg btn-success" (click)="printOrder()">Imprimir</button>
+            <button type="button" class="btn btn-lg btn-default" style="margin-right: 10px"
+                routerLink="/dashboard">Voltar</button>
+            <button type="button" class="btn btn-lg btn-warning" (click)="copyToclipboard()"
+                style="margin-right: 10px">Copiar</button>
+            <button type="button" class="btn btn-lg btn-success" (click)="sendWhatsApp()"
+                style="margin-right: 10px">WhatsApp</button>
+            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-danger"
+                (click)="refuseOrder(reject)" style="margin-right:10px">Rejeitar</button>
+            <button *ngIf="order.status_id == 1" type="button" class="btn btn-lg btn-success"
+                (click)="confirm(content)">Confirmar</button>
+            <button *ngIf="order.status_id == 2" type="button" class="btn btn-lg btn-success"
+                (click)="printOrder()">Imprimir</button>
         </div>
     </div>
 </div>
@@ -173,6 +181,7 @@
         <h3>Dados do cliente</h3>
         <p style="font-size: small"><strong>Nome: </strong>{{ order.client.name }}</p>
         <p style="font-size: small"><strong>Celular: </strong>{{ order.client.cell_phone }}</p>
+        <p style="font-size: small"><strong>Dispositivo: </strong>{{ order.platform }}</p>
     </div>
     <div>
         <h3>Dados de entrega</h3>
@@ -187,7 +196,8 @@
             <h4>{{ product.menu.description }}</h4>
             <p style="font-size: small"><strong>Marmita: </strong>{{ product.price.size }} - {{ product.price.price |
                 currency: 'BRL': true }}</p>
-            <p style="font-size: small"><strong>Data do cardápio: </strong>{{ product.menu.date | date:'dd/MM/yyyy'}}</p>
+            <p style="font-size: small"><strong>Data do cardápio: </strong>{{ product.menu.date | date:'dd/MM/yyyy'}}
+            </p>
             <p style="font-size: small"><strong>Ingredientes: </strong></p>
             <ul>
                 <li style="font-size: small" *ngFor="let ingredient of product.ingredients">

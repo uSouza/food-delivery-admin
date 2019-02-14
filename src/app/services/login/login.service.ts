@@ -24,16 +24,17 @@ export class LoginService {
       password: user.password,
       scope: ''
     };
-    return this.http.post(this.url_api + this.endpoint, data, {headers: headers});
+    return this.http.post(this.url_api + this.endpoint, data, { headers: headers });
   }
 
   user_me(access_token: any) {
     return this.http.get(this.url_api + 'api/v1/users/me',
-    {headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer ' + access_token
-            }
-    });
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + access_token
+        }
+      });
   }
 
   addUser(access_token: any, email: string, name: string, password: string): Observable<any> {
@@ -46,7 +47,7 @@ export class LoginService {
     return this.http.post<any>(this.url_api + 'api/v1/users', data, {
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer ' +access_token,
+        'Authorization': 'Bearer ' + access_token,
         'Content-Type': 'application/json'
       }
     });
@@ -56,18 +57,18 @@ export class LoginService {
     let data = null;
 
     if (password != null) {
-        data = {
-            email: email,
-            type: 'company',
-            name: name,
-            password: password
-          };
+      data = {
+        email: email,
+        type: 'company',
+        name: name,
+        password: password
+      };
     } else {
-        data = {
-            email: email,
-            type: 'company',
-            name: name
-          };
+      data = {
+        email: email,
+        type: 'company',
+        name: name
+      };
     }
 
     return this.http.put<any>(this.url_api + 'api/v1/users/' + id, data, {
@@ -96,9 +97,9 @@ export class LoginService {
     const data = {
       app_id: '18e4fb1f-4d47-4196-8ded-4883a763d9d7',
       included_segments: ['All'],
-      data: {foo: 'bar'},
-      contents: {en: content},
-      headings: {en: title}
+      data: { foo: 'bar' },
+      contents: { en: content },
+      headings: { en: title }
     };
 
     return this.http.post<any>('https://onesignal.com/api/v1/notifications', data, {
