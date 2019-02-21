@@ -21,6 +21,16 @@ export class MenusService {
             });
     }
 
+    getMenusPaginate(access_token: any, page: any) {
+        return this.http.get<any[]>(url_api + this.endpoint + '?page=' + page,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + access_token
+                }
+            });
+    }
+
     getMenu(access_token: any, id: any) {
         return this.http.get<any>(url_api + this.endpoint + '/' + id,
             {

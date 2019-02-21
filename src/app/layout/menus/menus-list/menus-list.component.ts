@@ -4,19 +4,18 @@ import { ActivatedRoute } from '@angular/router';
 import { MenusService } from '../../../services/menus/menus.service';
 
 @Component({
-  selector: 'app-menus-list',
-  templateUrl: './menus-list.component.html',
-  styleUrls: ['./menus-list.component.scss']
+    selector: 'app-menus-list',
+    templateUrl: './menus-list.component.html',
+    styleUrls: ['./menus-list.component.scss']
 })
 export class MenusListComponent implements OnInit {
 
-    menus: any[];
-    page: number = 1;
+    data: any;
     public alerts: Array<any> = [];
 
     constructor(public router: Router,
-                public route: ActivatedRoute,
-                private menusService: MenusService) { }
+        public route: ActivatedRoute,
+        private menusService: MenusService) { }
 
     ngOnInit() {
         if (this.route.snapshot.paramMap.get('message') != null) {
@@ -32,10 +31,8 @@ export class MenusListComponent implements OnInit {
         this.menusService
             .getMenus(localStorage.getItem('access_token'))
             .subscribe(
-                menus => {
-                    this.menus = menus
-                }
-            )
+                data => this.data = data
+            );
     }
 
     showMenu(menu: any) {
@@ -49,12 +46,20 @@ export class MenusListComponent implements OnInit {
                 type: type,
                 message: err
             }
-        )
+        );
     }
 
     closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
+    }
+
+    pageChanged(page) {
+        this.menusService
+            .getMenusPaginate(localStorage.getItem('access_token'), page)
+            .subscribe(
+                data => this.data = data
+            );
     }
 
 }

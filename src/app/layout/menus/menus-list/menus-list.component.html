@@ -1,54 +1,57 @@
 <div [@routerTransition]>
-    <div class="row">
-       <div class="col-lg-12">
-          <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
-          <div class="card mb-3">
-             <div class="card-header">Listagem de cardápios</div>
-             <h5 *ngIf="menus.length == 0">Não há cardápios para exibir</h5>
-             <table *ngIf="menus.length > 0" class="card-body table">
-                <thead>
-                   <tr>
-                      <th>#</th>
-                      <th>Descrição</th>
-                      <th>Observação</th>
-                      <th>Data</th>
-                      <th>Status</th>
-                      <th>Ação</th>
-                   </tr>
-                </thead>
-                <tbody *ngFor="let menu of menus | paginate: { itemsPerPage: 7, currentPage: page }">
-                   <tr *ngIf="menu.deleted_at == null" class="table-default">
-                      <th>{{menu.id}}</th>
-                      <td>{{menu.description}}</td>
-                      <td>{{menu.observation}}</td>
-                      <td *ngIf="! menu.fixed_menu || menu.fixed_menu == null">{{menu.date | date: 'dd/MM/yyyy'}}</td>
-                      <td *ngIf="menu.fixed_menu">Fixo</td>
-                      <td>Ativo</td>
-                      <td>
-                         <button (click)="showMenu(menu)" type="button" class="btn btn-sm btn-success">Visualizar</button>
-                      </td>
-                   </tr>
-                   <tr *ngIf="menu.deleted_at != null" class="table-warning">
-                    <th>{{menu.id}}</th>
-                    <td>{{menu.description}}</td>
-                    <td>{{menu.observation}}</td>
-                    <td *ngIf="! menu.fixed_menu || menu.fixed_menu == null">{{menu.date | date: 'dd/MM/yyyy'}}</td>
-                    <td *ngIf="menu.fixed_menu">Fixo</td>
-                    <td>Inativo</td>
-                    <td>
-                       <button (click)="showMenu(menu)" type="button" class="btn btn-sm btn-success">Visualizar</button>
-                    </td>
-                 </tr>
-                </tbody>
-             </table>
-             <div class="has-text-centered">
-                <pagination-controls
-                    (pageChange)="page = $event"
-                    previousLabel="Anterior"
-                    nextLabel="Próximo">
-                </pagination-controls>
+   <div class="row">
+      <div class="col-lg-12">
+         <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}
+         </ngb-alert>
+         <div class="card mb-3">
+            <div class="card-header">Listagem de cardápios</div>
+            <h5 *ngIf="data.data.length == 0">Não há cardápios para exibir</h5>
+            <table *ngIf="data.data.length > 0" class="card-body table">
+               <thead>
+                  <tr>
+                     <th>#</th>
+                     <th>Descrição</th>
+                     <th>Restaurante</th>
+                     <th>Observação</th>
+                     <th>Data</th>
+                     <th>Status</th>
+                     <th>Ação</th>
+                  </tr>
+               </thead>
+               <tbody
+                  *ngFor="let menu of data.data | paginate: { itemsPerPage: data.per_page, currentPage: data.current_page, totalItems: data.total }">
+                  <tr *ngIf="menu.deleted_at == null" class="table-default">
+                     <th>{{menu.id}}</th>
+                     <td>{{menu.description}}</td>
+                     <td>{{menu.company.fantasy_name}}</td>
+                     <td>{{menu.observation}}</td>
+                     <td *ngIf="! menu.fixed_menu || menu.fixed_menu == null">{{menu.date | date: 'dd/MM/yyyy'}}</td>
+                     <td *ngIf="menu.fixed_menu">Fixo</td>
+                     <td>Ativo</td>
+                     <td>
+                        <button (click)="showMenu(menu)" type="button"
+                           class="btn btn-sm btn-success">Visualizar</button>
+                     </td>
+                  </tr>
+                  <tr *ngIf="menu.deleted_at != null" class="table-warning">
+                     <th>{{menu.id}}</th>
+                     <td>{{menu.description}}</td>
+                     <td>{{menu.observation}}</td>
+                     <td *ngIf="! menu.fixed_menu || menu.fixed_menu == null">{{menu.date | date: 'dd/MM/yyyy'}}</td>
+                     <td *ngIf="menu.fixed_menu">Fixo</td>
+                     <td>Inativo</td>
+                     <td>
+                        <button (click)="showMenu(menu)" type="button"
+                           class="btn btn-sm btn-success">Visualizar</button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+            <div class="has-text-centered">
+               <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Anterior" nextLabel="Próximo">
+               </pagination-controls>
             </div>
-          </div>
-       </div>
-    </div>
+         </div>
+      </div>
+   </div>
 </div>
