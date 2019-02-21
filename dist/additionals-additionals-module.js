@@ -350,10 +350,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var AdditionalsService = /** @class */ (function () {
     function AdditionalsService(http) {
         this.http = http;
-        this.endpoint = 'additionals';
+        this.endpoint = 'api/v1/additionals';
     }
     AdditionalsService.prototype.getAdditionals = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
@@ -397,7 +398,8 @@ var AdditionalsService = /** @class */ (function () {
         });
     };
     AdditionalsService.prototype.restoreAdditional = function (access_token, id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/restore/' + id, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/restore/' + id, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }

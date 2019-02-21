@@ -51,7 +51,7 @@ var MenusListRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div [@routerTransition]>\n    <div class=\"row\">\n       <div class=\"col-lg-12\">\n          <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}</ngb-alert>\n          <div class=\"card mb-3\">\n             <div class=\"card-header\">Listagem de cardápios</div>\n             <h5 *ngIf=\"menus.length == 0\">Não há cardápios para exibir</h5>\n             <table *ngIf=\"menus.length > 0\" class=\"card-body table\">\n                <thead>\n                   <tr>\n                      <th>#</th>\n                      <th>Descrição</th>\n                      <th>Observação</th>\n                      <th>Data</th>\n                      <th>Status</th>\n                      <th>Ação</th>\n                   </tr>\n                </thead>\n                <tbody *ngFor=\"let menu of menus | paginate: { itemsPerPage: 7, currentPage: page }\">\n                   <tr *ngIf=\"menu.deleted_at == null\" class=\"table-default\">\n                      <th>{{menu.id}}</th>\n                      <td>{{menu.description}}</td>\n                      <td>{{menu.observation}}</td>\n                      <td *ngIf=\"! menu.fixed_menu || menu.fixed_menu == null\">{{menu.date | date: 'dd/MM/yyyy'}}</td>\n                      <td *ngIf=\"menu.fixed_menu\">Fixo</td>\n                      <td>Ativo</td>\n                      <td>\n                         <button (click)=\"showMenu(menu)\" type=\"button\" class=\"btn btn-sm btn-success\">Visualizar</button>\n                      </td>\n                   </tr>\n                   <tr *ngIf=\"menu.deleted_at != null\" class=\"table-warning\">\n                    <th>{{menu.id}}</th>\n                    <td>{{menu.description}}</td>\n                    <td>{{menu.observation}}</td>\n                    <td *ngIf=\"! menu.fixed_menu || menu.fixed_menu == null\">{{menu.date | date: 'dd/MM/yyyy'}}</td>\n                    <td *ngIf=\"menu.fixed_menu\">Fixo</td>\n                    <td>Inativo</td>\n                    <td>\n                       <button (click)=\"showMenu(menu)\" type=\"button\" class=\"btn btn-sm btn-success\">Visualizar</button>\n                    </td>\n                 </tr>\n                </tbody>\n             </table>\n             <div class=\"has-text-centered\">\n                <pagination-controls\n                    (pageChange)=\"page = $event\"\n                    previousLabel=\"Anterior\"\n                    nextLabel=\"Próximo\">\n                </pagination-controls>\n            </div>\n          </div>\n       </div>\n    </div>\n</div>\n"
+module.exports = "<div [@routerTransition]>\n   <div class=\"row\">\n      <div class=\"col-lg-12\">\n         <ngb-alert [type]=\"alert.type\" (close)=\"closeAlert(alert)\" *ngFor=\"let alert of alerts\">{{ alert.message }}\n         </ngb-alert>\n         <div class=\"card mb-3\">\n            <div class=\"card-header\">Listagem de cardápios</div>\n            <h5 *ngIf=\"data.data.length == 0\">Não há cardápios para exibir</h5>\n            <table *ngIf=\"data.data.length > 0\" class=\"card-body table\">\n               <thead>\n                  <tr>\n                     <th>#</th>\n                     <th>Descrição</th>\n                     <th>Restaurante</th>\n                     <th>Observação</th>\n                     <th>Data</th>\n                     <th>Status</th>\n                     <th>Ação</th>\n                  </tr>\n               </thead>\n               <tbody\n                  *ngFor=\"let menu of data.data | paginate: { itemsPerPage: data.per_page, currentPage: data.current_page, totalItems: data.total }\">\n                  <tr *ngIf=\"menu.deleted_at == null\" class=\"table-default\">\n                     <th>{{menu.id}}</th>\n                     <td>{{menu.description}}</td>\n                     <td>{{menu.company.fantasy_name}}</td>\n                     <td>{{menu.observation}}</td>\n                     <td *ngIf=\"! menu.fixed_menu || menu.fixed_menu == null\">{{menu.date | date: 'dd/MM/yyyy'}}</td>\n                     <td *ngIf=\"menu.fixed_menu\">Fixo</td>\n                     <td>Ativo</td>\n                     <td>\n                        <button (click)=\"showMenu(menu)\" type=\"button\"\n                           class=\"btn btn-sm btn-success\">Visualizar</button>\n                     </td>\n                  </tr>\n                  <tr *ngIf=\"menu.deleted_at != null\" class=\"table-warning\">\n                     <th>{{menu.id}}</th>\n                     <td>{{menu.description}}</td>\n                     <td>{{menu.observation}}</td>\n                     <td *ngIf=\"! menu.fixed_menu || menu.fixed_menu == null\">{{menu.date | date: 'dd/MM/yyyy'}}</td>\n                     <td *ngIf=\"menu.fixed_menu\">Fixo</td>\n                     <td>Inativo</td>\n                     <td>\n                        <button (click)=\"showMenu(menu)\" type=\"button\"\n                           class=\"btn btn-sm btn-success\">Visualizar</button>\n                     </td>\n                  </tr>\n               </tbody>\n            </table>\n            <div class=\"has-text-centered\">\n               <pagination-controls (pageChange)=\"pageChanged($event)\" previousLabel=\"Anterior\" nextLabel=\"Próximo\">\n               </pagination-controls>\n            </div>\n         </div>\n      </div>\n   </div>\n</div>"
 
 /***/ }),
 
@@ -97,7 +97,6 @@ var MenusListComponent = /** @class */ (function () {
         this.router = router;
         this.route = route;
         this.menusService = menusService;
-        this.page = 1;
         this.alerts = [];
     }
     MenusListComponent.prototype.ngOnInit = function () {
@@ -113,9 +112,7 @@ var MenusListComponent = /** @class */ (function () {
         var _this = this;
         this.menusService
             .getMenus(localStorage.getItem('access_token'))
-            .subscribe(function (menus) {
-            _this.menus = menus;
-        });
+            .subscribe(function (data) { return _this.data = data; });
     };
     MenusListComponent.prototype.showMenu = function (menu) {
         this.router.navigate(['/menus-show', { id: menu.id }]);
@@ -130,6 +127,12 @@ var MenusListComponent = /** @class */ (function () {
     MenusListComponent.prototype.closeAlert = function (alert) {
         var index = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
+    };
+    MenusListComponent.prototype.pageChanged = function (page) {
+        var _this = this;
+        this.menusService
+            .getMenusPaginate(localStorage.getItem('access_token'), page)
+            .subscribe(function (data) { return _this.data = data; });
     };
     MenusListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

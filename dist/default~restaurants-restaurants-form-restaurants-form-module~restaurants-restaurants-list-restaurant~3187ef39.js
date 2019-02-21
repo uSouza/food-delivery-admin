@@ -28,7 +28,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var RestaurantsService = /** @class */ (function () {
     function RestaurantsService(http) {
         this.http = http;
-        this.endpoint = 'companies';
+        this.endpoint = 'api/v1/companies';
     }
     RestaurantsService.prototype.getRestaurants = function (access_token) {
         return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {

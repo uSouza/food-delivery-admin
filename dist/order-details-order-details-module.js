@@ -675,7 +675,7 @@ var OrderDetailsComponent = /** @class */ (function () {
             freight = 'gratuito';
         }
         else {
-            freight = "R$ " + this.order.freight;
+            freight = "R$ " + this.order.freight.value;
         }
         var dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
             + '\nFORMA PAGAMENTO: ' + this.order.form_payment.description

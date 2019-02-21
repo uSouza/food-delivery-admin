@@ -384,7 +384,7 @@ var AppModule = /** @class */ (function () {
 /*!***************************!*\
   !*** ./src/app/config.ts ***!
   \***************************/
-/*! exports provided: Config, sender_id, oneSignalAppId, url_api */
+/*! exports provided: Config, sender_id, oneSignalAppId, client_id, client_secret, url_api */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -392,6 +392,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Config", function() { return Config; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sender_id", function() { return sender_id; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "oneSignalAppId", function() { return oneSignalAppId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "client_id", function() { return client_id; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "client_secret", function() { return client_secret; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "url_api", function() { return url_api; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -412,8 +414,12 @@ var Config = /** @class */ (function () {
 
 var sender_id = '825111433849';
 var oneSignalAppId = '18e4fb1f-4d47-4196-8ded-4883a763d9d7';
-var url_api = 'http://api.pandeco.com.br/api/v1/';
-// export const url_api = 'http://localhost:8000/api/v1/';
+var client_id = 1;
+var client_secret = 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8';
+// Production
+// export const url_api = 'http://api.pandeco.com.br/';
+// Test
+var url_api = 'http://localhost:8000/';
 
 
 /***/ }),
@@ -541,6 +547,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginService", function() { return LoginService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../config */ "./src/app/config.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -552,12 +559,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var LoginService = /** @class */ (function () {
-    // url_api = 'http://localhost:8000/';
     function LoginService(http) {
         this.http = http;
         this.endpoint = 'oauth/token';
-        this.url_api = 'http://api.pandeco.com.br/';
     }
     LoginService.prototype.authenticate = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
@@ -565,16 +571,16 @@ var LoginService = /** @class */ (function () {
         headers.append('Content-Type', 'application/json');
         var data = {
             grant_type: 'password',
-            client_id: 1,
-            client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
+            client_id: _config__WEBPACK_IMPORTED_MODULE_2__["client_id"],
+            client_secret: _config__WEBPACK_IMPORTED_MODULE_2__["client_secret"],
             username: user.email,
             password: user.password,
             scope: ''
         };
-        return this.http.post(this.url_api + this.endpoint, data, { headers: headers });
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint, data, { headers: headers });
     };
     LoginService.prototype.user_me = function (access_token) {
-        return this.http.get(this.url_api + 'api/v1/users/me', {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + 'api/v1/users/me', {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
@@ -588,7 +594,7 @@ var LoginService = /** @class */ (function () {
             name: name,
             password: password
         };
-        return this.http.post(this.url_api + 'api/v1/users', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + 'api/v1/users', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -613,7 +619,7 @@ var LoginService = /** @class */ (function () {
                 name: name
             };
         }
-        return this.http.put(this.url_api + 'api/v1/users/' + id, data, {
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + 'api/v1/users/' + id, data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -625,7 +631,7 @@ var LoginService = /** @class */ (function () {
         var data = {
             player_id: player_id
         };
-        return this.http.post(this.url_api + 'api/v1/users/one_signal', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + 'api/v1/users/one_signal', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -689,24 +695,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var OrdersService = /** @class */ (function () {
     function OrdersService(http) {
         this.http = http;
-        this.endpoint = 'orders';
+        this.endpoint = 'api/v1/orders';
     }
     OrdersService.prototype.getOpenOrders = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/open', { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/open', {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
         });
     };
     OrdersService.prototype.getClosedOrders = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/closed', { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/closed', {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
+    OrdersService.prototype.getClosedOrdersPaginate = function (access_token, page) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/closed?page=' + page, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
         });
     };
     OrdersService.prototype.getOrder = function (access_token, id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/' + id, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_2__["url_api"] + this.endpoint + '/' + id, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }

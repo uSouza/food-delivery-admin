@@ -303,10 +303,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var FormPaymentsService = /** @class */ (function () {
     function FormPaymentsService(http) {
         this.http = http;
-        this.endpoint = 'form_payments';
+        this.endpoint = 'api/v1/form_payments';
     }
     FormPaymentsService.prototype.getFormPayments = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }

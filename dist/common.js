@@ -107,10 +107,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var IngredientGroupsService = /** @class */ (function () {
     function IngredientGroupsService(http) {
         this.http = http;
-        this.endpoint = 'ingredient_groups';
+        this.endpoint = 'api/v1/ingredient_groups';
     }
     IngredientGroupsService.prototype.getIngredientsGroups = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
@@ -192,10 +193,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var IngredientsService = /** @class */ (function () {
     function IngredientsService(http) {
         this.http = http;
-        this.endpoint = 'ingredients';
+        this.endpoint = 'api/v1/ingredients';
     }
     IngredientsService.prototype.getIngredients = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
@@ -279,28 +281,32 @@ var LocationsService = /** @class */ (function () {
         this.http = http;
     }
     LocationsService.prototype.getStates = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'states', { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/states', {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
         });
     };
     LocationsService.prototype.getCities = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'cities', { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/cities', {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
         });
     };
     LocationsService.prototype.getDistrictsByCity = function (access_token, city_id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'districts/city/' + city_id, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/districts/city/' + city_id, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
         });
     };
     LocationsService.prototype.getDistricts = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'districts', { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/districts', {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
@@ -311,7 +317,7 @@ var LocationsService = /** @class */ (function () {
             name: city.name,
             state_id: city.state_id
         };
-        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'cities', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/cities', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -324,7 +330,7 @@ var LocationsService = /** @class */ (function () {
             name: district.name,
             city_id: district.city_id
         };
-        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'districts', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/districts', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -337,7 +343,7 @@ var LocationsService = /** @class */ (function () {
             name: city.name,
             state_id: city.state_id
         };
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'cities' + '/' + id, data, {
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/cities' + '/' + id, data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -346,7 +352,7 @@ var LocationsService = /** @class */ (function () {
         });
     };
     LocationsService.prototype.deleteCity = function (access_token, id) {
-        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'cities' + '/' + id, {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/cities' + '/' + id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -359,7 +365,7 @@ var LocationsService = /** @class */ (function () {
             name: district.name,
             city_id: district.city_id
         };
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'districts' + '/' + id, data, {
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/districts' + '/' + id, data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -368,7 +374,7 @@ var LocationsService = /** @class */ (function () {
         });
     };
     LocationsService.prototype.deleteDistrict = function (access_token, id) {
-        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'districts' + '/' + id, {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/districts' + '/' + id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -417,17 +423,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var MenusService = /** @class */ (function () {
     function MenusService(http) {
         this.http = http;
-        this.endpoint = 'menus';
+        this.endpoint = 'api/v1/menus';
     }
     MenusService.prototype.getMenus = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
+    MenusService.prototype.getMenusPaginate = function (access_token, page) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '?page=' + page, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
         });
     };
     MenusService.prototype.getMenu = function (access_token, id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/' + id, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/' + id, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
@@ -477,7 +493,8 @@ var MenusService = /** @class */ (function () {
         });
     };
     MenusService.prototype.restoreMenu = function (access_token, id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/restore/' + id, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/restore/' + id, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
@@ -524,10 +541,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var SizesService = /** @class */ (function () {
     function SizesService(http) {
         this.http = http;
-        this.endpoint = 'prices';
+        this.endpoint = 'api/v1/prices';
     }
     SizesService.prototype.getSizes = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, { headers: {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
+            headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
             }
@@ -609,7 +627,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var TagsService = /** @class */ (function () {
     function TagsService(http) {
         this.http = http;
-        this.endpoint = 'tags';
+        this.endpoint = 'api/v1/tags';
     }
     TagsService.prototype.getTags = function (access_token) {
         return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint, {
