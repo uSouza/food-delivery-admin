@@ -21,7 +21,17 @@ export class OrdersService {
   }
 
   getClosedOrders(access_token: any) {
-    return this.http.get<any[]>(url_api + this.endpoint + '/closed',
+    return this.http.get<any>(url_api + this.endpoint + '/closed',
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + access_token
+        }
+      });
+  }
+
+  getClosedOrdersPaginate(access_token: any, page: any) {
+    return this.http.get<any>(url_api + this.endpoint + '/closed?page=' + page,
       {
         headers: {
           'Accept': 'application/json',

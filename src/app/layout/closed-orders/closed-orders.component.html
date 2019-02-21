@@ -1,44 +1,44 @@
-    <div [@routerTransition]>
-        <div class="row">
-           <div class="col-lg-12">
-              <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
-              <div class="card mb-3">
-                 <div class="card-header"> Pedidos encerrados</div>
-                 <h5 *ngIf="orders.length == 0">Não há pedidos para exibir</h5>
-                 <table *ngIf="orders.length > 0" class="card-body table">
-                    <thead>
-                       <tr>
-                          <th>Cliente</th>
-                          <th>Restaurante</th>
-                          <th>Preço</th>
-                          <th>Qtde. Marmitas</th>
-                          <th>Aberto em</th>
-                          <th>Confirmado em</th>
-                          <th>Ação</th>
-                       </tr>
-                    </thead>
-                    <tbody *ngFor="let order of orders | paginate: { itemsPerPage: 7, currentPage: page }">
-                       <tr class="table-default">
-                          <td>{{order.client.name}}</td>
-                          <td>{{ order.company.fantasy_name }}</td>
-                          <td>{{order.price | currency: 'BRL': true}}</td>
-                          <td>{{ order.products.length }}</td>
-                          <td>{{order.created_at | date: 'dd/MM/yyyy H:mm'}}</td>
-                          <td>{{order.updated_at | date: 'dd/MM/yyyy H:mm'}}</td>
-                          <td>
-                                <button (click)="showOrder(order)" type="button" class="btn btn-sm btn-success">Visualizar</button>
-                          </td>
-                       </tr>
-                    </tbody>
-                 </table>
-                 <div class="has-text-centered">
-                    <pagination-controls
-                        (pageChange)="page = $event"
-                        previousLabel="Anterior"
-                        nextLabel="Próximo">
-                    </pagination-controls>
-                </div>
-              </div>
-           </div>
-        </div>
-    </div>
+<div [@routerTransition]>
+   <div class="row">
+      <div class="col-lg-12">
+         <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}
+         </ngb-alert>
+         <div class="card mb-3">
+            <div class="card-header"> Pedidos encerrados</div>
+            <h5 *ngIf="data.data.length == 0">Não há pedidos para exibir</h5>
+            <table *ngIf="data.data.length > 0" class="card-body table">
+               <thead>
+                  <tr>
+                     <th>Cliente</th>
+                     <th>Restaurante</th>
+                     <th>Preço</th>
+                     <th>Qtde. Marmitas</th>
+                     <th>Aberto em</th>
+                     <th>Confirmado em</th>
+                     <th>Ação</th>
+                  </tr>
+               </thead>
+               <tbody
+                  *ngFor="let order of data.data | paginate: { itemsPerPage: data.per_page, currentPage: data.current_page, totalItems: data.total }">
+                  <tr class="table-default">
+                     <td>{{order.client.name}}</td>
+                     <td>{{ order.company.fantasy_name }}</td>
+                     <td>{{order.price | currency: 'BRL': true}}</td>
+                     <td>{{ order.products.length }}</td>
+                     <td>{{order.created_at | date: 'dd/MM/yyyy H:mm'}}</td>
+                     <td>{{order.updated_at | date: 'dd/MM/yyyy H:mm'}}</td>
+                     <td>
+                        <button (click)="showOrder(order)" type="button"
+                           class="btn btn-sm btn-success">Visualizar</button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+            <div class="has-text-centered">
+               <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Anterior" nextLabel="Próximo">
+               </pagination-controls>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

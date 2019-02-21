@@ -4,14 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { OrdersService } from '../../services/orders/orders.service';
 
 @Component({
-  selector: 'app-closed-orders',
-  templateUrl: './closed-orders.component.html',
-  styleUrls: ['./closed-orders.component.scss']
+    selector: 'app-closed-orders',
+    templateUrl: './closed-orders.component.html',
+    styleUrls: ['./closed-orders.component.scss']
 })
 export class ClosedOrdersComponent implements OnInit {
 
-    orders: any[] = [];
-    page: number = 1;
+    data: any;
+
     public alerts: Array<any> = [];
 
     constructor(public router: Router,
@@ -29,17 +29,28 @@ export class ClosedOrdersComponent implements OnInit {
         this.ordersService
             .getClosedOrders(localStorage.getItem('access_token'))
             .subscribe(
-                orders => this.setOrders(orders)
-            )
+                data => {
+                    this.setData(data);
+                }
+            );
     }
 
-    setOrders(orders) {
-        console.log(orders);
-        this.orders = orders;
+    setData(data: any) {
+        this.data = data;
     }
 
     showOrder(order: any) {
         this.router.navigate(['/orders', { id: order.id }]);
+    }
+
+    pageChanged(page) {
+        this.ordersService
+            .getClosedOrdersPaginate(localStorage.getItem('access_token'), page)
+            .subscribe(
+                data => {
+                    this.setData(data);
+                }
+            );
     }
 
 }
