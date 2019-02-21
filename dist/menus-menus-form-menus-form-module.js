@@ -177,6 +177,9 @@ var MenusFormComponent = /** @class */ (function () {
                 this.date = '2000-01-01';
                 this.menu.date = '2000-01-01';
             }
+            if (this.menu.fixed_menu == null) {
+                this.menu.fixed_menu = false;
+            }
             if (!this.edit) {
                 this.menusService
                     .addMenu(this.access_token, this.menu)

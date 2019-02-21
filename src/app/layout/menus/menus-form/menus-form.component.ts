@@ -11,9 +11,9 @@ import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-menus-form',
-  templateUrl: './menus-form.component.html',
-  styleUrls: ['./menus-form.component.scss']
+    selector: 'app-menus-form',
+    templateUrl: './menus-form.component.html',
+    styleUrls: ['./menus-form.component.scss']
 })
 export class MenusFormComponent implements OnInit {
 
@@ -31,12 +31,12 @@ export class MenusFormComponent implements OnInit {
     access_token: any = null;
 
     constructor(public route: ActivatedRoute,
-                private router: Router,
-                private ingredientsService: IngredientsService,
-                private sizesService: SizesService,
-                private menusService: MenusService,
-                public datepipe: DatePipe,
-                private modalService: NgbModal) { }
+        private router: Router,
+        private ingredientsService: IngredientsService,
+        private sizesService: SizesService,
+        private menusService: MenusService,
+        public datepipe: DatePipe,
+        private modalService: NgbModal) { }
 
     ngOnInit() {
         if (localStorage.getItem('access_token') != null) {
@@ -73,6 +73,9 @@ export class MenusFormComponent implements OnInit {
                 this.date = '2000-01-01';
                 this.menu.date = '2000-01-01';
             }
+            if (this.menu.fixed_menu == null) {
+                this.menu.fixed_menu = false;
+            }
             if (!this.edit) {
                 this.menusService
                     .addMenu(this.access_token, this.menu)
@@ -90,7 +93,7 @@ export class MenusFormComponent implements OnInit {
     }
 
     validate() {
-        let today = new Date();
+        const today = new Date();
         if (this.date != null) {
             this.menu.date = this.date.year + '-' + this.date.month + '-' + this.date.day;
         }
@@ -103,11 +106,11 @@ export class MenusFormComponent implements OnInit {
         } else if (this.menu.description == null) {
             this.showAlert('danger', 'Informe a descrição da marmita!');
             return false;
-        } else if (this.menu.date == null && (! this.menu.fixed_menu || this.menu.fixed_menu == null)) {
+        } else if (this.menu.date == null && (!this.menu.fixed_menu || this.menu.fixed_menu == null)) {
             this.showAlert('danger', 'Informe a data da marmita!');
             return false;
         } else if (this.datepipe.transform(today, 'yyyy-MM-dd') > this.menu.date
-            && (! this.menu.fixed_menu || this.menu.fixed_menu == null)) {
+            && (!this.menu.fixed_menu || this.menu.fixed_menu == null)) {
             this.showAlert('danger', 'Informe uma data igual ou posterior a atual!');
             return false;
         } else {

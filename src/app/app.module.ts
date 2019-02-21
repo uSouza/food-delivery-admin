@@ -43,4 +43,4 @@ import { LoaderInterceptorService } from './services/loader-interceptor/loader-i
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

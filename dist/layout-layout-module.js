@@ -1786,12 +1786,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_header_header_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/header/header.component */ "./src/app/layout/components/header/header.component.ts");
 /* harmony import */ var _services_login_login_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/login/login.service */ "./src/app/services/login/login.service.ts");
 /* harmony import */ var _loader_loader_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./loader/loader.component */ "./src/app/layout/loader/loader.component.ts");
+/* harmony import */ var _services_loader_interceptor_loader_interceptor_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../services/loader-interceptor/loader-interceptor.service */ "./src/app/services/loader-interceptor/loader-interceptor.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -1814,7 +1818,14 @@ var LayoutModule = /** @class */ (function () {
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdownModule"].forRoot()
             ],
             declarations: [_layout_component__WEBPACK_IMPORTED_MODULE_5__["LayoutComponent"], _components_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_6__["SidebarComponent"], _components_header_header_component__WEBPACK_IMPORTED_MODULE_7__["HeaderComponent"], _loader_loader_component__WEBPACK_IMPORTED_MODULE_9__["LoaderComponent"]],
-            providers: [_services_login_login_service__WEBPACK_IMPORTED_MODULE_8__["LoginService"]],
+            providers: [
+                _services_login_login_service__WEBPACK_IMPORTED_MODULE_8__["LoginService"],
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"],
+                    useClass: _services_loader_interceptor_loader_interceptor_service__WEBPACK_IMPORTED_MODULE_10__["LoaderInterceptorService"],
+                    multi: true
+                }
+            ],
         })
     ], LayoutModule);
     return LayoutModule;

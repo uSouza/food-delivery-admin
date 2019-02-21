@@ -11,7 +11,7 @@ export const client_id = 1;
 export const client_secret = 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8';
 
 // Production
-export const url_api = 'http://api.pandeco.com.br/';
+// export const url_api = 'http://api.pandeco.com.br/';
 
 // Test
-// export const url_api = 'http://localhost:8000/';
+export const url_api = 'http://localhost:8000/';

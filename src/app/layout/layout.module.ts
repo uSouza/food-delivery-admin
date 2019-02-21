@@ -9,6 +9,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginService } from '../services/login/login.service';
 import { LoaderComponent } from './loader/loader.component';
+import { LoaderInterceptorService } from '../services/loader-interceptor/loader-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -17,7 +19,14 @@ import { LoaderComponent } from './loader/loader.component';
         TranslateModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [ LayoutComponent, SidebarComponent, HeaderComponent, LoaderComponent ],
-    providers: [ LoginService ],
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, LoaderComponent],
+    providers: [
+        LoginService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptorService,
+            multi: true
+        }
+    ],
 })
-export class LayoutModule {}
+export class LayoutModule { }
