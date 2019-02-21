@@ -192,7 +192,7 @@ export class OrderDetailsComponent implements OnInit {
         if (this.order.freight == null || this.order.freight.value === 0) {
             freight = 'gratuito';
         } else {
-            freight = `R$ ${this.order.freight}`;
+            freight = `R$ ${this.order.freight.value}`;
         }
 
         const dadosGerais = '\n*DADOS GERAIS DO PEDIDO*\n' + 'PREÇO: R$' + this.order.price
