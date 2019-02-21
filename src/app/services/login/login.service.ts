@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { url_api, client_id, client_secret } from '../../config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   endpoint = 'oauth/token';
-  url_api = 'http://api.pandeco.com.br/';
-  // url_api = 'http://localhost:8000/';
 
   constructor(public http: HttpClient) { }
 
@@ -18,17 +17,17 @@ export class LoginService {
     headers.append('Content-Type', 'application/json');
     const data = {
       grant_type: 'password',
-      client_id: 1,
-      client_secret: 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8',
+      client_id: client_id,
+      client_secret: client_secret,
       username: user.email,
       password: user.password,
       scope: ''
     };
-    return this.http.post(this.url_api + this.endpoint, data, { headers: headers });
+    return this.http.post(url_api + this.endpoint, data, { headers: headers });
   }
 
   user_me(access_token: any) {
-    return this.http.get(this.url_api + 'api/v1/users/me',
+    return this.http.get(url_api + 'api/v1/users/me',
       {
         headers: {
           'Accept': 'application/json',
@@ -44,7 +43,7 @@ export class LoginService {
       name: name,
       password: password
     };
-    return this.http.post<any>(this.url_api + 'api/v1/users', data, {
+    return this.http.post<any>(url_api + 'api/v1/users', data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -71,7 +70,7 @@ export class LoginService {
       };
     }
 
-    return this.http.put<any>(this.url_api + 'api/v1/users/' + id, data, {
+    return this.http.put<any>(url_api + 'api/v1/users/' + id, data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -84,7 +83,7 @@ export class LoginService {
     const data = {
       player_id: player_id
     };
-    return this.http.post<any>(this.url_api + 'api/v1/users/one_signal', data, {
+    return this.http.post<any>(url_api + 'api/v1/users/one_signal', data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,

@@ -3,11 +3,11 @@ import { url_api } from '../../config';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AdditionalsService {
 
-    endpoint = 'additionals';
+    endpoint = 'api/v1/additionals';
 
     constructor(public http: HttpClient) {
 
@@ -15,11 +15,12 @@ export class AdditionalsService {
 
     getAdditionals(access_token: any) {
         return this.http.get<any[]>(url_api + this.endpoint,
-          {headers: {
+            {
+                headers: {
                     'Accept': 'application/json',
                     'Authorization': 'Bearer ' + access_token
-                  }
-          });
+                }
+            });
     }
 
     addAdditional(access_token: any, add: any) {
@@ -64,10 +65,11 @@ export class AdditionalsService {
 
     restoreAdditional(access_token: any, id: any) {
         return this.http.get<any>(url_api + this.endpoint + '/restore/' + id,
-            {headers: {
-                      'Accept': 'application/json',
-                      'Authorization': 'Bearer ' + access_token
-                    }
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + access_token
+                }
             });
     }
 }

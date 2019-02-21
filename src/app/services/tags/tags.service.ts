@@ -3,11 +3,11 @@ import { url_api } from '../../config';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TagsService {
 
-    endpoint = 'tags';
+    endpoint = 'api/v1/tags';
 
     constructor(public http: HttpClient) { }
 
@@ -21,7 +21,7 @@ export class TagsService {
     }
 
     addTag(access_token: any, tag: any) {
-        let data = {
+        const data = {
             name: tag
         };
         return this.http.post<any>(url_api + this.endpoint, data, {
@@ -34,7 +34,7 @@ export class TagsService {
     }
 
     editTag(access_token: any, tag: any, id: any) {
-        let data = {
+        const data = {
             name: tag
         };
         return this.http.put<any>(url_api + this.endpoint + '/' + id, data, {

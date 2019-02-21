@@ -3,28 +3,29 @@ import { url_api } from '../../config';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class IngredientsService {
 
-  endpoint = 'ingredients';
+    endpoint = 'api/v1/ingredients';
 
-  constructor(public http: HttpClient) { }
+    constructor(public http: HttpClient) { }
 
-  getIngredients(access_token: any) {
-    return this.http.get<any[]>(url_api + this.endpoint,
-      {headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + access_token
-              }
-      });
+    getIngredients(access_token: any) {
+        return this.http.get<any[]>(url_api + this.endpoint,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + access_token
+                }
+            });
     }
 
     addIngredient(access_token: any, ingredient: any) {
-        let data = {
+        const data = {
             name: ingredient.name,
             ingredient_group_id: ingredient.ingredient_group_id
-            };
+        };
         return this.http.post<any>(url_api + this.endpoint, data, {
             headers: {
                 'Accept': 'application/json',
@@ -38,7 +39,7 @@ export class IngredientsService {
         let data = {
             name: ingredient.name,
             ingredient_group_id: ingredient.ingredient_group_id
-            };
+        };
         return this.http.put<any>(url_api + this.endpoint + '/' + id, data, {
             headers: {
                 'Accept': 'application/json',
