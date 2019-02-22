@@ -417,9 +417,9 @@ var oneSignalAppId = '18e4fb1f-4d47-4196-8ded-4883a763d9d7';
 var client_id = 1;
 var client_secret = 'kss5gCVZ2wQyRuwf5AvfPbGbwo4AjCJ8DsXidza8';
 // Production
-// export const url_api = 'http://api.pandeco.com.br/';
+var url_api = 'http://api.pandeco.com.br/';
 // Test
-var url_api = 'http://localhost:8000/';
+// export const url_api = 'http://localhost:8000/';
 
 
 /***/ }),
