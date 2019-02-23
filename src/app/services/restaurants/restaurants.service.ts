@@ -110,7 +110,7 @@ export class RestaurantsService {
       observation: location.observation,
       company_id: restaurant.id
     };
-    return this.http.post<any>(url_api + 'companies_locations', data, {
+    return this.http.post<any>(url_api + 'api/v1/companies_locations', data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -120,7 +120,7 @@ export class RestaurantsService {
   }
 
   getLocations(access_token: any, id) {
-    return this.http.get<any>(url_api + 'companies_locations/company/' + id, {
+    return this.http.get<any>(url_api + 'api/v1/companies_locations/company/' + id, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -130,7 +130,7 @@ export class RestaurantsService {
   }
 
   getCities(access_token: any) {
-    return this.http.get<any[]>(url_api + 'cities',
+    return this.http.get<any[]>(url_api + 'api/v1/cities',
       {
         headers: {
           'Accept': 'application/json',
@@ -140,7 +140,7 @@ export class RestaurantsService {
   }
 
   getDistricts(access_token: any, city_id: any) {
-    return this.http.get<any[]>(url_api + 'districts/city/' + city_id,
+    return this.http.get<any[]>(url_api + 'api/v1/districts/city/' + city_id,
       {
         headers: {
           'Accept': 'application/json',
@@ -157,7 +157,7 @@ export class RestaurantsService {
       postal_code: location.postal_code,
       observation: location.observation
     };
-    return this.http.put<any>(url_api + 'companies_locations/' + id, data, {
+    return this.http.put<any>(url_api + 'api/v1/companies_locations/' + id, data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -177,7 +177,7 @@ export class RestaurantsService {
       friday: wdays.friday,
       saturday: wdays.saturday
     };
-    return this.http.post<any>(url_api + 'worked_days', data, {
+    return this.http.post<any>(url_api + 'api/v1/worked_days', data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -197,7 +197,7 @@ export class RestaurantsService {
       friday: wdays.friday,
       saturday: wdays.saturday
     };
-    return this.http.put<any>(url_api + 'worked_days/' + id, data, {
+    return this.http.put<any>(url_api + 'api/v1/worked_days/' + id, data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -212,7 +212,7 @@ export class RestaurantsService {
       opening: service_hours.opening,
       closure: service_hours.closure
     };
-    return this.http.post<any>(url_api + 'service_hours', data, {
+    return this.http.post<any>(url_api + 'api/v1/service_hours', data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -227,7 +227,7 @@ export class RestaurantsService {
       district_id: freight.district_id,
       value: freight.value
     };
-    return this.http.post<any>(url_api + 'freights', data, {
+    return this.http.post<any>(url_api + 'api/v1/freights', data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -237,7 +237,7 @@ export class RestaurantsService {
   }
 
   destroyFreights(access_token: any, restaurant: any) {
-    return this.http.delete<any>(url_api + 'freights/company/' + restaurant.id, {
+    return this.http.delete<any>(url_api + 'api/v1/freights/company/' + restaurant.id, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -247,7 +247,7 @@ export class RestaurantsService {
   }
 
   destroyServiceHours(access_token: any, restaurant: any) {
-    return this.http.delete<any>(url_api + 'service_hours/company/' + restaurant.id, {
+    return this.http.delete<any>(url_api + 'api/v1/service_hours/company/' + restaurant.id, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,
@@ -262,7 +262,7 @@ export class RestaurantsService {
       opening: service_hours.opening,
       closure: service_hours.closure
     };
-    return this.http.put<any>(url_api + 'service_hours/' + id, data, {
+    return this.http.put<any>(url_api + 'api/v1/service_hours/' + id, data, {
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + access_token,

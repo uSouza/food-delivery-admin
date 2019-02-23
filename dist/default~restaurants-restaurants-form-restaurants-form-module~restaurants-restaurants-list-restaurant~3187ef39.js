@@ -121,7 +121,7 @@ var RestaurantsService = /** @class */ (function () {
             observation: location.observation,
             company_id: restaurant.id
         };
-        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'companies_locations', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/companies_locations', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -130,7 +130,7 @@ var RestaurantsService = /** @class */ (function () {
         });
     };
     RestaurantsService.prototype.getLocations = function (access_token, id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'companies_locations/company/' + id, {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/companies_locations/company/' + id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -139,7 +139,7 @@ var RestaurantsService = /** @class */ (function () {
         });
     };
     RestaurantsService.prototype.getCities = function (access_token) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'cities', {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/cities', {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
@@ -147,7 +147,7 @@ var RestaurantsService = /** @class */ (function () {
         });
     };
     RestaurantsService.prototype.getDistricts = function (access_token, city_id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'districts/city/' + city_id, {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/districts/city/' + city_id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token
@@ -162,7 +162,7 @@ var RestaurantsService = /** @class */ (function () {
             postal_code: location.postal_code,
             observation: location.observation
         };
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'companies_locations/' + id, data, {
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/companies_locations/' + id, data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -181,7 +181,7 @@ var RestaurantsService = /** @class */ (function () {
             friday: wdays.friday,
             saturday: wdays.saturday
         };
-        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'worked_days', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/worked_days', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -200,7 +200,7 @@ var RestaurantsService = /** @class */ (function () {
             friday: wdays.friday,
             saturday: wdays.saturday
         };
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'worked_days/' + id, data, {
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/worked_days/' + id, data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -214,7 +214,7 @@ var RestaurantsService = /** @class */ (function () {
             opening: service_hours.opening,
             closure: service_hours.closure
         };
-        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/service_hours', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -228,7 +228,7 @@ var RestaurantsService = /** @class */ (function () {
             district_id: freight.district_id,
             value: freight.value
         };
-        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'freights', data, {
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/freights', data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -237,7 +237,7 @@ var RestaurantsService = /** @class */ (function () {
         });
     };
     RestaurantsService.prototype.destroyFreights = function (access_token, restaurant) {
-        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'freights/company/' + restaurant.id, {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/freights/company/' + restaurant.id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -246,7 +246,7 @@ var RestaurantsService = /** @class */ (function () {
         });
     };
     RestaurantsService.prototype.destroyServiceHours = function (access_token, restaurant) {
-        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours/company/' + restaurant.id, {
+        return this.http.delete(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/service_hours/company/' + restaurant.id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
@@ -260,7 +260,7 @@ var RestaurantsService = /** @class */ (function () {
             opening: service_hours.opening,
             closure: service_hours.closure
         };
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'service_hours/' + id, data, {
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + 'api/v1/service_hours/' + id, data, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + access_token,
