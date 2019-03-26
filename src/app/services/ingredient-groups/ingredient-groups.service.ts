@@ -58,4 +58,14 @@ export class IngredientGroupsService {
             }
         });
     }
+
+    getIngredientesByMenu(access_token: any, id: any) {
+        return this.http.get<any[]>(url_api + this.endpoint + '/menu/' + id,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + access_token
+                }
+            });
+    }
 }

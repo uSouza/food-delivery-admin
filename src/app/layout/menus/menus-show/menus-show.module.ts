@@ -6,9 +6,10 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MenusShowRoutingModule } from './menus-show-routing.module';
 import { MenusShowComponent } from './menus-show.component';
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
     imports: [
@@ -20,9 +21,10 @@ import {DatePipe} from '@angular/common';
         NgbAlertModule.forRoot(),
         NgbModule.forRoot(),
         NgxPaginationModule,
+        ClipboardModule,
         NgxMaskModule.forRoot()
     ],
     declarations: [MenusShowComponent],
     providers: [DatePipe],
 })
-export class MenusShowModule {}
+export class MenusShowModule { }
