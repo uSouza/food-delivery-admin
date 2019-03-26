@@ -99,6 +99,7 @@ var map = {
 		"./src/app/layout/menus/menus-show/menus-show.module.ts",
 		"default~additionals-additionals-module~cities-cities-module~closed-orders-closed-orders-module~dashb~3858d19b",
 		"default~cities-cities-module~closed-orders-closed-orders-module~districts-districts-module~form-paym~24f83a79",
+		"default~menus-menus-show-menus-show-module~order-details-order-details-module",
 		"common",
 		"menus-menus-show-menus-show-module"
 	],
@@ -112,6 +113,8 @@ var map = {
 	],
 	"./order-details/order-details.module": [
 		"./src/app/layout/order-details/order-details.module.ts",
+		"default~menus-menus-show-menus-show-module~order-details-order-details-module",
+		"common",
 		"order-details-order-details-module"
 	],
 	"./restaurants/restaurants-form/restaurants-form.module": [

@@ -112,6 +112,7 @@ export class MenusShowComponent implements OnInit {
     getMenuFormat() {
         const header = '*RESTAURANTE ' + this.menu.company.fantasy_name.toUpperCase() + '*' + '\n\n' +
             '*Refeição do dia:* ' + this.datepipe.transform(this.menu.date, 'dd/MM/yyyy') + '\n';
+        const description = '\n*Refeição ' + this.menu.description + '*\n';
         let ingredients = '\n*Ingredientes*\n';
         this.ingredientGroups.forEach(group => {
             ingredients += '*' + group.name + '*\n';
@@ -123,9 +124,9 @@ export class MenusShowComponent implements OnInit {
         this.menu.prices.forEach(p => {
             prices += '- ' + p.size + ' R$ ' + p.price + '\n';
         });
-        const finalText = '\n*Peça sua refeição por meio do site ou APP Pandeco* 🍝🍽' +
+        const finalText = '\n*Peça sua refeição pelo site ou APP Pandeco* 🍝🍽' +
             '\n*Site:* pedido.pandeco.com.br\n*Google Play:* http://bit.do/pandeco';
-        return header + ingredients + prices + finalText;
+        return header + description + ingredients + prices + finalText;
 
     }
 

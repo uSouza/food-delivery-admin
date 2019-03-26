@@ -152,6 +152,14 @@ var IngredientGroupsService = /** @class */ (function () {
             }
         });
     };
+    IngredientGroupsService.prototype.getIngredientesByMenu = function (access_token, id) {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_1__["url_api"] + this.endpoint + '/menu/' + id, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            }
+        });
+    };
     IngredientGroupsService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
